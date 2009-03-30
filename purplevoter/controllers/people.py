@@ -29,19 +29,24 @@ class PeopleController(BaseController):
 
     def search(self):
         if request.params.has_key('address'):
-            lat, lon = self._geocode_address(request.params['address'])
-            c.people = self._get_districts(lat, lon)
+            address_matches = self._geocode_address(request.params['address'])
+            if len(address_matches) == 1:
+                addr_str, (lat, lon) = address_matches[0]
+                c.people = self._get_districts(lat, lon)
+            else: # multiple matches, ask user which is correct
+                c.address_matches = [addr for addr, (lat, lon) in address_matches]
         
         return render('search_form.mako')
 
     def _geocode_address(self, address):
-       """ convert string address into a lat, long tuple """
+       """ convert an address string into a list of (addr_str, (lat,lon))
+       tuples """
        # move
        google_api_key = config['google_api_key']
        geocoder = geopy.geocoders.Google(api_key=google_api_key)
-       addr_str, (lat, lon) = geocoder.geocode(address)
+       address_gen = geocoder.geocode(address, exactly_one=False)
+       return [(addr, (lat, lon)) for addr, (lat, lon) in address_gen]
 
-       return lat, lon
 
     def _get_districts(self, lat, lon):
         """ takes a lat, lon and returns a list of elected officials

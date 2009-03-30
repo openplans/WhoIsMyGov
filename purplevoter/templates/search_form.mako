@@ -8,5 +8,12 @@
 </form>
 
 <!-- temp for testing TODO: MAKE REAL -->
+% if c.address_matches:
+<ul>
+    % for address in c.address_matches:
+    <li><a href="/?address=${address}">${address}</a></li>
+    % endfor
+</ul>
+% endif
 <p>${c.people}</p>
 
