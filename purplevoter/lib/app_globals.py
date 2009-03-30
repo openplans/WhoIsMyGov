@@ -13,4 +13,3 @@ class Globals(object):
         'app_globals' variable
 
         """
-        self.google_api_key = 'ABQIAAAATLgg7qN2CAG1jao7NPt9ChQChx54JYdgbPKio935j7RDK0bGdhSD0vfkVZsJyvz33c8aJO_vRikkuQ'

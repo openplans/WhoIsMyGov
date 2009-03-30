@@ -8,7 +8,15 @@ from purplevoter.lib.base import BaseController, render
 
 import geopy
 
+import formencode
+from formencode import Schema, Invalid
+from formencode import validators, compound
+
 log = logging.getLogger(__name__)
+
+class SearchForm(Schema):
+   allow_extra_fields = True
+   address = validators.String(not_empty=True)
 
 class PeopleController(BaseController):
 
