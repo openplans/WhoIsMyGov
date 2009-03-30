@@ -32,9 +32,21 @@ class PeopleController(BaseController):
     def search(self):
         if request.params.has_key('address'):
             lat, lon = self._geocode_address(request.params['address'])
-            c.people = self._get_districts(lat, lon)
+            c.people = self._pretty_level_names(self._get_districts(lat, lon))
         
         return render('search_form.mako')
+
+    def _pretty_level_names(self, districts):
+        return_dict = {}
+        for name in districts:
+            if name=="federal":
+               return_dict['Federal'] = districts[name]
+            if name=="state_upper":
+               return_dict['State Senate'] = districts[name]
+            if name=="state_lower":
+               return_dict['State Assembly'] = districts[name]
+ 
+        return return_dict
 
     def _geocode_address(self, address):
        """ convert string address into a lat, long tuple """

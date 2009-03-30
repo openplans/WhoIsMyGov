@@ -8,5 +8,7 @@
 </form>
 
 <!-- temp for testing TODO: MAKE REAL -->
-<p>${c.people}</p>
+% for level in c.people:
+    <h2>${level} District: ${c.people[level]['display_name']}</h2>
+% endfor
 
