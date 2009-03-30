@@ -7,13 +7,17 @@
   </div>
 </form>
 
-<!-- temp for testing TODO: MAKE REAL -->
+
+<div id="search-results">
 % if c.address_matches:
 <ul>
     % for address in c.address_matches:
-    <li><a href="/?address=${address}">${address}</a></li>
+    <li><a href="${h.url_for(controller='people', action='search', address=address)}">${address}</a></li>
     % endfor
 </ul>
 % endif
-<p>${c.people}</p>
 
+% for level in c.people:
+    <h2>${level} District: ${c.people[level]['display_name']}</h2>
+% endfor
+</div>

@@ -9,6 +9,7 @@ from purplevoter.lib.base import BaseController, render
 import geopy
 
 import formencode
+from pylons.decorators import validate
 from formencode import Schema, Invalid
 from formencode import validators, compound
 from lxml import html
@@ -27,16 +28,29 @@ class PeopleController(BaseController):
         # or, return a response
         return 'Hello World'
 
+    @validate(schema=SearchForm(), form='search', prefix_error=False)
     def search(self):
         if request.params.has_key('address'):
             address_matches = self._geocode_address(request.params['address'])
             if len(address_matches) == 1:
                 addr_str, (lat, lon) = address_matches[0]
-                c.people = self._get_districts(lat, lon)
+                c.people = self._pretty_level_names(self._get_districts(lat, lon))
             else: # multiple matches, ask user which is correct
                 c.address_matches = [addr for addr, (lat, lon) in address_matches]
         
         return render('search_form.mako')
+
+    def _pretty_level_names(self, districts):
+        return_dict = {}
+        for name in districts:
+            if name=="federal":
+               return_dict['Federal Congressional'] = districts[name]
+            if name=="state_upper":
+               return_dict['State Senate'] = districts[name]
+            if name=="state_lower":
+               return_dict['State Assembly'] = districts[name]
+ 
+        return return_dict
 
     def _geocode_address(self, address):
        """ convert an address string into a list of (addr_str, (lat,lon))
@@ -57,6 +71,11 @@ class PeopleController(BaseController):
         # First we pull out the available districts.
 
         root = html.parse(apiurl).getroot()
+
+        error = root.cssselect('error')
+        if error:
+            raise error[0].text
+
         districts = dict((x.tag, dict((y.tag, y.text) for y in x.cssselect('%s *'% x.tag))) for x in root.cssselect('federal, state_upper, state_lower'))
 
         # This would probably be more pythonic in multiple lines
