@@ -14,3 +14,6 @@ class PeopleController(BaseController):
         #return render('/people.mako')
         # or, return a response
         return 'Hello World'
+
+    def search(self):
+        return render('search_form.mako')
