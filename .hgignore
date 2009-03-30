@@ -2,3 +2,4 @@ syntax: glob
 *.mako.py
 *.pyc
 *.egg-info
+*.egg
