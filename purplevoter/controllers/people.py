@@ -5,6 +5,10 @@ from pylons.controllers.util import abort, redirect_to
 
 from purplevoter.lib.base import BaseController, render
 
+import formencode
+from formencode import Schema, Invalid
+from formencode import validators, compound
+
 log = logging.getLogger(__name__)
 
 class PeopleController(BaseController):
