@@ -40,7 +40,7 @@ class PeopleController(BaseController):
         return_dict = {}
         for name in districts:
             if name=="federal":
-               return_dict['Federal'] = districts[name]
+               return_dict['Federal Congressional'] = districts[name]
             if name=="state_upper":
                return_dict['State Senate'] = districts[name]
             if name=="state_lower":

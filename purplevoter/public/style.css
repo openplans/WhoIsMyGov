@@ -358,3 +358,11 @@ color:#660002;
 
 /* End - Flash Messages */
 
+
+/* Start - Targeted Styles */
+
+#search-results {
+ padding-top: 3em;
+}
+
+/* End - Targeted Styles */

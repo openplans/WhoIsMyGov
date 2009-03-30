@@ -8,7 +8,8 @@
 </form>
 
 <!-- temp for testing TODO: MAKE REAL -->
+<div id="search-results">
 % for level in c.people:
     <h2>${level} District: ${c.people[level]['display_name']}</h2>
 % endfor
-
+</div>
