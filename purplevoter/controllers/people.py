@@ -11,7 +11,6 @@ import geopy
 import formencode
 from formencode import Schema, Invalid
 from formencode import validators, compound
-from pyquery import PyQuery as Q
 from lxml import etree
 
 log = logging.getLogger(__name__)
@@ -48,15 +47,14 @@ class PeopleController(BaseController):
         """ takes a lat, lon and returns a list of elected officials
         and  any candidates running for office in districts serving
         that location """
-        # Rewrite the pyquery out of this, it's so ugly, it ain't pythonic
         apiurl = 'http://congress.mcommons.com/districts/lookup.xml?lat=%s&lng=%s' % (lat, lon)
 
         # First we pull out the available districts.
-        districts = dict(Q(etree.parse(apiurl).getroot())('federal, state_upper, state_lower').map(lambda i, e: (e.tag, Q(e))))
 
-        # Each of the valuse is a pyQuery object containing all of the district
-        # data.  Let's turn it into a dict
+        districts = dict((x.tag, dict((y.tag, y.text) for y in x.cssselect('%s *'% x.tag))) for x in root.cssselect('federal, state_upper, state_lower'))
+
+        # This would probably be more pythonic in multiple lines
         for district in districts:
-            districts[district] = dict(districts[district].find('*').map(lambda i, e: (e.tag, Q(e).text())))
+            pass
 
         return districts
