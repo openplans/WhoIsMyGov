@@ -6,3 +6,7 @@
     <input id="address" name="address" type="text" />
   </div>
 </form>
+
+<!-- temp for testing TODO: MAKE REAL -->
+<p>${c.people}</p>
+
