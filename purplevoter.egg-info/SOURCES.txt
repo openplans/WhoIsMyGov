@@ -19,6 +19,7 @@ purplevoter/config/middleware.py
 purplevoter/config/routing.py
 purplevoter/controllers/__init__.py
 purplevoter/controllers/error.py
+purplevoter/controllers/people.py
 purplevoter/lib/__init__.py
 purplevoter/lib/app_globals.py
 purplevoter/lib/base.py
@@ -27,8 +28,11 @@ purplevoter/model/__init__.py
 purplevoter/model/meta.py
 purplevoter/public/bg.png
 purplevoter/public/favicon.ico
-purplevoter/public/index.html
 purplevoter/public/pylons-logo.gif
+purplevoter/public/style.css
+purplevoter/templates/base.mako
+purplevoter/templates/search_form.mako
 purplevoter/tests/__init__.py
 purplevoter/tests/test_models.py
 purplevoter/tests/functional/__init__.py
+purplevoter/tests/functional/test_people.py
