@@ -1,0 +1,3 @@
+include purplevoter/config/deployment.ini_tmpl
+recursive-include purplevoter/public *
+recursive-include purplevoter/templates *
