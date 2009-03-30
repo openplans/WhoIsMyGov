@@ -9,6 +9,7 @@ from purplevoter.lib.base import BaseController, render
 import geopy
 
 import formencode
+from pylons.decorators import validate
 from formencode import Schema, Invalid
 from formencode import validators, compound
 from lxml import html
@@ -27,6 +28,7 @@ class PeopleController(BaseController):
         # or, return a response
         return 'Hello World'
 
+    @validate(schema=SearchForm(), form='search', prefix_error=False)
     def search(self):
         if request.params.has_key('address'):
             lat, lon = self._geocode_address(request.params['address'])
