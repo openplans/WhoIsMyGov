@@ -11,7 +11,7 @@ import geopy
 import formencode
 from formencode import Schema, Invalid
 from formencode import validators, compound
-from lxml import etree
+from lxml import html
 
 log = logging.getLogger(__name__)
 
@@ -51,6 +51,7 @@ class PeopleController(BaseController):
 
         # First we pull out the available districts.
 
+        root = html.parse(apiurl).getroot()
         districts = dict((x.tag, dict((y.tag, y.text) for y in x.cssselect('%s *'% x.tag))) for x in root.cssselect('federal, state_upper, state_lower'))
 
         # This would probably be more pythonic in multiple lines
