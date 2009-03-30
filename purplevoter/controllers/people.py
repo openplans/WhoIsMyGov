@@ -12,7 +12,9 @@ import formencode
 from formencode import Schema, Invalid
 from formencode import validators, compound
 from lxml import html
+from votesmart import votesmart
 
+votesmart.apikey = config.get('votesmart_api_key', 'da3851ba595cbc0d9b5ac5be697714e0')
 log = logging.getLogger(__name__)
 
 class SearchForm(Schema):
@@ -30,7 +32,8 @@ class PeopleController(BaseController):
     def search(self):
         if request.params.has_key('address'):
             lat, lon = self._geocode_address(request.params['address'])
-            c.people = self._get_districts(lat, lon)
+            districts = self._get_districts(lat, lon)
+            c.people = self._get_people(districts)
         
         return render('search_form.mako')
 
@@ -42,6 +45,10 @@ class PeopleController(BaseController):
        addr_str, (lat, lon) = geocoder.geocode(address)
 
        return lat, lon
+
+    def _get_people(self, districts):
+        for district, info in districts.iteritems():
+            info['officials'] = votesmart.officials.getByDistrict(info['district'])
 
     def _get_districts(self, lat, lon):
         """ takes a lat, lon and returns a list of elected officials
