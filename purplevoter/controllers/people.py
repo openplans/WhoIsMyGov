@@ -11,6 +11,10 @@ from formencode import validators, compound
 
 log = logging.getLogger(__name__)
 
+class SearchForm(Schema):
+   allow_extra_fields = True
+   address = validator.String(not_empty=True)
+
 class PeopleController(BaseController):
 
     def index(self):
