@@ -1,0 +1,360 @@
+html {
+font-size:100%;
+}
+
+html * {
+margin:0;
+padding:0;
+line-height:1.25em;
+}
+
+body {
+font:small 'Helvetica Neue', Helvetica, Arial, sans-serif;
+background:#fff;
+color:#000;
+text-align:center; /* silly IE 5.5 */
+}
+
+h1, h2, h3, h4, h5, h6 {
+margin:0 0 1em;
+}
+
+h1 {
+font-size:1.85em;
+}
+
+h2 {
+font-size:1.6em;
+}
+
+h3 {
+font-size:1.25em;
+}
+
+h4 {
+font-size:1.15em;
+}
+
+h5 {
+font-size:1em;
+}
+
+h6 {
+font-size:0.82em;
+}
+
+a img {
+border:0 none transparent;
+}
+
+a:link,
+a:visited {
+/* color:#15a69d; */
+}
+
+a:hover {
+color:#83d2e6;
+text-decoration:underline;
+}
+
+a {
+outline: none !important; /* remove ugly dotted border for Firefox */
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+content:"";
+}
+
+blockquote
+, q
+{
+quotes:"" "";
+}
+
+table { 
+border-collapse:collapse;
+border-spacing:0;
+font-size: 100%;
+}
+
+fieldset {
+border:1px solid #ccccb8;
+margin:1em 0;
+padding:0 0.5em 0.5em;
+}
+
+legend {
+padding: 0.2em 0.5em;
+margin:0 0 0 0.2em;
+border:1px solid #ccccb8;
+background:#ebebeb;
+font-size:90%;
+}
+
+label {
+font-weight:bold;
+float:left;
+width:8em;
+text-align:right;
+padding:0 0.5em 0 0;
+}
+
+label.unfloated {
+font-weight:normal;
+float:none;
+text-align:left;
+}
+
+input {
+font-size:1em;
+}
+
+form div.selfclear {
+clear:both;
+margin:0.8em 0;
+}
+
+form .error {
+border:2px solid #fa4740;
+}
+
+form .error-message {
+font-size:0.75em;
+color:#ce0700;
+}
+
+
+input.indented-submit {
+margin:0.5em 0 1em 8.5em;
+}
+
+/* Start - Utility Classes */
+
+.selfclear:after {
+content:".";
+display:block;
+height:0;
+clear:both;
+visibility:hidden;
+}
+
+.selfclear {
+display:inline-block; /*silly IE 7 */
+}
+
+.selfclear {
+display:block;
+}
+
+callout {
+font-weight:bold;
+color:#f26c5f;
+}
+
+h2 span.callout {
+background:#f9f695;
+color:#15a69a;
+}
+
+.discreet {
+font-size:0.9em;
+color:#999;
+}
+
+.leftwise {
+float:left;
+}
+
+.rightwise {
+float:right;
+}
+
+.nobreak {
+white-space:nowrap;
+}
+
+.noshow {
+display:none;
+}
+
+.lede {
+font-size:1.3em;
+font-weight:bold;
+}
+
+.changeup {
+font-size:0.8em;
+float:right;
+margin:0 0 0.5em 0;
+}
+
+.indented {
+margin: 0 0 0 1.5em;
+}
+
+.padding-bottom {
+ padding-bottom: 0.5em;
+}
+
+hr.section {
+visibility: hidden;
+margin: 1em 0;
+}
+
+tr.odd {
+background:#ff968c;
+}
+
+tr.odd a:link,
+tr.odd a:visited {
+color:#000;
+}
+
+ul {
+ padding-left: 2em;   
+ padding-bottom: 1em;
+}
+
+table {
+  margin-top: 1em;   
+}
+
+td {
+ padding: 1em;   
+}
+
+td.term {
+ width: 15em;   
+}
+
+td.definition {
+ width: 35em;   
+}
+
+td.term {
+ width: 15em;   
+}
+
+td.heading {
+ font-weight: bold;   
+}
+
+/* End - Utility Classes */
+
+/* Start - Structural Elements */
+
+
+#container {
+width:1024px;
+background:#fff;
+color:#000;
+border:0px solid #999;
+padding:0 0 108px;
+margin:1.5em auto;
+text-align:left; /* silly IE 5.5 */
+}
+
+#header {
+height:110px;
+background-color:black;
+}
+
+#tag-line {
+color: white;
+padding-left: 60px;
+}
+
+#logo {
+font-size: 5.0em;
+margin-bottom: 0em;
+padding-bottom: 0em;
+padding-top: 10px;
+color: white;
+padding-left: 20px;
+line-height: 1em;
+font-family: georgia;
+}
+
+#login {
+background:#dbf2f4;
+padding:0.3em 0.5em 0;
+text-align: right;
+}
+
+#main {
+padding:0 45px 0 10px;
+margin:10px 0;
+}
+
+#sidebar {
+width:205px;
+float:right;
+}
+
+#footer {
+clear:both;
+padding:100px 10px 0;
+}
+
+#content h3 {
+margin-bottom: 0.5em;
+margin-top: 1em;
+}
+
+/* End - Structural Elements */
+
+
+/* Start - Flash Messages */
+
+div.flash {
+font-size:1.2em;
+padding:1em;
+margin:1em auto;
+width:80%;
+border:1px solid #ccccb8;
+}
+
+div.info {
+color:#000;
+background:#83d2e6;
+}
+
+div.info a {
+color:#176073;
+}
+
+div.info a:hover {
+color:#007a99;
+}
+
+div.notice {
+color:#000;
+background:#c6ff8e;
+}
+
+div.notice a {
+color:#6a993d;
+}
+
+div.notice a:hover {
+color:#007a99;
+}
+
+div.error {
+color:#fff;
+background:#f24e50;
+}
+
+div.error a {
+color:#801a1b;
+}
+
+div.error a:hover {
+color:#660002;
+}
+
+/* End - Flash Messages */
+
