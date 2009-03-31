@@ -65,9 +65,13 @@ class PeopleController(BaseController):
                     district.level_type = level_type
                     district.level_id = level_id 
                     district.district_name = district_name
+                    district_meta = model.DistrictsMeta()
+                    district_meta.meta_key = 'district_number'
+                    district_meta.meta_value = districts[level_type]['district']
+                    district.meta.append(district_meta)
                     meta.Session.save(district)
                 meta.Session.commit()
-            except:
+            except: 
                 meta.Session.rollback()
         
     def _geocode_address(self, address):
@@ -82,8 +86,6 @@ class PeopleController(BaseController):
     def _get_people(self, districts):
         for district, info in districts.iteritems():
             info['officials'] = votesmart.officials.getByDistrict(info['district'])
-
-
 
     def _get_districts(self, lat, lon):
         """ takes a lat, lon and returns a list of elected officials
