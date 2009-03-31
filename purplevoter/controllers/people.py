@@ -3,13 +3,15 @@ import logging
 from pylons import request, response, session, tmpl_context as c
 from pylons import config
 from pylons.controllers.util import abort, redirect_to
+from pylons.decorators import validate
 
+from sqlalchemy.orm.exc import NoResultFound
 from purplevoter.lib.base import BaseController, render
-
+from purplevoter import model
+from purplevoter.model import meta
 import geopy
 
 import formencode
-from pylons.decorators import validate
 from formencode import Schema, Invalid
 from formencode import validators, compound
 from lxml import html
@@ -43,22 +45,31 @@ class PeopleController(BaseController):
             else:
                 c.address_matches = address_matches
         if lat and lon:
-            c.people = self._pretty_level_names(self._get_districts(lat, lon))
-        
+            c.people = self._get_districts(lat, lon) 
+            self._get_or_insert_district(c.people)
         return render('search_form.mako')
 
-    def _pretty_level_names(self, districts):
-        return_dict = {}
-        for name in districts:
-            if name=="federal":
-               return_dict['Federal Congressional'] = districts[name]
-            if name=="state_upper":
-               return_dict['State Senate'] = districts[name]
-            if name=="state_lower":
-               return_dict['State Assembly'] = districts[name]
- 
-        return return_dict
-
+    def _get_or_insert_district(self, districts):
+        district_q = meta.Session.query(model.Districts)
+        for level_type in districts:
+            level_id = districts[level_type]['state']
+            district_name = districts[level_type]['display_name']
+            try:
+                try:
+                    exists = district_q.filter(model.Districts.level_type == level_type)\
+                                        .filter(model.Districts.level_id == level_id)\
+                                        .filter(model.Districts.district_name == district_name)\
+                                        .one()
+                except NoResultFound:
+                    district = model.Districts()
+                    district.level_type = level_type
+                    district.level_id = level_id 
+                    district.district_name = district_name
+                    meta.Session.save(district)
+                meta.Session.commit()
+            except:
+                meta.Session.rollback()
+        
     def _geocode_address(self, address):
        """ convert an address string into a list of (addr_str, (lat,lon))
        tuples """
