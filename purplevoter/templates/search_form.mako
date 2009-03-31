@@ -11,8 +11,8 @@
 <div id="search-results">
 % if c.address_matches:
 <ul>
-    % for address in c.address_matches:
-    <li><a href="${h.url_for(controller='people', action='search', address=address)}">${address}</a></li>
+    % for address, (lat, lon) in c.address_matches:
+    <li><a href="${h.url_for(controller='people', action='search', address=address, lat=lat, lon=lon)}">${address}</a></li>
     % endfor
 </ul>
 % endif
