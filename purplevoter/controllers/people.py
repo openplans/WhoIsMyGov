@@ -45,11 +45,12 @@ class PeopleController(BaseController):
             else:
                 c.address_matches = address_matches
         if lat and lon:
-            c.people = self._get_districts(lat, lon) 
-            self._get_or_insert_district(c.people)
+            districts = self._get_districts(lat, lon) 
+            c.districts = self._get_or_insert_districts(districts)
         return render('search_form.mako')
 
-    def _get_or_insert_district(self, districts):
+    def _get_or_insert_districts(self, districts):
+        return_districts = []
         district_q = meta.Session.query(model.Districts)
         for level_type in districts:
             level_id = districts[level_type]['state']
@@ -60,6 +61,7 @@ class PeopleController(BaseController):
                                         .filter(model.Districts.level_id == level_id)\
                                         .filter(model.Districts.district_name == district_name)\
                                         .one()
+                    return_districts.append(exists)
                 except NoResultFound:
                     district = model.Districts()
                     district.level_type = level_type
@@ -71,8 +73,11 @@ class PeopleController(BaseController):
                     district.meta.append(district_meta)
                     meta.Session.save(district)
                 meta.Session.commit()
+                return_districts.append(district)
             except: 
                 meta.Session.rollback()
+
+        return return_districts
         
     def _geocode_address(self, address):
        """ convert an address string into a list of (addr_str, (lat,lon))

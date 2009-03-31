@@ -17,7 +17,15 @@
 </ul>
 % endif
 
-% for level in c.people:
-    <h2>${level} District: ${c.people[level]['display_name']}</h2>
+% for district in c.districts:
+   <h2>${district.level_type}</h2>
+   <dl id="district-meta">
+      <dt><strong>District Name</strong></dt>
+      <dd>${district.district_name}</dd>
+      % for meta in district.meta:
+          <dt><strong>${meta.meta_key}</strong></dt>
+          <dt>${meta.meta_value}</dt>
+      % endfor
+   </dl>
 % endfor
 </div>
