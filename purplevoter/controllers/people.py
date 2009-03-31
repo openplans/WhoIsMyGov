@@ -30,13 +30,18 @@ class PeopleController(BaseController):
 
     @validate(schema=SearchForm(), form='search', prefix_error=False)
     def search(self):
-        if request.params.has_key('address'):
+        lat = lon = None
+        if request.params.has_key('lat') and request.params.has_key('lon'):
+            lat = request.params['lat']
+            lon = request.params['lon']
+        elif request.params.has_key('address'):
             address_matches = self._geocode_address(request.params['address'])
             if len(address_matches) == 1:
                 addr_str, (lat, lon) = address_matches[0]
-                c.people = self._pretty_level_names(self._get_districts(lat, lon))
-            else: # multiple matches, ask user which is correct
-                c.address_matches = [addr for addr, (lat, lon) in address_matches]
+            else:
+                c.address_matches = address_matches
+        if lat and lon:
+            c.people = self._pretty_level_names(self._get_districts(lat, lon))
         
         return render('search_form.mako')
 
