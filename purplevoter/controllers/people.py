@@ -13,7 +13,9 @@ from pylons.decorators import validate
 from formencode import Schema, Invalid
 from formencode import validators, compound
 from lxml import html
+from votesmart import votesmart
 
+votesmart.apikey = config.get('votesmart_api_key', 'da3851ba595cbc0d9b5ac5be697714e0')
 log = logging.getLogger(__name__)
 
 class SearchForm(Schema):
@@ -65,6 +67,11 @@ class PeopleController(BaseController):
        geocoder = geopy.geocoders.Google(api_key=google_api_key)
        address_gen = geocoder.geocode(address, exactly_one=False)
        return [(addr, (lat, lon)) for addr, (lat, lon) in address_gen]
+
+    def _get_people(self, districts):
+        for district, info in districts.iteritems():
+            info['officials'] = votesmart.officials.getByDistrict(info['district'])
+
 
 
     def _get_districts(self, lat, lon):
