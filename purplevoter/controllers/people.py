@@ -3,13 +3,14 @@ import logging
 from pylons import request, response, session, tmpl_context as c
 from pylons import config
 from pylons.controllers.util import abort, redirect_to
+from pylons.decorators import validate
 
 from purplevoter.lib.base import BaseController, render
-
+from purplevoter import model
+from purplevoter.model import meta
 import geopy
 
 import formencode
-from pylons.decorators import validate
 from formencode import Schema, Invalid
 from formencode import validators, compound
 from lxml import html
@@ -44,8 +45,13 @@ class PeopleController(BaseController):
                 c.address_matches = address_matches
         if lat and lon:
             c.people = self._pretty_level_names(self._get_districts(lat, lon))
-        
+            self._get_or_insert_district()
         return render('search_form.mako')
+
+    def _get_or_insert_district(self):
+        district_q = meta.Session.query(model.Districts);
+        c.district = district_q.all()
+        return 'test'
 
     def _pretty_level_names(self, districts):
         return_dict = {}

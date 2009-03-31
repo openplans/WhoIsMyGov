@@ -12,7 +12,7 @@ def init_model(engine):
     meta.Session.configure(bind=engine)
     meta.engine = engine
 
-district_table = sa.Table("districts", meta.metadata,
+districts_table = sa.Table("districts", meta.metadata,
     sa.Column("id", sa.types.Integer, primary_key=True),
     sa.Column("level_type", sa.types.String(255), nullable=False),
     sa.Column("level_id", sa.types.String(255), nullable=False),
@@ -22,9 +22,9 @@ district_table = sa.Table("districts", meta.metadata,
 class Districts(object):
     pass
 
-district_meta_table = sa.Table("districts_meta", meta.metadata,
+districts_meta_table = sa.Table("districts_meta", meta.metadata,
     sa.Column("id", sa.types.Integer, primary_key=True),
-    sa.Column("district_id", sa.types.Integer, primary_key=True),
+    sa.Column("district_id", sa.types.Integer, sa.schema.ForeignKey("districts.id")),
     sa.Column("meta_key", sa.types.String(255), nullable=False),
     sa.Column("meta_value", sa.types.UnicodeText, nullable=False)
     )
@@ -32,5 +32,5 @@ district_meta_table = sa.Table("districts_meta", meta.metadata,
 class DistrictsMeta(object):
     pass
 
-orm.mapper(Districts, district_table, properties = {'meta': orm.relation(DistrictsMeta, backref='district', cascade="all, delete, delete-orphan"),})
-orm.mapper(DistrictsMeta, district_meta_table)
+orm.mapper(Districts, districts_table, properties = {'meta': orm.relation(DistrictsMeta, backref='district', cascade="all, delete, delete-orphan"),})
+orm.mapper(DistrictsMeta, districts_meta_table)
