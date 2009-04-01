@@ -36,8 +36,8 @@ class PeopleController(BaseController):
             else:
                 c.address_matches = address_matches
         if lat and lon:
-            districts = self._get_districts(lat, lon) 
-            c.districts = self._get_or_insert_districts(districts)
+            districts = self._get_districts(lat, lon)
+            c.districts = self._do_search(districts)
         return render('search_form.mako')
 
     def add_meta(self):
@@ -81,33 +81,50 @@ class PeopleController(BaseController):
         meta.Session.commit()
         redirect(request.params.get('referrer')) 
  
-    def _get_or_insert_districts(self, districts):
+    def _do_search(self, districts):
         return_districts = []
         district_q = meta.Session.query(model.Districts)
+        
+        #mcommons doesn't return 'federal_upper', so first manually add this
+        state = districts[districts.keys()[0]]['state']
+        fed_district = district_q.filter(model.Districts.state==state).\
+                              filter(model.Districts.level_name=="Federal").\
+                              filter(model.Districts.district_type=="U.S. Senate").\
+                              all()
+        for district in fed_district:
+            if len(district.meta) != 0:
+               return_districts.append(district)
+
         for level_type in districts:
-            level_id = districts[level_type]['state']
-            district_name = districts[level_type]['display_name']
+
+            #change the mcommoms parameters to votesmart parameters
+            
+            #name of the state
+            state = districts[level_type]['state']
+            #name of the district
             try:
-                try:
-                    exists = district_q.filter(model.Districts.level_type == level_type)\
-                                        .filter(model.Districts.level_id == level_id)\
-                                        .filter(model.Districts.district_name == district_name)\
-                                        .one()
-                    return_districts.append(exists)
-                except NoResultFound:
-                    district = model.Districts()
-                    district.level_type = level_type
-                    district.level_id = level_id 
-                    district.district_name = district_name
-                    district_meta = model.DistrictsMeta()
-                    district_meta.meta_key = 'district_number'
-                    district_meta.meta_value = districts[level_type]['district']
-                    district.meta.append(district_meta)
-                    meta.Session.save(district)
-                meta.Session.commit()
-                return_districts.append(district)
-            except: 
-                meta.Session.rollback()
+               district_name = "District " + str(int(districts[level_type]['district']))
+            except:
+               district_name = "District " + districts[level_type]['district']
+               
+
+            level_name = ""
+            #name of level
+            if level_type == 'federal':
+               level_name = "Federal"
+               district_type = "U.S. House"
+            elif level_type == 'state_upper':
+               level_name = "State"
+               district_type = "State Senate"
+            elif level_type == 'state_lower':
+               level_name = "State"
+               district_type = "State Assembly"
+            
+            exists = district_q.filter(model.Districts.state == state)\
+                                .filter(model.Districts.district_name == district_name)\
+                                .filter(model.Districts.district_type == district_type)\
+                                .one()
+            return_districts.append(exists)
 
         return return_districts
         

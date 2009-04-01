@@ -21,7 +21,7 @@
 % endif
 
 % for district in c.districts:
-   <h2>${district.level_type}</h2>
+   <h2>${district.level_name}: ${district.district_type}</h2>
    <dl id="district-meta">
       <dt><strong>District Name</strong></dt>
       <dd>${district.district_name}</dd>

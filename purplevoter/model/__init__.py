@@ -14,8 +14,9 @@ def init_model(engine):
 
 districts_table = sa.Table("districts", meta.metadata,
     sa.Column("id", sa.types.Integer, primary_key=True),
-    sa.Column("level_type", sa.types.String(255), nullable=False),
-    sa.Column("level_id", sa.types.String(255), nullable=False),
+    sa.Column("state", sa.types.String(255), nullable=False),
+    sa.Column("district_type", sa.types.String(255), nullable=False),
+    sa.Column("level_name", sa.types.String(255), nullable=False),
     sa.Column("district_name", sa.types.String(255), nullable=False)
     )
 
