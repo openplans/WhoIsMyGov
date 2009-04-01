@@ -1,0 +1,4381 @@
+'1':
+  branch_id: E
+  branch_name: Executive
+  level_id: F
+  level_name: Federal
+  name: President
+  shorttitle: Pres.
+  title: President
+  type_id: P
+  type_name: Presidential and Cabinet
+'10':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Adjutant General
+  shorttitle: ''
+  title: Adjutant General
+  type_id: S
+  type_name: State Wide
+'100':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Chair of the Railroad Commission
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'101':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Chair of the Transport Commission
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'102':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Chairman of Board of Education
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'103':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Chairman of the Department of Agriculture
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'104':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Chairman of the Department of Land and Natural Resources
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'105':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Chairman of the State Board of Elections
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'106':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Chairman of the Tax Commission
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'107':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Chief Business Officer of Office for Economic Development
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'108':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Chief Executive Officer of Finance Authority
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'109':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Chief of the Office of Economic Growth
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'11':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Agriculture Commissioner
+  shorttitle: ''
+  title: Commissioner
+  type_id: S
+  type_name: State Wide
+'110':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Clerk of Courts
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'111':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Clerk of the Supreme Court
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'112':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commission on Indian Affairs
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'113':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of Administration
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'114':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of Administrative and Financial Services
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'115':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of Agriculture and Consumer Services
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'116':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of Agriculture and Industries
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'117':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of Agriculture and Markets
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'118':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of Banking and Finance
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'119':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of Commerce
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'12':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Attorney General
+  shorttitle: ''
+  title: Attorney General
+  type_id: S
+  type_name: State Wide
+'120':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of Commerce and Insurance
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'121':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of Conservation
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'122':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of Corrections
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'123':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of Defense, Veterans and Emergency Management
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'124':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of Economic and Community Development
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'125':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of Environment and Conservation
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'126':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of Environmental Protection
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'127':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of Environmental Quality
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'128':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of Finance
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'129':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of General Land Office
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'13':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Auditor
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'130':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of Health
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'131':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of Health and Human Services
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'132':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of Health and Social Services
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'133':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of Inland Fisheries and Wildlife
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'134':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of Insurance
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'135':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of Labor
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'136':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of Labor and Industries
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'137':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of Labor and Workforce
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'138':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of Marine Resources
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'139':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of Natural Resources
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'14':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Chief Financial Officer
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'140':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of Professional and Financial Regulation
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'141':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of Public Safety
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'142':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of Taxation and Finance
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'143':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of Transportation
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'144':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of Veteran's Affairs
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'145':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of Veterans Affairs
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'146':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of the Department of Administration
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'147':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of the Department of Administrative Services
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'148':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of the Department of Banking
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'149':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of the Department of Banking and Insurance
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'15':
+  branch_id: J
+  branch_name: Judicial
+  level_id: S
+  level_name: State
+  name: Clerk of Courts
+  shorttitle: ''
+  title: ''
+  type_id: K
+  type_name: State Judicial
+'150':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of the Department of Banking, Insurance, Securities, and Health
+    Care Administration
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'151':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of the Department of Environmental Protection
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'152':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of the Department of Health
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'153':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of the Department of Health and Senior Services
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'154':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of the Department of Human Services
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'155':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of the Department of Labor and Workforce Development
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'156':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of the Department of Personnel
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'157':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of the Department of Transportation
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'158':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of the Department of Veterans' Affairs
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'159':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of the Finance and Administration
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'16':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of Agriculture
+  shorttitle: ''
+  title: Commissioner
+  type_id: S
+  type_name: State Wide
+'160':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of the Office of Administration
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'161':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Comptroller General
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'162':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Comptroller of Public Accounts
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'163':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Coordinator of Indian Affairs
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'164':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Corporation Commission Chairman
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'165':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Corporation Commission Vice-Chairman
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'166':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Corporation Commissioner (Public Utilities)
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'167':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of Budget and Finance
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'168':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of Business and Industry
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'169':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of Department of Agriculture
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'17':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of Agriculture and Forestry
+  shorttitle: ''
+  title: Commissioner
+  type_id: S
+  type_name: State Wide
+'170':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of Department of Education
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'172':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of Division of Revenue
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'173':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of Education
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'174':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of Finance
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'175':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of Finance and Administration
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'176':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of Health and Human Services
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'177':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of Insurance
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'178':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of Labor
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'179':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of Labor Licensing and Regulation
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'18':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of Agriculture and Industry
+  shorttitle: ''
+  title: Commissioner
+  type_id: S
+  type_name: State Wide
+'180':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of Labor and Industrial Relations
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'181':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of Mining and Reclamation Division
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'182':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of Parks, Recreation and Tourism
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'183':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of Public Safety
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'184':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of Revenue
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'185':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of Revenue and Taxation
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'186':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of Social Services
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'187':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of State Housing Authority
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'188':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of State Planning Office
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'189':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of Transportation
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'19':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of Education
+  shorttitle: ''
+  title: Commissioner
+  type_id: S
+  type_name: State Wide
+'190':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of the Board of Agriculture
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'191':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of the Bureau of Land Management
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'192':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of the Department for Public Health
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'193':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of the Department of Administration (Finance and Administration Cabinet)
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'194':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of the Department of Administrative Services
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'195':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of the Department of Agriculture
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'196':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of the Department of Civil Rights
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'197':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of the Department of Commerce
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'198':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of the Department of Community Health
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'199':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of the Department of Consumer and Business Services
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'2':
+  branch_id: E
+  branch_name: Executive
+  level_id: F
+  level_name: Federal
+  name: Vice President
+  shorttitle: ''
+  title: Vice President
+  type_id: P
+  type_name: Presidential and Cabinet
+'20':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of Elections
+  shorttitle: ''
+  title: Commissioner
+  type_id: S
+  type_name: State Wide
+'200':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of the Department of Economic and Community Development
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'201':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of the Department of Elections
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'202':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of the Department of Employment, Training and Rehabilitation
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'203':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of the Department of Environmental Quality
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'204':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of the Department of Finance
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'205':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of the Department of Fish, Wildlife and Parks
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'206':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of the Department of Health
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'207':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of the Department of Health and Human Services
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'208':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of the Department of Health and Welfare
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'209':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of the Department of Human Services
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'21':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of Public Lands
+  shorttitle: ''
+  title: Commissioner
+  type_id: S
+  type_name: State Wide
+'210':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of the Department of Insurance
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'211':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of the Department of Labor
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'212':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of the Department of Labor and Economic Growth
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'213':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of the Department of Labor and Industrial Relations
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'214':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of the Department of Labor and Training
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'215':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of the Department of Land Conservation and Development
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'216':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of the Department of Lands
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'217':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of the Department of Management and Budget
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'218':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of the Department of Military and Veterans Affairs
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'219':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of the Department of Natural Resources
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'22':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of Revenue
+  shorttitle: ''
+  title: Commissioner
+  type_id: S
+  type_name: State Wide
+'220':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of the Department of Personnel and Administration
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'221':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of the Department of Protective and Regulatory Services
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'222':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of the Department of Public Health
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'223':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of the Department of Public Safety
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'224':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of the Department of Public Safety Standards and Training
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'225':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of the Department of State Employer
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'226':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of the Department of Transportation
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'227':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of the Department of Treasury
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'228':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of the Department of Veterans' Affairs
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'229':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of the Division of Special Revenue
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'23':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of Schools and Public Lands
+  shorttitle: ''
+  title: Commissioner
+  type_id: S
+  type_name: State Wide
+'230':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of the Elections Enforcement Commission
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'231':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of the Finance Authority
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'232':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of the Human Services Department
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'233':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of the Office of Homeland Security and Preparedness
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'234':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of the Office of the State Budget
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'235':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of the State Board of Land
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'236':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of the State Department of Conservation and Natural Resources
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'237':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Elections Division Director
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'238':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Elementary and Secondary Education Commissioner
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'239':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Emergency Management Agency Director
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'24':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of State Lands
+  shorttitle: ''
+  title: Commissioner
+  type_id: S
+  type_name: State Wide
+'240':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Environmental Management Commissioner
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'241':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Executive Director Natural Resources Commission
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'242':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Executive Director of the Department of Housing and Community Affairs
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'243':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Executive Director of the Workers' Compensation Board
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'244':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Executive Secretary of Board of Commissioners for Public Lands
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'245':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Finance Director
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'246':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Financial Regulation Commissioner
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'247':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Higher Education Commissioner
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'248':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Inspector General
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'249':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Insurance Director
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'25':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of the General Land Office
+  shorttitle: ''
+  title: Commissioner
+  type_id: S
+  type_name: State Wide
+'250':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Insurance and Safety Fire Commissioner
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'251':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Labor Commissioner (Department of Labor)
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'252':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Labor Commissioner (Labor and Industry)
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'253':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Labor Commissioner (Secretary of Labor, Licensing, and Regulation)
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'254':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Labor and Industries Commissioner
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'255':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Labor and Industry Commissioner
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'256':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Labor and Industry Review Commissioner
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'258':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Natural Resources Director
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'259':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Natural Resources and Conservation Director
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'26':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Comptroller
+  shorttitle: ''
+  title: Comptroller
+  type_id: S
+  type_name: State Wide
+'260':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Office of Homeland Security Director
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'261':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Ombudsman
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'262':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: President of Public Utilities Commission
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'263':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: President of the Board of Public Utilities
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'264':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: President of the State Board of Education
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'265':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Public Health Commissioner
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'266':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Public Health and Human Services Director
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'267':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Public Safety Commissioner
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'268':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Public Service Commission Chair
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'269':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Public Service Commissioner, President
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'27':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Comptroller of the Treasury
+  shorttitle: ''
+  title: Comptroller
+  type_id: S
+  type_name: State Wide
+'270':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Public Service Commissioners
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'271':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Public Utilities Commission Chair
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'272':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Public Utilities Commission Vice-Chair
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'273':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Revenue Commissioner
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'274':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: School Superintendent
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'276':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary Labor and Workforce Development
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'277':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of Administration
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'278':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of Administration and Finance
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'279':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of Aging
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'28':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Controller
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'280':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of Agriculture and Forestry
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'281':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of Banking
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'282':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of Commerce
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'283':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of Commerce and Tourism
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'284':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of Commerce and Trade
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'285':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of Community and Economic Development
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'286':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of Conservation and Natural Resources
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'287':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of Department of Natural Resources and Environmental Control
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'288':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of Energy and Environmental Affairs
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'289':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of Energy, Minerals and Natural Resources
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'29':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Corporation Commissioner
+  shorttitle: ''
+  title: Commissioner
+  type_id: S
+  type_name: State Wide
+'290':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of Environment and Natural Resources
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'291':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of Environmental Protection
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'292':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of Finance
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'293':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of Finance and Administration
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'294':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of Game, Fish and Parks
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'295':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of General Services
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'296':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of Health
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'297':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of Health and Environment
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'298':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of Health and Human Services
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'299':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of Health and Mental Hygiene
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'3':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Governor
+  shorttitle: Gov.
+  title: Governor
+  type_id: G
+  type_name: Governor and Cabinet
+'30':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of the Department of Education
+  shorttitle: ''
+  title: Director
+  type_id: S
+  type_name: State Wide
+'300':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of Health and Social Services
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'301':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of Housing and Economic Development
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'302':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of Human Services
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'303':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of Labor
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'304':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of Labor and Industry
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'305':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of Labor and Workforce Development Agency
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'306':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of Legislative Affairs
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'307':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of Natural Resources
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'308':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of Planning and Policy
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'309':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of Public Safety
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'31':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of the Department of Revenue
+  shorttitle: ''
+  title: Director
+  type_id: S
+  type_name: State Wide
+'310':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of Public Welfare
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'311':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of Revenue
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'312':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of Revenue & Regulation
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'313':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of Taxation and Revenue
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'314':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of Technology
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'315':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of Transportation
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'316':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of Transportation and Construction
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'317':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of Veterans Affairs
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'318':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of Veterans' Services
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'319':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of Wildlife and Parks
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'32':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Education Commissioner
+  shorttitle: ''
+  title: Commissioner
+  type_id: S
+  type_name: State Wide
+'320':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of the Agency of Commerce and Community Development
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'321':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of the Agency of Human services
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'322':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of the Agency of Natural Resources
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'323':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of the Budget
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'324':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of the Department of Agriculture
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'325':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of the Department of Health and Hospitals
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'326':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of the Department of Revenue
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'327':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of the Education Cabinet
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'328':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of the Environment
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'329':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: State Auditor
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'33':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Education Secretary
+  shorttitle: ''
+  title: Secretary
+  type_id: S
+  type_name: State Wide
+'330':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: State Courts Administrator
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'331':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: State Mine Inspector (Office of Mine Safety and Licensing)
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'332':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Superintendent of the Insurance Department
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'333':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Superintendent, Department of Education
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'334':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Taxation Director
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'335':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Transportation Director
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'336':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Utilities and Transportation Commission
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'337':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Alderman
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'338':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Assembly Member
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'339':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Assistant Deputy Mayor
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'34':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Insurance Commissioner
+  shorttitle: ''
+  title: Commissioner
+  type_id: S
+  type_name: State Wide
+'340':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Assistant Judge
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'341':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Assistant Mayor
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'342':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Board Chairman
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'343':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Board Member
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'344':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Board President
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'346':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Burgess
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'347':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Chairman
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'349':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Chief Executive
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'35':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Labor Commissioner
+  shorttitle: ''
+  title: Commissioner
+  type_id: S
+  type_name: State Wide
+'350':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: City Director
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'351':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: City Manager
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'352':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Clerk
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'353':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Clerk of Judicial Records
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'354':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Commission
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'355':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Committee Member
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'356':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Committeemember
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'358':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Council Chairman
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'359':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Council Member
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'36':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Land Commissioner
+  shorttitle: ''
+  title: Commissioner
+  type_id: S
+  type_name: State Wide
+'360':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Council Person
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'362':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Council President
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'363':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Council Secretary
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'364':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Council Solicitor
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'365':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Council Vice President
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'366':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Councilman
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'367':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Councilman President
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'368':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Councilmember
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'37':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Public Service Commissioner
+  shorttitle: ''
+  title: Commissioner
+  type_id: S
+  type_name: State Wide
+'370':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Councilor
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'371':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Councilperson
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'374':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: County Administrator
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'375':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: County Controller
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'376':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: County Council
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'377':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: County Executive
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'378':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: County Judge
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'379':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: County Judge and Executive
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'38':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Public Utilities Commissioner
+  shorttitle: ''
+  title: Commissioner
+  type_id: S
+  type_name: State Wide
+'380':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: County Legislator
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'381':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: County Magistrate
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'382':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: County Mayor
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'383':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: County Member
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'384':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: County Recorder of Deeds
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'385':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: County Register of Wills
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'386':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: County Sheriff
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'387':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: County Solicitor
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'388':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: County Supervisor
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'389':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: County Treasurer
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'39':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Railroad Commissioner
+  shorttitle: ''
+  title: Railroad Commissioner
+  type_id: S
+  type_name: State Wide
+'390':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Delegate
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'391':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Deputy Executive
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'392':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Deputy Mayor
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'393':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Deputy Supervisor
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'394':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Deputy Town Supervisor
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'395':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Deputy Vice Mayor
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'396':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Director
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'397':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Executive
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'398':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: First Selectman
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'399':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: First Vice President
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'4':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Lieutenant Governor
+  shorttitle: ''
+  title: Lieutenant Governor
+  type_id: G
+  type_name: Governor and Cabinet
+'40':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Revenue Director
+  shorttitle: ''
+  title: Director
+  type_id: S
+  type_name: State Wide
+'400':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Freeholder
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'401':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Justice of the Peace
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'402':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Legislator
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'403':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Magistrate
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'404':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Mayor President
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'405':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Member
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'406':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Metro Councilmember
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'407':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Municipal Clerk
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'408':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Municipal Manager
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'409':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Parish President
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'41':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of Agriculture
+  shorttitle: ''
+  title: Secretary
+  type_id: S
+  type_name: State Wide
+'410':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Police Juror
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'412':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Regional Elder
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'413':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Representative
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'414':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Second Vice President
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'415':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Secretary
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'416':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Selectman
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'417':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Selectperson
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'418':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Single Member
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'419':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Supervisor
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'42':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of Education
+  shorttitle: ''
+  title: Secretary
+  type_id: S
+  type_name: State Wide
+'421':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Town Administrator
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'422':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Town Board Member
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'423':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Town Clerk
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'424':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Town Manager
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'425':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Town Supervisor
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'426':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Township Committee Member
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'427':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Township Manager
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'428':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Treasurer
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'429':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Trustee
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'43':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of Education and Cultural Affairs
+  shorttitle: ''
+  title: Secretary
+  type_id: S
+  type_name: State Wide
+'430':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Vice Mayor
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'432':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Village President
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'433':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Commissioner
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'434':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Probate Judge
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'435':
+  branch_id: E
+  branch_name: Executive
+  level_id: L
+  level_name: Local
+  name: Freeholder
+  shorttitle: ''
+  title: Freeholder
+  type_id: M
+  type_name: Local Executive
+'437':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Chair of Commission
+  shorttitle: ''
+  title: Chair
+  type_id: N
+  type_name: Local Legislative
+'438':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Deputy Presiding Office
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'439':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Presiding Officer
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'44':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of State
+  shorttitle: ''
+  title: Secretary
+  type_id: S
+  type_name: State Wide
+'440':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: First Vice Chair
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'441':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Second Vice Chair
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'442':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: President of Commission
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'443':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Sole Commissioner
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'444':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Chair of County Board
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'445':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Legislative Post Auditor
+  shorttitle: ''
+  title: Legislative Post Auditor
+  type_id: S
+  type_name: State Wide
+'447':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Commissioner of Agriculture and Commerce
+  shorttitle: ''
+  title: Commissioner of Agriculture and Commerce
+  type_id: S
+  type_name: State Wide
+'45':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of the Commonwealth
+  shorttitle: ''
+  title: Secretary
+  type_id: S
+  type_name: State Wide
+'455':
+  branch_id: L
+  branch_name: Legislative
+  level_id: L
+  level_name: Local
+  name: Chair of County Council
+  shorttitle: ''
+  title: ''
+  type_id: N
+  type_name: Local Legislative
+'456':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of Food and Agriculture
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'458':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of Labor and Workforce Development Agenc
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'459':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Secretary of Business, Housing, and Transportation
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'46':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: State Mine Inspector
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'460':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Comissioner of State Board of Elections
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'462':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Executive Director of the Department of Revenue
+  shorttitle: ''
+  title: Executive Director of the Department of Revenue
+  type_id: S
+  type_name: State Wide
+'463':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Executive Director of Environmental Quality
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'464':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Executive Council
+  shorttitle: Councilor
+  title: Executive Councilor
+  type_id: S
+  type_name: State Wide
+'47':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: State School Superintendent
+  shorttitle: ''
+  title: Superintendent
+  type_id: S
+  type_name: State Wide
+'48':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: State Superintendent of Public Instruction
+  shorttitle: ''
+  title: Superintendent
+  type_id: S
+  type_name: State Wide
+'49':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: State Superintendent of Schools
+  shorttitle: ''
+  title: Superintendent
+  type_id: S
+  type_name: State Wide
+'5':
+  branch_id: L
+  branch_name: Legislative
+  level_id: F
+  level_name: Federal
+  name: U.S. House
+  shorttitle: Rep.
+  title: Representative
+  type_id: C
+  type_name: Congressional
+'50':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Superintendent of Education
+  shorttitle: ''
+  title: Superintendent
+  type_id: S
+  type_name: State Wide
+'51':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Superintendent of Public Instruction
+  shorttitle: ''
+  title: Superintendent
+  type_id: S
+  type_name: State Wide
+'52':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Tax Commissioner
+  shorttitle: ''
+  title: Commissioner
+  type_id: S
+  type_name: State Wide
+'53':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Treasurer
+  shorttitle: ''
+  title: Treasurer
+  type_id: S
+  type_name: State Wide
+'54':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Treasurer and Insurance Commissioner
+  shorttitle: ''
+  title: Commissioner
+  type_id: S
+  type_name: State Wide
+'55':
+  branch_id: E
+  branch_name: Executive
+  level_id: F
+  level_name: Federal
+  name: U.S. Attorney General
+  shorttitle: ''
+  title: Attorney General
+  type_id: P
+  type_name: Presidential and Cabinet
+'56':
+  branch_id: E
+  branch_name: Executive
+  level_id: F
+  level_name: Federal
+  name: U.S. Secretary of Agriculture
+  shorttitle: ''
+  title: Secretary
+  type_id: P
+  type_name: Presidential and Cabinet
+'57':
+  branch_id: E
+  branch_name: Executive
+  level_id: F
+  level_name: Federal
+  name: U.S. Secretary of Commerce
+  shorttitle: ''
+  title: Secretary
+  type_id: P
+  type_name: Presidential and Cabinet
+'58':
+  branch_id: E
+  branch_name: Executive
+  level_id: F
+  level_name: Federal
+  name: U.S. Secretary of Defense
+  shorttitle: ''
+  title: Secretary
+  type_id: P
+  type_name: Presidential and Cabinet
+'59':
+  branch_id: E
+  branch_name: Executive
+  level_id: F
+  level_name: Federal
+  name: U.S. Secretary of Education
+  shorttitle: ''
+  title: Secretary
+  type_id: P
+  type_name: Presidential and Cabinet
+'6':
+  branch_id: L
+  branch_name: Legislative
+  level_id: F
+  level_name: Federal
+  name: U.S. Senate
+  shorttitle: Sen.
+  title: Senator
+  type_id: C
+  type_name: Congressional
+'60':
+  branch_id: E
+  branch_name: Executive
+  level_id: F
+  level_name: Federal
+  name: U.S. Secretary of Energy
+  shorttitle: ''
+  title: Secretary
+  type_id: P
+  type_name: Presidential and Cabinet
+'61':
+  branch_id: E
+  branch_name: Executive
+  level_id: F
+  level_name: Federal
+  name: U.S. Secretary of Health and Human Services
+  shorttitle: ''
+  title: Secretary
+  type_id: P
+  type_name: Presidential and Cabinet
+'62':
+  branch_id: E
+  branch_name: Executive
+  level_id: F
+  level_name: Federal
+  name: U.S. Secretary of Homeland Security
+  shorttitle: ''
+  title: Secretary
+  type_id: P
+  type_name: Presidential and Cabinet
+'63':
+  branch_id: E
+  branch_name: Executive
+  level_id: F
+  level_name: Federal
+  name: U.S. Secretary of Housing and Urban Development
+  shorttitle: ''
+  title: Secretary
+  type_id: P
+  type_name: Presidential and Cabinet
+'64':
+  branch_id: E
+  branch_name: Executive
+  level_id: F
+  level_name: Federal
+  name: U.S. Secretary of Labor
+  shorttitle: ''
+  title: Secretary
+  type_id: P
+  type_name: Presidential and Cabinet
+'65':
+  branch_id: E
+  branch_name: Executive
+  level_id: F
+  level_name: Federal
+  name: U.S. Secretary of State
+  shorttitle: ''
+  title: Secretary
+  type_id: P
+  type_name: Presidential and Cabinet
+'66':
+  branch_id: E
+  branch_name: Executive
+  level_id: F
+  level_name: Federal
+  name: U.S. Secretary of Transportation
+  shorttitle: ''
+  title: Secretary
+  type_id: P
+  type_name: Presidential and Cabinet
+'67':
+  branch_id: E
+  branch_name: Executive
+  level_id: F
+  level_name: Federal
+  name: U.S. Secretary of Treasury
+  shorttitle: ''
+  title: Secretary
+  type_id: P
+  type_name: Presidential and Cabinet
+'68':
+  branch_id: E
+  branch_name: Executive
+  level_id: F
+  level_name: Federal
+  name: U.S. Secretary of Veterans Affairs
+  shorttitle: ''
+  title: Secretary
+  type_id: P
+  type_name: Presidential and Cabinet
+'69':
+  branch_id: E
+  branch_name: Executive
+  level_id: F
+  level_name: Federal
+  name: U.S. Secretary of the Interior
+  shorttitle: ''
+  title: Secretary
+  type_id: P
+  type_name: Presidential and Cabinet
+'7':
+  branch_id: L
+  branch_name: Legislative
+  level_id: S
+  level_name: State
+  name: State Assembly
+  shorttitle: AM
+  title: Assembly Member
+  type_id: L
+  type_name: State Legislature
+'71':
+  branch_id: E
+  branch_name: Executive
+  level_id: L
+  level_name: Local
+  name: Comptroller
+  shorttitle: ''
+  title: Comptroller
+  type_id: M
+  type_name: Local Executive
+'72':
+  branch_id: E
+  branch_name: Executive
+  level_id: L
+  level_name: Local
+  name: Council
+  shorttitle: ''
+  title: ''
+  type_id: M
+  type_name: Local Executive
+'73':
+  branch_id: E
+  branch_name: Executive
+  level_id: L
+  level_name: Local
+  name: Mayor
+  shorttitle: ''
+  title: ''
+  type_id: M
+  type_name: Local Executive
+'74':
+  branch_id: E
+  branch_name: Executive
+  level_id: L
+  level_name: Local
+  name: Public Advocate
+  shorttitle: ''
+  title: ''
+  type_id: M
+  type_name: Local Executive
+'76':
+  branch_id: J
+  branch_name: Judicial
+  level_id: F
+  level_name: Federal
+  name: U.S. Chief Justice of the Supreme Court
+  shorttitle: ''
+  title: Chief Justice
+  type_id: J
+  type_name: Supreme Court
+'77':
+  branch_id: J
+  branch_name: Judicial
+  level_id: F
+  level_name: Federal
+  name: U.S. Associate Justice of the Supreme Court
+  shorttitle: ''
+  title: Justice
+  type_id: J
+  type_name: Supreme Court
+'78':
+  branch_id: J
+  branch_name: Judicial
+  level_id: S
+  level_name: State
+  name: Chief Justice of the Supreme Court
+  shorttitle: ''
+  title: Chief Justice
+  type_id: K
+  type_name: State Judicial
+'79':
+  branch_id: J
+  branch_name: Judicial
+  level_id: S
+  level_name: State
+  name: Justice of the Supreme Court
+  shorttitle: ''
+  title: Justice
+  type_id: K
+  type_name: State Judicial
+'8':
+  branch_id: L
+  branch_name: Legislative
+  level_id: S
+  level_name: State
+  name: State House
+  shorttitle: Rep.
+  title: Representative
+  type_id: L
+  type_name: State Legislature
+'80':
+  branch_id: J
+  branch_name: Judicial
+  level_id: S
+  level_name: State
+  name: Chief Judge of the Appellate Court
+  shorttitle: ''
+  title: Chief Judge
+  type_id: K
+  type_name: State Judicial
+'81':
+  branch_id: J
+  branch_name: Judicial
+  level_id: S
+  level_name: State
+  name: Judge of the Appellate Court
+  shorttitle: ''
+  title: Judge
+  type_id: K
+  type_name: State Judicial
+'82':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Director of the Department of Administration
+  shorttitle: ''
+  title: Director
+  type_id: S
+  type_name: State Wide
+'83':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Administrator of the Office of State Lands
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'84':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Agricultural Commissioner
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'85':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Agriculture Director
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'86':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Trustee, Office of Hawaiian Affairs
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'87':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Auditor General
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'88':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Auditor and Inspector
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'89':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Auditor of Accounts
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'9':
+  branch_id: L
+  branch_name: Legislative
+  level_id: S
+  level_name: State
+  name: State Senate
+  shorttitle: Sen.
+  title: Senator
+  type_id: L
+  type_name: State Legislature
+'90':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Auditor of Public Accounts
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'91':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Board of Education Chair
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'92':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Budget Director
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'93':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Chair of Board of Elections
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'94':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Chair of Elections Commission
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'95':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Chair of Licensing and Regulation Commission
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'96':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Chair of Public Service Commission
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'97':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Chair of Public Utilities Commission
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'98':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Chair of Rail Development Commission
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
+'99':
+  branch_id: E
+  branch_name: Executive
+  level_id: S
+  level_name: State
+  name: Chair of the Public Utilities Commission
+  shorttitle: ''
+  title: ''
+  type_id: S
+  type_name: State Wide
