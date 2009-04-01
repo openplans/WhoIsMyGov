@@ -2,8 +2,9 @@ import logging
 
 from pylons import request, response, session, tmpl_context as c
 from pylons import config
-from pylons.controllers.util import abort, redirect_to
+from pylons.controllers.util import abort, redirect_to, redirect
 from pylons.decorators import validate
+from pylons.decorators.rest import dispatch_on
 
 from sqlalchemy.orm.exc import NoResultFound
 from purplevoter.lib.base import BaseController, render
@@ -54,6 +55,19 @@ class PeopleController(BaseController):
            redirect_to(request.referrer)
         except KeyError, NoResultFound:
            abort(400)
+
+    @dispatch_on(POST="_do_update_meta")
+    def update_meta(self, meta_id):
+        c.district_meta = meta.Session.query(model.DistrictsMeta).filter(model.DistrictsMeta.id == meta_id).one()
+        c.referrer = request.referrer
+        return render('/edit_meta.mako') 
+   
+    def _do_update_meta(self, meta_id):
+        district_meta = meta.Session.query(model.DistrictsMeta).filter(model.DistrictsMeta.id == meta_id).one()
+        district_meta.meta_key = request.params.get('key')
+        district_meta.meta_value = request.params.get('value')
+        meta.Session.commit()
+        redirect(request.params.get('referrer')) 
 
     def _get_or_insert_districts(self, districts):
         return_districts = []
