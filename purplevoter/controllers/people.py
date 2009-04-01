@@ -49,6 +49,21 @@ class PeopleController(BaseController):
             c.districts = self._get_or_insert_districts(districts)
         return render('search_form.mako')
 
+    def add_meta(self):
+        if request.method == 'GET':
+           abort(405)
+           #XXX add header information about allowed methods
+        districts_q = meta.Session.query(model.Districts)
+        try:
+           district = districts_q.filter(model.Districts.id == request.params.get('district_id')).one()
+           district_meta = model.DistrictsMeta()
+           district_meta.meta_key = request.params.get('meta_key')
+           district_meta.meta_value = request.params.get('meta_value')
+           district.meta.append(district_meta)
+           meta.Session.commit()
+        except KeyError, NoResultFound:
+           abort(400)
+
     def _get_or_insert_districts(self, districts):
         return_districts = []
         district_q = meta.Session.query(model.Districts)
