@@ -20,21 +20,11 @@ from votesmart import votesmart
 votesmart.apikey = config.get('votesmart_api_key', 'da3851ba595cbc0d9b5ac5be697714e0')
 log = logging.getLogger(__name__)
 
-class SearchForm(Schema):
-   allow_extra_fields = True
-   address = validators.String(not_empty=True)
-
 class PeopleController(BaseController):
 
-    def index(self):
-        # Return a rendered template
-        #return render('/people.mako')
-        # or, return a response
-        return 'Hello World'
-
-    @validate(schema=SearchForm(), form='search', prefix_error=False)
     def search(self):
         lat = lon = None
+        c.search_term = request.params.get('address', '')
         if request.params.has_key('lat') and request.params.has_key('lon'):
             lat = request.params['lat']
             lon = request.params['lon']
@@ -61,6 +51,7 @@ class PeopleController(BaseController):
            district_meta.meta_value = request.params.get('meta_value')
            district.meta.append(district_meta)
            meta.Session.commit()
+           redirect_to(request.referrer)
         except KeyError, NoResultFound:
            abort(400)
 

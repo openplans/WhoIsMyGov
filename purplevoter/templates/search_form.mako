@@ -3,7 +3,10 @@
 <form method="GET" action="/">
   <div class="selfclear">
     <label for="address">Address</label>
-    <input id="address" name="address" type="text" />
+    <input id="address" name="address" type="text" value="${c.search_term}" size=50 />
+  </div>
+  <div class="selfclear">
+    <input class="indented-submit" type="submit" value="Find!" />
   </div>
 </form>
 
@@ -27,5 +30,19 @@
           <dt>${meta.meta_value}</dt>
       % endfor
    </dl>
+   <form method="POST" action="/add_meta">
+     <div class="selfclear">
+       <label for="meta_key">Key</label>
+       <input name="meta_key" type="text"/>
+     </div>
+     <div class="selfclear">
+       <label for="meta_value">Value</label>
+       <input name="meta_value" type="text"/>
+     </div>
+     <input name="district_id" type="hidden" value="${district.id}" />
+       <div class="selfclear">
+       <input class="indented-submit" type="submit" value="Submit" />
+     </div>
+  </form>
 % endfor
 </div>
