@@ -27,7 +27,7 @@
       <dd>${district.district_name}</dd>
       % for meta in district.meta:
           <dt><strong>${meta.meta_key}</strong></dt>
-          <dd>${meta.meta_value} (<a href="${h.url_for(controller="people", action="update_meta", meta_id=meta.id)}" >edit</a>, <a href="#" >delete</a>)</dd>
+          <dd>${meta.meta_value} (<a href="${h.url_for(controller="people", action="update_meta", meta_id=meta.id)}" >edit</a>, <a href="${h.url_for(controller="people", action="delete_meta", meta_id=meta.id)}">delete</a>)</dd>
       % endfor
    </dl>
    <h3>Add more information</h3>

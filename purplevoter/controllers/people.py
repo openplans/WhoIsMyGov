@@ -69,6 +69,18 @@ class PeopleController(BaseController):
         meta.Session.commit()
         redirect(request.params.get('referrer')) 
 
+    @dispatch_on(POST="_do_delete_meta")
+    def delete_meta(self, meta_id):
+        c.district_meta = meta.Session.query(model.DistrictsMeta).filter(model.DistrictsMeta.id == meta_id).one()
+        c.referrer = request.referrer
+        return render('/delete_meta.mako') 
+
+    def _do_delete_meta(self, meta_id):
+        district_meta = meta.Session.query(model.DistrictsMeta).filter(model.DistrictsMeta.id == meta_id).one()
+        meta.Session.delete(district_meta)
+        meta.Session.commit()
+        redirect(request.params.get('referrer')) 
+ 
     def _get_or_insert_districts(self, districts):
         return_districts = []
         district_q = meta.Session.query(model.Districts)
