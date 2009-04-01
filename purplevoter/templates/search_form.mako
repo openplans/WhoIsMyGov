@@ -27,9 +27,10 @@
       <dd>${district.district_name}</dd>
       % for meta in district.meta:
           <dt><strong>${meta.meta_key}</strong></dt>
-          <dt>${meta.meta_value}</dt>
+          <dd>${meta.meta_value} (<a href="#" >edit</a>, <a href="#" >delete</a>)</dd>
       % endfor
    </dl>
+   <h3>Add more information</h3>
    <form method="POST" action="/add_meta">
      <div class="selfclear">
        <label for="meta_key">Key</label>

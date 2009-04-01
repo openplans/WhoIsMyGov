@@ -131,6 +131,10 @@ input.indented-submit {
 margin:0.5em 0 1em 8.5em;
 }
 
+dt {
+ padding-top: 0.4em;
+}
+
 /* Start - Utility Classes */
 
 .selfclear:after {
