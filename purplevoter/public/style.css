@@ -273,13 +273,19 @@ padding-left: 60px;
 
 #logo {
 font-size: 5.0em;
-margin-bottom: 0em;
+margin-bottom: 10px;
 padding-bottom: 0em;
 padding-top: 10px;
 color: white;
 padding-left: 20px;
 line-height: 1em;
 font-family: georgia;
+}
+
+h1#logo sup {
+font-size: 0.2em;
+color: #330066;
+padding: 2px;
 }
 
 #login {

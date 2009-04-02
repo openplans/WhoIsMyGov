@@ -10,7 +10,7 @@
 <body>
   <div id="container" class="selfclear">
     <div id="header">
-       <h1 id="logo">Purple Voter</h1>
+       <h1 id="logo">Purple Voter<sup>ALPHA</sup></h1>
        <h3 id="tag-line">Find out who represents you.</h3>
     </div>
     <div id="main">
