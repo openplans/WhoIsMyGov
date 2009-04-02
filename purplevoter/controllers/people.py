@@ -119,11 +119,14 @@ class PeopleController(BaseController):
             elif level_type == 'state_lower':
                level_name = "State"
                district_type = "State Assembly"
-            
-            exists = district_q.filter(model.Districts.state == state)\
-                                .filter(model.Districts.district_name == district_name)\
-                                .filter(model.Districts.district_type == district_type)\
-                                .one()
+           
+            try: 
+				exists = district_q.filter(model.Districts.state == state)\
+            	                    .filter(model.Districts.district_name == district_name)\
+            	                    .filter(model.Districts.district_type == district_type)\
+            	                    .one()
+            except:
+                abort(404)
             return_districts.append(exists)
 
         return return_districts
