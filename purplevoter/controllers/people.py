@@ -92,7 +92,7 @@ class PeopleController(BaseController):
 
         for level_type in districts:
 
-            #change the mcommoms parameters to votesmart parameters
+            #change the mcommons parameters to votesmart parameters
             
             #name of the state
             state = districts[level_type]['state']
