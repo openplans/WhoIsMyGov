@@ -141,11 +141,6 @@ class PeopleController(BaseController):
         for district, info in districts.iteritems():
             info['officials'] = votesmart.officials.getByDistrict(info['district'])
 
-
-    def _get_people(self, districts):
-        for district, info in districts.iteritems():
-            info['officials'] = votesmart.officials.getByDistrict(info['district'])
-
     def _get_districts(self, lat, lon):
         """ takes a lat, lon and returns a list of elected officials
         and  any candidates running for office in districts serving
