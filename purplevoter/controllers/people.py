@@ -1,18 +1,15 @@
-import logging
-
+from lxml import html
+from purplevoter import model
+from purplevoter.lib.base import BaseController, render
+from purplevoter.model import meta
+from pylons import config
 from pylons import request
 from pylons import tmpl_context as c
-from pylons import config
 from pylons.controllers.util import abort, redirect_to, redirect
 from pylons.decorators.rest import dispatch_on
-
-from purplevoter.lib.base import BaseController, render
-from purplevoter import model
-from purplevoter.model import meta
-
-import geopy
-from lxml import html
 from votesmart import votesmart
+import geopy
+import logging
 
 votesmart.apikey = config.get('votesmart_api_key', 'da3851ba595cbc0d9b5ac5be697714e0')
 log = logging.getLogger(__name__)
