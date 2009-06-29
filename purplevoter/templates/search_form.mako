@@ -11,7 +11,13 @@
 </form>
 
 
+
 <div id="search-results">
+
+% if not c.districts or c.address_matches:
+   <p>No results found.</p>
+% endif
+
 % if c.address_matches:
 <ul>
     % for address, (lat, lon) in c.address_matches:
