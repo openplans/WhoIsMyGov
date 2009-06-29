@@ -33,5 +33,9 @@ districts_meta_table = sa.Table("districts_meta", meta.metadata,
 class DistrictsMeta(object):
     pass
 
-orm.mapper(Districts, districts_table, properties = {'meta': orm.relation(DistrictsMeta, backref='district', cascade="all, delete, delete-orphan"),})
+orm.mapper(Districts, districts_table, 
+           properties={'meta': orm.relation(DistrictsMeta, 
+                                            backref='district', 
+                                            cascade="all, delete, delete-orphan"),})
+
 orm.mapper(DistrictsMeta, districts_meta_table)
