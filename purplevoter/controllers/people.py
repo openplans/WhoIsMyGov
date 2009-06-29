@@ -1,20 +1,16 @@
 import logging
 
-from pylons import request, response, session, tmpl_context as c
+from pylons import request
+from pylons import tmpl_context as c
 from pylons import config
 from pylons.controllers.util import abort, redirect_to, redirect
-from pylons.decorators import validate
 from pylons.decorators.rest import dispatch_on
 
-from sqlalchemy.orm.exc import NoResultFound
 from purplevoter.lib.base import BaseController, render
 from purplevoter import model
 from purplevoter.model import meta
-import geopy
 
-import formencode
-from formencode import Schema, Invalid
-from formencode import validators, compound
+import geopy
 from lxml import html
 from votesmart import votesmart
 
