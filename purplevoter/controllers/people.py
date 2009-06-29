@@ -37,19 +37,19 @@ class PeopleController(BaseController):
         """Add an arbitrary key/value pair to the information about
         a district."""
         if request.method not in ('POST', 'PUT'):
-           abort(405)
-           #XXX add header information about allowed methods
+            abort(405)
+            #XXX add header information about allowed methods
         districts_q = meta.Session.query(model.Districts)
         try:
-           district = districts_q.filter(model.Districts.id == request.params.get('district_id')).one()
-           district_meta = model.DistrictsMeta()
-           district_meta.meta_key = request.params.get('meta_key')
-           district_meta.meta_value = request.params.get('meta_value')
-           district.meta.append(district_meta)
-           meta.Session.commit()
-           redirect_to(request.referrer)
+            district = districts_q.filter(model.Districts.id == request.params.get('district_id')).one()
+            district_meta = model.DistrictsMeta()
+            district_meta.meta_key = request.params.get('meta_key')
+            district_meta.meta_value = request.params.get('meta_value')
+            district.meta.append(district_meta)
+            meta.Session.commit()
+            redirect_to(request.referrer)
         except KeyError, NoResultFound:
-           abort(400)
+            abort(400)
 
     @dispatch_on(POST="_do_update_meta")
     def update_meta(self, meta_id):
@@ -88,7 +88,7 @@ class PeopleController(BaseController):
                               all()
         for district in fed_district:
             if len(district.meta) != 0:
-               return_districts.append(district)
+                return_districts.append(district)
 
         for level_type in districts:
 
@@ -107,24 +107,23 @@ class PeopleController(BaseController):
             level_name = ""
             #name of level
             if level_type == 'federal':
-               level_name = "Federal"
-               district_type = "U.S. House"
+                level_name = "Federal"
+                district_type = "U.S. House"
             elif level_type == 'state_upper':
-               level_name = "State"
-               district_type = "State Senate"
+                level_name = "State"
+                district_type = "State Senate"
             elif level_type == 'state_lower':
-               level_name = "State"
-               district_type = "State Assembly"
+                level_name = "State"
+                district_type = "State Assembly"
 
 
             try: 
-				exists = district_q.filter(model.Districts.state == state)\
+                exists = district_q.filter(model.Districts.state == state)\
             	                    .filter(model.Districts.district_name == district_name)\
             	                    .filter(model.Districts.district_type == district_type)\
             	                    .one()
             except:
                 continue
-                #abort(404)
             return_districts.append(exists)
 
         return return_districts
