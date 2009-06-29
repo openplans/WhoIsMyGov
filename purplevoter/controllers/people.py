@@ -34,7 +34,9 @@ class PeopleController(BaseController):
         return render('search_form.mako')
 
     def add_meta(self):
-        if request.method == 'GET':
+        """Add an arbitrary key/value pair to the information about
+        a district."""
+        if request.method not in ('POST', 'PUT'):
            abort(405)
            #XXX add header information about allowed methods
         districts_q = meta.Session.query(model.Districts)
@@ -112,14 +114,16 @@ class PeopleController(BaseController):
             elif level_type == 'state_lower':
                level_name = "State"
                district_type = "State Assembly"
-           
+
+
             try: 
 				exists = district_q.filter(model.Districts.state == state)\
             	                    .filter(model.Districts.district_name == district_name)\
             	                    .filter(model.Districts.district_type == district_type)\
             	                    .one()
             except:
-                abort(404)
+                continue
+                #abort(404)
             return_districts.append(exists)
 
         return return_districts
