@@ -98,9 +98,10 @@ class PeopleController(BaseController):
             state = districts[level_type]['state']
             #name of the district
             try:
-               district_name = "District " + str(int(districts[level_type]['district']))
+                district_name = "District " + str(int(districts[level_type]['district']))
             except:
-               district_name = "District " + districts[level_type]['district']
+
+                district_name = "District " + districts[level_type]['district']
                
 
             level_name = ""
