@@ -1,3 +1,22 @@
+OFFICES TA CARES ABOUT
+======================
+
+ * City Council
+
+ * DA (manhattan only; are there several?)
+
+ * Controller (citywide?)
+
+ * Mayor (citywide)
+
+ * PUblic Advocate (citywide?)
+
+
+
+CODE NOTES
+=============
+
+
 the controller in controllers/people.py are actually centered around
 districts, because that's what the models are:
 
@@ -6,7 +25,7 @@ we have:
  * districts
 
    each district has an arbitrary number of key: val pairs which are
-   stored as DistrictsMeta instances (in teh districts_meta table)
+   stored as DistrictsMeta instances (in the districts_meta table)
 
  * DistrictsMeta are in apparently arbitrary order - presumably by id
    (and thus by order of insertion)
@@ -26,5 +45,3 @@ thoughts:
    objects, and a people_meta table instead.
 
 
-
- 
