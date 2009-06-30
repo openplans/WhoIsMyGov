@@ -12,6 +12,9 @@ log = logging.getLogger(__name__)
 class AdminController(BaseController):
 
     def get_vs_districts(self):
+        """(Re)populate the district and district_meta tables with
+        saved data from the vsdata directory, merged with officials'
+        names from the votesmart api."""
         import yaml
         from votesmart import votesmart
 
