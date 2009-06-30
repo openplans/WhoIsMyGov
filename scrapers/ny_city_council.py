@@ -3,6 +3,7 @@
 import urllib
 from lxml.html import parse
 import re
+import pprint
 
 STRIPPER = re.compile('[\\s\xa0]+')
 
@@ -19,7 +20,7 @@ def scrape_members():
             continue
         member = {}
         for column, index in columns.iteritems():
-            print column
+            #print column
             if not column.strip(): # skip whitespace column
                 continue
             field_data = row.cssselect('td:nth-child(%d)' % index)[0]
@@ -28,7 +29,7 @@ def scrape_members():
             member[column] = field_data.text_content()
 
         members.append(member)
-    print members
+    pprint.pprint( sorted(members, key=lambda x: int(x['district'])))
             
     
 
