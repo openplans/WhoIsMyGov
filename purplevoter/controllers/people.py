@@ -7,11 +7,9 @@ from pylons import request
 from pylons import tmpl_context as c
 from pylons.controllers.util import abort, redirect_to, redirect
 from pylons.decorators.rest import dispatch_on
-from votesmart import votesmart
 import geopy
 import logging
 
-votesmart.apikey = config.get('votesmart_api_key', 'da3851ba595cbc0d9b5ac5be697714e0')
 log = logging.getLogger(__name__)
 
 class PeopleController(BaseController):
@@ -137,28 +135,27 @@ class PeopleController(BaseController):
        address_gen = geocoder.geocode(address, exactly_one=False)
        return [(addr, (lat, lon)) for addr, (lat, lon) in address_gen]
 
-    def _get_people(self, districts):
-        for district, info in districts.iteritems():
-            info['officials'] = votesmart.officials.getByDistrict(info['district'])
 
     def _get_districts(self, lat, lon):
         """ takes a lat, lon and returns a list of elected officials
         and  any candidates running for office in districts serving
         that location """
+        # XXX This cannot handle local districts, mcommons doesn't
+        # support those.
         apiurl = 'http://congress.mcommons.com/districts/lookup.xml?lat=%s&lng=%s' % (lat, lon)
 
         # First we pull out the available districts.
-
         root = html.parse(apiurl).getroot()
 
         error = root.cssselect('error')
         if error:
             raise Exception(error[0].text)
 
-        districts = dict((x.tag, dict((y.tag, y.text) for y in x.cssselect('%s *'% x.tag))) for x in root.cssselect('federal, state_upper, state_lower'))
+        districts = {}
 
-        # This would probably be more pythonic in multiple lines
-        for district in districts:
-            pass
+        for distr_node in root.cssselect('federal, state_upper, state_lower'):
+            districts[distr_node.tag] = {}
+            for y in distr_node.cssselect('%s *'% distr_node.tag):
+                districts[distr_node.tag][y.tag] = y.text
 
         return districts
