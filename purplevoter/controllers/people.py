@@ -153,7 +153,7 @@ class PeopleController(BaseController):
 
         error = root.cssselect('error')
         if error:
-            raise error[0].text
+            raise Exception(error[0].text)
 
         districts = dict((x.tag, dict((y.tag, y.text) for y in x.cssselect('%s *'% x.tag))) for x in root.cssselect('federal, state_upper, state_lower'))
 
