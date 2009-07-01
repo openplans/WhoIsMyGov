@@ -20,9 +20,8 @@ CODE NOTES
 the controller in controllers/people.py are actually centered around
 districts, because that's what the models are:
 
-we have:
 
- * districts
+ * District
 
    each district has an arbitrary number of key: val pairs which are
    stored as DistrictsMeta instances (in the districts_meta table)
@@ -37,11 +36,11 @@ we have:
 
 thoughts:
 
- - I could just have "candidate" as another key convention.
-
- - but then there's no way to relate data to specific candidates.
+ - I could just have "candidate" as another key convention.  but there
+   are multiple candidates per district so there'd be no way to relate
+   data to specific candidates.
 
  - really should refactor the data to have people as first-class
    objects, and a people_meta table instead.
-
+   
 
