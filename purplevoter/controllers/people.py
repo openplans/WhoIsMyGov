@@ -7,6 +7,7 @@ from pylons import request
 from pylons import tmpl_context as c
 from pylons.controllers.util import abort, redirect_to, redirect
 from pylons.decorators.rest import dispatch_on
+from sqlalchemy.orm.exc import NoResultFound
 import geopy
 import logging
 
@@ -46,7 +47,7 @@ class PeopleController(BaseController):
             district.meta.append(district_meta)
             meta.Session.commit()
             redirect_to(request.referrer)
-        except KeyError, NoResultFound:
+        except (KeyError, NoResultFound):
             abort(400)
 
     @dispatch_on(POST="_do_update_meta")
@@ -97,8 +98,7 @@ class PeopleController(BaseController):
             #name of the district
             try:
                 district_name = "District " + str(int(districts[level_type]['district']))
-            except:
-
+            except ValueError:
                 district_name = "District " + districts[level_type]['district']
                
 
@@ -120,7 +120,7 @@ class PeopleController(BaseController):
             	                    .filter(model.Districts.district_name == district_name)\
             	                    .filter(model.Districts.district_type == district_type)\
             	                    .one()
-            except:
+            except NoResultFound:
                 continue
             return_districts.append(exists)
 
