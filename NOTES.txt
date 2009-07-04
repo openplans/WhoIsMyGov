@@ -3,6 +3,7 @@ OFFICES TA CARES ABOUT
 
  * City Council
 
+
  * DA (manhattan only; are there several?)
 
  * Controller (citywide?)
@@ -11,6 +12,19 @@ OFFICES TA CARES ABOUT
 
  * PUblic Advocate (citywide?)
 
+
+
+DATA
+======
+
+ http://www.nyc.gov/html/dcp/html/bytes/dwndistricts.shtml
+
+ District shapefiles:
+
+ * DA?
+
+ * City Council:
+   http://www.nyc.gov/html/dcp/download/bytes/nycc_08cav.zip
 
 
 CODE NOTES
