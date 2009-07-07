@@ -15,7 +15,10 @@ setup(
     install_requires=[
         "Pylons>=0.9.7",
         "SQLAlchemy>=0.5",
+        "psycopg2",  # For PostGIS.
+        "pyproj",
         "python-votesmart",
+        "shapely",
         "geopy",
         "lxml",
     ],
