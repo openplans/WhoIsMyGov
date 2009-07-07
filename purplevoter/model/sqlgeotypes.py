@@ -70,8 +70,3 @@ class MULTILINESTRING(Geometry):
 class MULTIPOLYGON(Geometry):
     def __init__(self, SRID):
         super(MULTIPOLYGON, self).__init__(SRID, 'MULTIPOLYGON', 2)
-
-class POLYGON(Geometry):
-    def __init__(self, SRID):
-        super(POLYGON, self).__init__(SRID, 'POLYGON', 2)
-
