@@ -8,12 +8,9 @@ Install ``purplevoter`` using easy_install::
 
     easy_install purplevoter
 
-Make a config file as follows::
+Tweak the development.ini config file as appropriate and then setup the
+application::
 
-    paster make-config purplevoter config.ini
-
-Tweak the config file as appropriate and then setup the application::
-
-    paster setup-app config.ini
+    paster setup-app development.ini
 
 Then you are ready to go.
