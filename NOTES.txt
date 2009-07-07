@@ -58,3 +58,30 @@ thoughts:
    objects, and a people_meta table instead.
    
 
+
+Plan
+=====
+
+* for SRID use 4326 aka
+  WGS84(http://en.wikipedia.org/wiki/World_Geodetic_System) 
+  ... which seems to be what blockparty uses; stores things as lon/lat
+  pairs so i can easily query for which district contains a lon/lat 
+
+* load the City Council shapefiles into postgis
+  - see
+  http://techmix.net/blog/2009/04/06/import-shapefiles-shp-into-postgis/
+
+* figure out sql for finding which district contains a lat,lon point:
+  either the ST_Within or ST_Contains functions (they are converse of
+  each other) from 
+  http://postgis.refractions.net/documentation/manual-1.3/ch06.html#id2574517
+
+* To call such functions from sqlalchemy, use the
+  sqlalchemy.sql.func namespace as per
+  http://www.sqlalchemy.org/docs/04/sqlexpression.html#sql_everythingelse_functions
+  see also for example in community almanac code:
+  communityalmanac/model/sqlgeotypes.py
+
+
+
+
