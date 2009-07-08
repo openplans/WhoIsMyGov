@@ -7,7 +7,7 @@ from migrate import *
 from sqlalchemy.ext.sqlsoup import SqlSoup
 
 # This may or may not be functionally identical to SRID 2831?  Not
-# taking chances, since I don't know how if the slight difference in
+# taking chances, since I don't know how to tell if the slight difference in
 # proj4text matters, I'm going to use this.
 
 # Got this from http://spatialreference.org/ref/esri/102718/
