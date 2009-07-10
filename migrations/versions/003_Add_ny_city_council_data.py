@@ -15,6 +15,8 @@ def upgrade():
             here, '../../../misc_import_data/ny_city_council_districts/nycc.sql'))
     sql = open(district_shapes).read()
     db.bind.execute(sql)
+    # make sure they're using the right SRID.
+    db.bind.execute('update districts set geometry=(ST_TRANSFORM(geometry, 4326)) where geometry is not null;')
 
 def downgrade():
     # Operations to reverse the above upgrade go here.
