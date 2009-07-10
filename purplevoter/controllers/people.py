@@ -8,6 +8,7 @@ from pylons import tmpl_context as c
 from pylons.controllers.util import abort, redirect_to, redirect
 from pylons.decorators.rest import dispatch_on
 from sqlalchemy.orm.exc import NoResultFound
+from sqlalchemy.sql import func
 import geopy
 import logging
 
@@ -28,8 +29,8 @@ class PeopleController(BaseController):
             else:
                 c.address_matches = address_matches
         if lat and lon:
-            districts = self._get_districts(lat, lon)
-            c.districts = self._do_search(districts)
+            districts = self._get_mcommons_districts(lat, lon)
+            c.districts = self._do_search(districts, lat, lon)
         return render('search_form.mako')
 
     def add_meta(self):
@@ -75,7 +76,7 @@ class PeopleController(BaseController):
         meta.Session.commit()
         redirect(request.params.get('referrer')) 
  
-    def _do_search(self, districts):
+    def _do_search(self, districts, lat, lon):
         return_districts = []
         district_q = meta.Session.query(model.Districts)
         
@@ -124,6 +125,14 @@ class PeopleController(BaseController):
                 continue
             return_districts.append(exists)
 
+        # Merge in local data.
+        point = "POINT(%f %f)" % (lon, lat)
+        local_districts = district_q.filter(
+            func.st_contains(
+                model.Districts.geometry, 
+                func.ST_GeomFromText(point, meta.storage_SRID))).all()
+        return_districts.extend(local_districts)
+
         return return_districts
         
     def _geocode_address(self, address):
@@ -136,7 +145,7 @@ class PeopleController(BaseController):
        return [(addr, (lat, lon)) for addr, (lat, lon) in address_gen]
 
 
-    def _get_districts(self, lat, lon):
+    def _get_mcommons_districts(self, lat, lon):
         """ takes a lat, lon and returns a list of elected officials
         and  any candidates running for office in districts serving
         that location """

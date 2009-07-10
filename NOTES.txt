@@ -62,14 +62,10 @@ thoughts:
 Plan
 =====
 
-* for SRID use 4326 aka
+* Use SRID = 4326 aka
   WGS84(http://en.wikipedia.org/wiki/World_Geodetic_System) 
   ... which seems to be what blockparty uses; stores things as lon/lat
   pairs so i can easily query for which district contains a lon/lat 
-
-* load the City Council shapefiles into postgis
-  - see
-  http://techmix.net/blog/2009/04/06/import-shapefiles-shp-into-postgis/
 
 * figure out sql for finding which district contains a lat,lon point:
   either the ST_Within or ST_Contains functions (they are converse of
@@ -84,4 +80,7 @@ Plan
 
 
 
+* This apparently works to find my home districts (LONGITUDE FIRST):
+
+  select * from districts where districts.geometry is not NULL and st_contains(districts.geometry, ST_GeomFromText('POINT(-73.96805047988892 40.677578720206355 )', 4326));
 
