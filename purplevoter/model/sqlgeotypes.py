@@ -22,6 +22,12 @@ class Geometry(sqlalchemy.types.TypeEngine):
         self.dimension = dimension
 
     def get_col_spec(self):
+        # FIXME: This should maybe be something like
+        # "AddGeometryColumn(table, column, %s, %r, 2)" % (self.srid,
+        # self.type) ... except we have no way to know the table and
+        # column names in this scope.
+        # By not doing that, we miss out on setting up an SRID constraint,
+        # and a dimensions constraint.
         return 'GEOMETRY'
 
     def bind_processor(self, dialect):
