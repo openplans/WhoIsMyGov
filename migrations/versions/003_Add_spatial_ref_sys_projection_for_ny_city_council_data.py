@@ -18,11 +18,24 @@ meta = MetaData(migrate_engine)
 def upgrade():
     # Upgrade operations go here. Don't create your own engine; use the engine
     # named 'migrate_engine' imported from migrate.
-    db = SqlSoup(migrate_engine)
-    db.bind.execute(sql)
-    # XXX maybe we should insert the data in the same step?
+    connection = migrate_engine.connect()
+    trans = connection.begin()
+    try:
+        connection.execute(sql)
+        trans.commit()
+    except:
+        trans.rollback()
+        raise
+
 
 def downgrade():
     # Operations to reverse the above upgrade go here.
-    db = SqlSoup(migrate_engine)
-    db.bind.execute('delete from spatial_ref_sys where srid = 9102718;')
+    connection = migrate_engine.connect()
+    trans = connection.begin()
+    try:
+        connection.execute('delete from spatial_ref_sys where srid = 9102718;')
+        trans.commit()
+    except:
+        trans.rollback()
+        raise
+    pass

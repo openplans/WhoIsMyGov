@@ -25,6 +25,7 @@ for line in sql.split('\n'):
     values = values.split(',', 4)
     assert len(values) == 4
     geom = values[-1]
+    
     state = 'NY'
     district_type = 'City Council'
     district_name = 'District %s' % values[0].strip("'")

@@ -67,19 +67,6 @@ Plan
   ... which seems to be what blockparty uses; stores things as lon/lat
   pairs so i can easily query for which district contains a lon/lat 
 
-* figure out sql for finding which district contains a lat,lon point:
-  either the ST_Within or ST_Contains functions (they are converse of
-  each other) from 
-  http://postgis.refractions.net/documentation/manual-1.3/ch06.html#id2574517
-
-* To call such functions from sqlalchemy, use the
-  sqlalchemy.sql.func namespace as per
-  http://www.sqlalchemy.org/docs/04/sqlexpression.html#sql_everythingelse_functions
-  see also for example in community almanac code:
-  communityalmanac/model/sqlgeotypes.py
-
-
-
 * This apparently works to find my home districts (LONGITUDE FIRST):
 
   select * from districts where districts.geometry is not NULL and st_contains(districts.geometry, ST_GeomFromText('POINT(-73.96805047988892 40.677578720206355 )', 4326));
