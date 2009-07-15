@@ -23,20 +23,37 @@ districts_table = sa.Table(
 class Districts(object):
     pass
 
-# Generic key-value pairs for annotating districts.
-districts_meta_table = sa.Table("districts_meta", meta.metadata,
+
+people_table = sa.Table(
+    "people", meta.metadata,
     sa.Column("id", sa.types.Integer, primary_key=True),
     sa.Column("district_id", sa.types.Integer, sa.schema.ForeignKey("districts.id")),
+    sa.Column("fullname", sa.types.String(255), nullable=False),
+    )
+
+# Generic key-value pairs for annotating people.
+people_meta_table = sa.Table("people_meta", meta.metadata,
+    sa.Column("id", sa.types.Integer, primary_key=True),
+    sa.Column("person_id", sa.types.Integer, sa.schema.ForeignKey("people.id")),
     sa.Column("meta_key", sa.types.String(255), nullable=False),
     sa.Column("meta_value", sa.types.UnicodeText, nullable=False)
     )
 
-class DistrictsMeta(object):
+class People(object):
     pass
 
-orm.mapper(Districts, districts_table, 
-           properties={'meta': orm.relation(DistrictsMeta, 
-                                            backref='district', 
+class PeopleMeta(object):
+    pass
+
+
+orm.mapper(Districts, districts_table,
+           properties={'people': orm.relation(People,
+                                              backref='district',
+                                              cascade='all, delete, delete-orphan'),})
+
+orm.mapper(People, people_table,
+           properties={'meta': orm.relation(PeopleMeta, 
+                                            backref='person', 
                                             cascade="all, delete, delete-orphan"),})
 
-orm.mapper(DistrictsMeta, districts_meta_table)
+orm.mapper(PeopleMeta, people_meta_table)

@@ -11,27 +11,49 @@ from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.sql import func
 import geopy
 import logging
+import simplejson
 
 log = logging.getLogger(__name__)
 
 class PeopleController(BaseController):
 
-    def search(self):
+    def _search(self):
+        """Find districts and people, given an address."""
         lat = lon = None
         c.search_term = request.params.get('address', '')
         if request.params.has_key('lat') and request.params.has_key('lon'):
-            lat = request.params['lat']
-            lon = request.params['lon']
+            c.lat = request.params['lat']
+            c.lon = request.params['lon']
         elif request.params.has_key('address'):
             address_matches = self._geocode_address(request.params['address'])
             if len(address_matches) == 1:
                 addr_str, (lat, lon) = address_matches[0]
-            else:
+                
+            elif len(address_matches) > 1:
+                # Let the user figure it out
                 c.address_matches = address_matches
+            else:
+                # XXX signal an error
+                return
         if lat and lon:
-            districts = self._get_mcommons_districts(lat, lon)
-            c.districts = self._do_search(districts, lat, lon)
+            c.lat, c.lon = lat, lon
+            districts = self._get_mcommons_districts()
+            c.districts = self._do_search(districts)
+    
+    def search(self):
+        self._search()
         return render('search_form.mako')
+
+    def search_json(self):
+        self._search()
+        output = []
+        for district in c.districts:
+            output.append({'district_name': district.district_name,
+                           'district_type': district.district_type,
+                           'level_name': district.level_name,
+                           'state': district.state,
+                           })
+        return simplejson.dumps(output, sort_keys=True, indent=1)
 
     def add_meta(self):
         """Add an arbitrary key/value pair to the information about
@@ -76,7 +98,7 @@ class PeopleController(BaseController):
         meta.Session.commit()
         redirect(request.params.get('referrer')) 
  
-    def _do_search(self, districts, lat, lon):
+    def _do_search(self, districts):
         return_districts = []
         district_q = meta.Session.query(model.Districts)
         
@@ -87,7 +109,7 @@ class PeopleController(BaseController):
                               filter(model.Districts.district_type=="U.S. Senate").\
                               all()
         for district in fed_district:
-            if len(district.meta) != 0:
+            if len(district.people) != 0:
                 return_districts.append(district)
 
         for level_type in districts:
@@ -126,7 +148,7 @@ class PeopleController(BaseController):
             return_districts.append(exists)
 
         # Merge in local data.
-        point = "POINT(%f %f)" % (lon, lat)
+        point = "POINT(%f %f)" % (c.lon, c.lat)
         local_districts = district_q.filter(
             func.st_contains(
                 model.Districts.geometry, 
@@ -145,13 +167,14 @@ class PeopleController(BaseController):
        return [(addr, (lat, lon)) for addr, (lat, lon) in address_gen]
 
 
-    def _get_mcommons_districts(self, lat, lon):
-        """ takes a lat, lon and returns a list of elected officials
-        and  any candidates running for office in districts serving
+    def _get_mcommons_districts(self):
+        """ takes a lat, lon from the context and returns a list of elected officials
+        and any candidates running for office in districts serving
         that location """
         # XXX This cannot handle local districts, mcommons doesn't
         # support those.
-        apiurl = 'http://congress.mcommons.com/districts/lookup.xml?lat=%s&lng=%s' % (lat, lon)
+        apiurl = 'http://congress.mcommons.com/districts/lookup.xml?lat=%s&lng=%s' % (
+            c.lat, c.lon)
 
         # First we pull out the available districts.
         root = html.parse(apiurl).getroot()

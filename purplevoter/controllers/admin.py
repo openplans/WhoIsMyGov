@@ -13,10 +13,13 @@ class AdminController(BaseController):
 
     def get_vs_districts(self):
         """Populate the district and district_meta tables with
-        saved data from the vsdata directory, merged with federal
+        saved votesmart data from the vsdata directory, merged with federal
         officials' names from the votesmart api.
 
         XXX this needs to be auth protected
+
+        XXX meant to be run only for bootstrapping really, so I'm not
+        sure why it needs a web UI.
         """
         import yaml
         from votesmart import votesmart

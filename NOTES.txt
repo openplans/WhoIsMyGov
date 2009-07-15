@@ -1,16 +1,18 @@
 OFFICES TA CARES ABOUT
 ======================
 
- * City Council
+ * City Council (by council districts)
 
-
- * DA (manhattan only; are there several?)
-
- * Controller (citywide?)
+ * Controller (citywide)
 
  * Mayor (citywide)
 
- * PUblic Advocate (citywide?)
+ * Public Advocate (citywide)
+
+ * Borough President (by borough)
+
+ * DA (manhattan only for now; by borough)
+
 
 
 
@@ -31,33 +33,6 @@ CODE NOTES
 =============
 
 
-the controller in controllers/people.py are actually centered around
-districts, because that's what the models are:
-
-
- * District
-
-   each district has an arbitrary number of key: val pairs which are
-   stored as DistrictsMeta instances (in the districts_meta table)
-
- * DistrictsMeta are in apparently arbitrary order - presumably by id
-   (and thus by order of insertion)
-
- * people are just DistrictsMeta instances, by convention with
-   "official" as the key
-
-
-
-thoughts:
-
- - I could just have "candidate" as another key convention.  but there
-   are multiple candidates per district so there'd be no way to relate
-   data to specific candidates.
-
- - really should refactor the data to have people as first-class
-   objects, and a people_meta table instead.
-   
-
 
 Plan
 =====
@@ -71,3 +46,72 @@ Plan
 
   select * from districts where districts.geometry is not NULL and st_contains(districts.geometry, ST_GeomFromText('POINT(-73.96805047988892 40.677578720206355 )', 4326));
 
+* Refactor the models as per below.
+
+
+
+NEW DATA MODEL
+======================
+
+ From a location, we look up one or more districts (they can overlap).
+ But we realy need to factor out some data from the districts.
+ For now:
+
+Stupid Simple Version aka All I Have Time For
+---------------------------------------------
+
+Assume for now that all candidates are for the September NYC
+Democratic primaries.
+
+ * A District has 0..N People.
+
+ * Person has these attributes:
+   - fullname
+   - arbitrary other key/vals  (this replaces districts_meta)
+
+
+DEFERRED: Marginally more flexible version
+------------------------------------------
+
+ * A District has 0..N Races.
+
+ * A Race has 0..N People.
+    attributes:
+   - election date
+   - type ("primary" | "general")
+
+ * Person has these attributes:
+   - party  (problem: what if more than one? should probably normalize it out...)
+
+   - candidate type ("challenger" | "incumbent" | null (not running))
+
+   - arbitrary other key/vals
+
+
+DEFERRED: Moderately complex version
+------------------------------------
+
+This would be pretty flexible... but at this point we really need to
+think about trying to re-use more of Votesmart's data, particularly
+their IDs, since they already deal with a lot of similar info.
+
+ * A District has 0..N Offices.
+
+ * An Office has 0 or 1 associated People, these are the incumbents.
+
+ * An Office has 0..2 associated Races. (2 would mean primary, general)
+
+ * A Race has 0..N associated People, these are the candidates.
+
+ * Each Race has attributes:
+   - election date
+   - type ("primary" | "general")
+
+ * Person has these attributes:
+   - party  XXX what if more than one? should probably normalize it out...
+
+   - candidate type ("challenger" | "incumbent" | null (not running))
+     ... defer that, maybe YAGNI
+
+   - arbitrary other key/vals
+   
