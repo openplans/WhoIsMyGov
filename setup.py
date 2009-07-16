@@ -20,6 +20,7 @@ setup(
         "pyproj",
         "python-votesmart",
         "shapely",
+        "simplejson",
         "geopy",
         "lxml",
     ],
