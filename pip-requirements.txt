@@ -18,7 +18,6 @@ decorator==3.0.1
 -e svn+http://geopy.googlecode.com/svn/trunk@75#egg=geopy-0.93dev_r75-py2.5-dev
 lxml==2.2.2
 nose==0.11.1
--e hg+https://bitbucket.org/anil/purplevoter/@tip#egg=purplevoter-tip
+-e hg+https://bitbucket.org/slinkp/purplevoter/@tip#egg=purplevoter-tip
 python-votesmart==0.2.1
 simplejson==2.0.9
-wsgiref==0.1.2

@@ -69,6 +69,9 @@ Democratic primaries.
    - fullname
    - arbitrary other key/vals  (this replaces districts_meta)
 
+ Office, party affiliation, candidate/incumbent status, etc. can all
+ be modeled by some conventions in the key/val pairs.
+
 
 DEFERRED: Marginally more flexible version
 ------------------------------------------
