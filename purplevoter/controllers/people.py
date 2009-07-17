@@ -3,15 +3,16 @@ from purplevoter import model
 from purplevoter.lib.base import BaseController, render
 from purplevoter.model import meta
 from pylons import config
-from pylons import request
+from pylons import request, response
 from pylons import tmpl_context as c
 from pylons.controllers.util import abort, redirect_to, redirect
 from pylons.decorators.rest import dispatch_on
+from pylons.decorators import jsonify
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.sql import func
 import geopy
 import logging
-import simplejson
+import simplejson as json
 
 log = logging.getLogger(__name__)
 
@@ -44,16 +45,28 @@ class PeopleController(BaseController):
         self._search()
         return render('search_form.mako')
 
+
+    # could use @jsonify but i like more control of the output.
+    
     def search_json(self):
         self._search()
         output = []
         for district in c.districts:
+            people = []
+            for p in district.people:
+                person_info = {'fullname': p.fullname}
+                for m in p.meta:
+                    person_info[m.meta_key] = m.meta_value
+                people.append(person_info)
+
             output.append({'district_name': district.district_name,
                            'district_type': district.district_type,
                            'level_name': district.level_name,
                            'state': district.state,
+                           'people': people,
                            })
-        return simplejson.dumps(output, sort_keys=True, indent=1)
+        response.headers['Content-Type'] = 'application/json'
+        return json.dumps(output, sort_keys=True, indent=1)
 
     def add_meta(self):
         """Add an arbitrary key/value pair to the information about

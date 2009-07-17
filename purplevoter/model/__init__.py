@@ -43,7 +43,10 @@ class People(object):
     pass
 
 class PeopleMeta(object):
-    pass
+    def __init__(self, key=None, val=None):
+        if key is not None:
+            self.meta_key = key
+            self.meta_value = val
 
 
 orm.mapper(Districts, districts_table,
