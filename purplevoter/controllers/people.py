@@ -1,4 +1,3 @@
-from lxml import html
 from purplevoter import model
 from purplevoter.lib.base import BaseController, render
 from purplevoter.model import meta
@@ -7,12 +6,12 @@ from pylons import request, response
 from pylons import tmpl_context as c
 from pylons.controllers.util import abort, redirect_to, redirect
 from pylons.decorators.rest import dispatch_on
-from pylons.decorators import jsonify
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.sql import func
 import geopy
 import logging
 import simplejson as json
+import urllib2
 
 log = logging.getLogger(__name__)
 
@@ -161,7 +160,7 @@ class PeopleController(BaseController):
             return_districts.append(exists)
 
         # Merge in local data.
-        point = "POINT(%f %f)" % (c.lon, c.lat)
+        point = "POINT(%.20f %.20f)" % (c.lon, c.lat)
         local_districts = district_q.filter(
             func.st_contains(
                 model.Districts.geometry, 
@@ -179,28 +178,25 @@ class PeopleController(BaseController):
        address_gen = geocoder.geocode(address, exactly_one=False)
        return [(addr, (lat, lon)) for addr, (lat, lon) in address_gen]
 
-
     def _get_mcommons_districts(self):
-        """ takes a lat, lon from the context and returns a list of elected officials
-        and any candidates running for office in districts serving
-        that location """
+        """ takes a lat, lon from the context and returns a data
+        structure representing legislative districts (and any other
+        info mcommons has about those districts?)
+        """
         # XXX This cannot handle local districts, mcommons doesn't
         # support those.
-        apiurl = 'http://congress.mcommons.com/districts/lookup.xml?lat=%s&lng=%s' % (
-            c.lat, c.lon)
+        apiurl = 'http://congress.mcommons.com/districts/lookup.json?lat=%s&lng=%s' % (c.lat, c.lon)
 
         # First we pull out the available districts.
-        root = html.parse(apiurl).getroot()
+        districts = json.loads(urllib2.urlopen(apiurl).read())
 
-        error = root.cssselect('error')
-        if error:
-            raise Exception(error[0].text)
+        # Clean up keys we don't need
+        for key in 'lat', 'lng':
+            try:
+                del districts[key]
+            except KeyError:
+                pass
 
-        districts = {}
-
-        for distr_node in root.cssselect('federal, state_upper, state_lower'):
-            districts[distr_node.tag] = {}
-            for y in distr_node.cssselect('%s *'% distr_node.tag):
-                districts[distr_node.tag][y.tag] = y.text
-
+        assert districts, "Got no districts?"
         return districts
+
