@@ -236,5 +236,3 @@ class PeopleController(BaseController):
         meta.Session.delete(district_meta)
         meta.Session.commit()
         redirect(request.params.get('referrer')) 
-
-

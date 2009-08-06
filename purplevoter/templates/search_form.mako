@@ -32,23 +32,8 @@
       <dd>${district.district_name}</dd>
       % for person in district.people:
           <dt><strong>Name</strong></dt>
-          <dd>${person.fullname} (<a href="${h.url_for(controller="people", action="update_meta", meta_id=person.id)}" >edit</a>, <a href="${h.url_for(controller="people", action="delete_meta", meta_id=person.id)}">delete</a>)</dd>
+          <dd>${person.fullname}</dd>
       % endfor
    </dl>
-   <h3>Add more information</h3>
-   <form method="POST" action="/add_meta">
-     <div class="selfclear">
-       <label for="meta_key">Key</label>
-       <input name="meta_key" type="text"/>
-     </div>
-     <div class="selfclear">
-       <label for="meta_value">Value</label>
-       <input name="meta_value" type="text"/>
-     </div>
-     <input name="district_id" type="hidden" value="${district.id}" />
-       <div class="selfclear">
-       <input class="indented-submit" type="submit" value="Submit" />
-     </div>
-  </form>
 % endfor
 </div>
