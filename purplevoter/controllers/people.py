@@ -17,34 +17,6 @@ log = logging.getLogger(__name__)
 
 class PeopleController(BaseController):
 
-    def _search(self):
-        """Find districts and people, given an address."""
-        lat = lon = None
-        c.search_term = request.params.get('address', '')
-        if request.params.has_key('lat') and request.params.has_key('lon'):
-            c.lat = request.params['lat']
-            c.lon = request.params['lon']
-        elif request.params.has_key('address'):
-            address_matches = self._geocode_address(request.params['address'])
-            if len(address_matches) == 1:
-                addr_str, (lat, lon) = address_matches[0]
-                
-            elif len(address_matches) > 1:
-                # Let the user figure it out
-                c.address_matches = address_matches
-            else:
-                # XXX signal an error
-                return
-        if lat and lon:
-            c.lat, c.lon = lat, lon
-            # We need the mcommons district lookup no matter which
-            # levels we care about, because that's how we find out
-            # what state we're in.  (Geocoding doesn't tell us.)
-            districts = self._get_mcommons_districts()
-            all_levels = ('federal', 'state', 'city')
-            level_names = request.params.getall('level_name') or all_levels
-            c.districts = self._do_search(districts, level_names)
-    
     def search(self):
         """public HTML search page"""
         self._search()
@@ -76,70 +48,46 @@ class PeopleController(BaseController):
         response.headers['Content-Type'] = 'application/json'
         return json.dumps(output, sort_keys=True, indent=1)
 
-    def add_meta(self):
-        """Add an arbitrary key/value pair to the information about
-        a district."""
-        if request.method not in ('POST', 'PUT'):
-            abort(405)
-            #XXX add header information about allowed methods
-        districts_q = meta.Session.query(model.Districts)
-        try:
-            district = districts_q.filter(model.Districts.id == request.params.get('district_id')).one()
-            district_meta = model.DistrictsMeta()
-            district_meta.meta_key = request.params.get('meta_key')
-            district_meta.meta_value = request.params.get('meta_value')
-            district.meta.append(district_meta)
-            meta.Session.commit()
-            redirect_to(request.referrer)
-        except (KeyError, NoResultFound):
-            abort(400)
 
-    @dispatch_on(POST="_do_update_meta")
-    def update_meta(self, meta_id):
-        c.district_meta = meta.Session.query(model.DistrictsMeta).filter(model.DistrictsMeta.id == meta_id).one()
-        c.referrer = request.referrer
-        return render('/edit_meta.mako') 
-   
-    def _do_update_meta(self, meta_id):
-        district_meta = meta.Session.query(model.DistrictsMeta).filter(model.DistrictsMeta.id == meta_id).one()
-        district_meta.meta_key = request.params.get('key')
-        district_meta.meta_value = request.params.get('value')
-        meta.Session.commit()
-        redirect(request.params.get('referrer')) 
+    def _search(self):
+        """Find districts and people, given an address."""
+        lat = lon = None
+        c.search_term = request.params.get('address', '')
+        if request.params.has_key('lat') and request.params.has_key('lon'):
+            c.lat = request.params['lat']
+            c.lon = request.params['lon']
+        elif request.params.has_key('address'):
+            address_matches = self._geocode_address(request.params['address'])
+            if len(address_matches) == 1:
+                addr_str, (lat, lon) = address_matches[0]
+                
+            elif len(address_matches) > 1:
+                # Let the user figure it out
+                c.address_matches = address_matches
+            else:
+                # XXX signal an error
+                return
+        if lat and lon:
+            c.lat, c.lon = lat, lon
+            # We need the mcommons district lookup no matter which
+            # levels we care about, because that's how we find out
+            # what state we're in.  (Geocoding doesn't tell us.)
+            districts = self._get_mcommons_districts()
+            all_levels = ('federal', 'state', 'city')
+            level_names = request.params.getall('level_name') or all_levels
+            c.districts = self._do_search(districts, level_names)
+    
 
-    @dispatch_on(POST="_do_delete_meta")
-    def delete_meta(self, meta_id):
-        c.district_meta = meta.Session.query(model.DistrictsMeta).filter(model.DistrictsMeta.id == meta_id).one()
-        c.referrer = request.referrer
-        return render('/delete_meta.mako') 
-
-    def _do_delete_meta(self, meta_id):
-        district_meta = meta.Session.query(model.DistrictsMeta).filter(model.DistrictsMeta.id == meta_id).one()
-        meta.Session.delete(district_meta)
-        meta.Session.commit()
-        redirect(request.params.get('referrer')) 
+    def _geocode_address(self, address):
+       """ convert an address string into a list of (addr_str, (lat,lon))
+       tuples """
+       # move
+       google_api_key = config['google_api_key']
+       geocoder = geopy.geocoders.Google(api_key=google_api_key)
+       address_gen = geocoder.geocode(address, exactly_one=False)
+       return [(addr, (lat, lon)) for addr, (lat, lon) in address_gen]
 
 
-    def _get_us_senator_districts(self, state):
-        district_q = meta.Session.query(model.Districts)
-        fed_districts = district_q.filter(model.Districts.state==state).\
-                              filter(model.Districts.level_name=="Federal").\
-                              filter(model.Districts.district_type=="U.S. Senate").\
-                              all()
-        return fed_districts
-
-    def _get_district_for_state(self, state, district_name, district_type):
-        district_q = meta.Session.query(model.Districts)
-        district_q = district_q.filter(model.Districts.state==state)
-        district_q = district_q.filter(model.Districts.district_name==district_name)
-        district_q = district_q.filter(model.Districts.district_type==district_type)
-        try:
-            result = district_q.one()
-            return result
-        except NoResultFound:
-            return None
-        
- 
     def _do_search(self, districts, level_names):
         return_districts = []
 
@@ -198,15 +146,6 @@ class PeopleController(BaseController):
         return_districts = [d for d in return_districts if len(d.people) != 0]
         return return_districts
         
-    def _geocode_address(self, address):
-       """ convert an address string into a list of (addr_str, (lat,lon))
-       tuples """
-       # move
-       google_api_key = config['google_api_key']
-       geocoder = geopy.geocoders.Google(api_key=google_api_key)
-       address_gen = geocoder.geocode(address, exactly_one=False)
-       return [(addr, (lat, lon)) for addr, (lat, lon) in address_gen]
-
     def _get_mcommons_districts(self):
         """ takes a lat, lon from the context and returns a data
         structure representing legislative districts (and any other
@@ -228,4 +167,74 @@ class PeopleController(BaseController):
 
         assert districts, "Got no districts?"
         return districts
+
+
+    def _get_us_senator_districts(self, state):
+        district_q = meta.Session.query(model.Districts)
+        fed_districts = district_q.filter(model.Districts.state==state).\
+                              filter(model.Districts.level_name=="Federal").\
+                              filter(model.Districts.district_type=="U.S. Senate").\
+                              all()
+        return fed_districts
+
+    def _get_district_for_state(self, state, district_name, district_type):
+        district_q = meta.Session.query(model.Districts)
+        district_q = district_q.filter(model.Districts.state==state)
+        district_q = district_q.filter(model.Districts.district_name==district_name)
+        district_q = district_q.filter(model.Districts.district_type==district_type)
+        try:
+            result = district_q.one()
+            return result
+        except NoResultFound:
+            return None
+        
+ 
+
+    ################################################################################
+    # Metadata UI handlers
+    ################################################################################
+
+    def add_meta(self):
+        """Add an arbitrary key/value pair to the information about
+        a district."""
+        if request.method not in ('POST', 'PUT'):
+            abort(405)
+            #XXX add header information about allowed methods
+        districts_q = meta.Session.query(model.Districts)
+        try:
+            district = districts_q.filter(model.Districts.id == request.params.get('district_id')).one()
+            district_meta = model.DistrictsMeta()
+            district_meta.meta_key = request.params.get('meta_key')
+            district_meta.meta_value = request.params.get('meta_value')
+            district.meta.append(district_meta)
+            meta.Session.commit()
+            redirect_to(request.referrer)
+        except (KeyError, NoResultFound):
+            abort(400)
+
+    @dispatch_on(POST="_do_update_meta")
+    def update_meta(self, meta_id):
+        c.district_meta = meta.Session.query(model.DistrictsMeta).filter(model.DistrictsMeta.id == meta_id).one()
+        c.referrer = request.referrer
+        return render('/edit_meta.mako') 
+   
+    def _do_update_meta(self, meta_id):
+        district_meta = meta.Session.query(model.DistrictsMeta).filter(model.DistrictsMeta.id == meta_id).one()
+        district_meta.meta_key = request.params.get('key')
+        district_meta.meta_value = request.params.get('value')
+        meta.Session.commit()
+        redirect(request.params.get('referrer')) 
+
+    @dispatch_on(POST="_do_delete_meta")
+    def delete_meta(self, meta_id):
+        c.district_meta = meta.Session.query(model.DistrictsMeta).filter(model.DistrictsMeta.id == meta_id).one()
+        c.referrer = request.referrer
+        return render('/delete_meta.mako') 
+
+    def _do_delete_meta(self, meta_id):
+        district_meta = meta.Session.query(model.DistrictsMeta).filter(model.DistrictsMeta.id == meta_id).one()
+        meta.Session.delete(district_meta)
+        meta.Session.commit()
+        redirect(request.params.get('referrer')) 
+
 
