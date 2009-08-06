@@ -37,10 +37,16 @@ class PeopleController(BaseController):
                 return
         if lat and lon:
             c.lat, c.lon = lat, lon
+            # We need the mcommons district lookup no matter which
+            # levels we care about, because that's how we find out
+            # what state we're in.  (Geocoding doesn't tell us.)
             districts = self._get_mcommons_districts()
-            c.districts = self._do_search(districts)
+            all_levels = ('federal', 'state', 'city')
+            level_names = request.params.getall('level_name') or all_levels
+            c.districts = self._do_search(districts, level_names)
     
     def search(self):
+        """public HTML search page"""
         self._search()
         return render('search_form.mako')
 
@@ -48,6 +54,9 @@ class PeopleController(BaseController):
     # could use @jsonify but i like more control of the output.
     
     def search_json(self):
+        """pseudo-REST public search service.
+        (pseudo because there's no hypermedia here.)
+        """
         self._search()
         output = []
         for district in c.districts:
@@ -109,20 +118,40 @@ class PeopleController(BaseController):
         meta.Session.delete(district_meta)
         meta.Session.commit()
         redirect(request.params.get('referrer')) 
- 
-    def _do_search(self, districts):
-        return_districts = []
+
+
+    def _get_us_senator_districts(self, state):
         district_q = meta.Session.query(model.Districts)
-        
-        #mcommons doesn't return 'federal_upper', so first manually add this
-        state = districts[districts.keys()[0]]['state']
-        fed_district = district_q.filter(model.Districts.state==state).\
+        fed_districts = district_q.filter(model.Districts.state==state).\
                               filter(model.Districts.level_name=="Federal").\
                               filter(model.Districts.district_type=="U.S. Senate").\
                               all()
-        for district in fed_district:
-            if len(district.people) != 0:
-                return_districts.append(district)
+        return fed_districts
+
+    def _get_district_for_state(self, state, district_name, district_type):
+        district_q = meta.Session.query(model.Districts)
+        district_q = district_q.filter(model.Districts.state==state)
+        district_q = district_q.filter(model.Districts.district_name==district_name)
+        district_q = district_q.filter(model.Districts.district_type==district_type)
+        try:
+            result = district_q.one()
+            return result
+        except NoResultFound:
+            return None
+        
+ 
+    def _do_search(self, districts, level_names):
+        return_districts = []
+
+        if not districts:
+            return return_districts
+
+        #mcommons doesn't return 'federal_upper', so first manually add this
+
+        state = districts[districts.keys()[0]]['state']
+
+        if 'federal' in level_names:
+            return_districts.extend(self._get_us_senator_districts(state))
 
         for level_type in districts:
 
@@ -135,7 +164,6 @@ class PeopleController(BaseController):
                 district_name = "District " + str(int(districts[level_type]['district']))
             except ValueError:
                 district_name = "District " + districts[level_type]['district']
-               
 
             level_name = ""
             #name of level
@@ -149,24 +177,25 @@ class PeopleController(BaseController):
                 level_name = "State"
                 district_type = "State Assembly"
 
-
-            try: 
-                exists = district_q.filter(model.Districts.state == state)\
-            	                    .filter(model.Districts.district_name == district_name)\
-            	                    .filter(model.Districts.district_type == district_type)\
-            	                    .one()
-            except NoResultFound:
+            if level_name.lower() not in level_names:
                 continue
-            return_districts.append(exists)
+
+            dstr = self._get_district_for_state(state, district_name, district_type)
+            if not dstr:
+                continue
+            return_districts.append(dstr)
 
         # Merge in local data.
-        point = "POINT(%.20f %.20f)" % (c.lon, c.lat)
-        local_districts = district_q.filter(
-            func.st_contains(
-                model.Districts.geometry, 
-                func.ST_GeomFromText(point, meta.storage_SRID))).all()
-        return_districts.extend(local_districts)
+        if 'city' in level_names:
+            point = "POINT(%.20f %.20f)" % (c.lon, c.lat)
+            district_q = meta.Session.query(model.Districts)
+            local_districts = district_q.filter(
+                func.st_contains(
+                    model.Districts.geometry, 
+                    func.ST_GeomFromText(point, meta.storage_SRID))).all()
+            return_districts.extend(local_districts)
 
+        return_districts = [d for d in return_districts if len(d.people) != 0]
         return return_districts
         
     def _geocode_address(self, address):
