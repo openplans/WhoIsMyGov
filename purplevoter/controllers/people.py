@@ -20,7 +20,9 @@ class PeopleController(BaseController):
     def search(self):
         """public HTML search page"""
         self._search()
-        return render('search_form.mako')
+        import pdb; pdb.set_trace()
+        s = render('search_form.mako')
+        return s
 
 
     # could use @jsonify but i like more control of the output.
@@ -128,9 +130,15 @@ class PeopleController(BaseController):
             if level_name.lower() not in level_names:
                 continue
 
+            import pdb; pdb.set_trace()
             dstr = self._get_district_for_state(state, district_name, district_type)
             if not dstr:
                 continue
+
+            for person in dstr.people:
+                print person.fullname
+
+
             return_districts.append(dstr)
 
         # Merge in local data.
@@ -197,6 +205,8 @@ class PeopleController(BaseController):
     def add_meta(self):
         """Add an arbitrary key/value pair to the information about
         a district."""
+        abort(403)  # Disabling this until we have a plan for auth & moderation.
+
         if request.method not in ('POST', 'PUT'):
             abort(405)
             #XXX add header information about allowed methods
@@ -214,6 +224,8 @@ class PeopleController(BaseController):
 
     @dispatch_on(POST="_do_update_meta")
     def update_meta(self, meta_id):
+        abort(403)  # Disabling this until we have a plan for auth & moderation.
+
         c.district_meta = meta.Session.query(model.DistrictsMeta).filter(model.DistrictsMeta.id == meta_id).one()
         c.referrer = request.referrer
         return render('/edit_meta.mako') 
@@ -227,6 +239,8 @@ class PeopleController(BaseController):
 
     @dispatch_on(POST="_do_delete_meta")
     def delete_meta(self, meta_id):
+        abort(403)  # Disabling this until we have a plan for auth & moderation.
+
         c.district_meta = meta.Session.query(model.DistrictsMeta).filter(model.DistrictsMeta.id == meta_id).one()
         c.referrer = request.referrer
         return render('/delete_meta.mako') 
