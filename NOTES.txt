@@ -118,3 +118,13 @@ their IDs, since they already deal with a lot of similar info.
 
    - arbitrary other key/vals
    
+
+
+
+
+Votesmart usage examples:
+-----------------------------
+
+nyc_id = 898
+nyc_officials = votesmart.local.getOfficials(nyc_id)
+pprint([(c.lastName, c.title, c.officeParties) for c in nyc_officials])
