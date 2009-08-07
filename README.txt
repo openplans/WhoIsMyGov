@@ -10,34 +10,40 @@ Install ``purplevoter`` using easy_install::
 
     easy_install purplevoter
 
-Tweak the development.ini config file as appropriate and then setup the
-application::
+Then you are almost ready to go, except you need some data.
 
-    paster setup-app development.ini
 
-Then you are ready to go, except you need some data.
+Database Bootstrapping
+======================
 
-Data Bootstrapping
-=================
+First tweak the development.ini config file as appropriate and then
+setup the application.
 
-You should be able to bootstrap the database by doing:
+To set up the database:
+
+First create a postgres user named pvoter. Then:
+
+$ createdb -T template_postgis -O pvoter -E utf8 pvoter
+$ psql -c "alter table geometry_columns owner to pvoter;" pvoter
+$ psql -c "alter table spatial_ref_sys owner to pvoter;" pvoter
+
+Then to populate the data:
 
 $ source bin/activate
+$ paster setup-app development.ini
+$ python manage.py version_control
 $ python manage.py upgrade
 
-You may need to initialize the 'pvoter' database first, I forget the exact
-postgres commands for doing it right, sorry.  You'll probably also need to
-grant all rights in that database to 'pvoter'.  Most of the problems I had were
-due to insufficient privileges on that user.
 
 Data Migrations
 ===============
 
-When adding new data, 
-You'll want to look up the docs for SQLAlchemy-migrate.  If you need to add to
-the database, the nice thing to do is add a script to migrations/ by
-using the manage script as per those docs.  You can steal ideas how to get
-things done by looking at existing scripts. Maybe bad ideas, but they've worked
-so far ;-)
+When adding new data, or modifying existing data, you should provide
+migrations so your changes can be reproduced.
+
+You'll want to look up the docs for SQLAlchemy-migrate and learn how
+to use the manage.py script and write migrations. You can steal ideas
+for migrations by looking at existing scripts. Maybe bad ideas, but
+they've worked so far ;-)
 
 
