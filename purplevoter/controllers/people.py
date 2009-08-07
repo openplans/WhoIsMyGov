@@ -69,7 +69,7 @@ class PeopleController(BaseController):
                 # XXX signal an error
                 return
         if lat and lon:
-            c.lat, c.lon = lat, lon
+            c.lat, c.lon = float(lat), float(lon)
         # We need the mcommons district lookup no matter which
         # levels we care about, because that's how we find out
         # what state we're in.  (Geocoding doesn't tell us.)
