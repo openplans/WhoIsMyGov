@@ -55,28 +55,28 @@ class PeopleController(BaseController):
         lat = lon = None
         c.search_term = request.params.get('address', '')
         if request.params.has_key('lat') and request.params.has_key('lon'):
-            c.lat = request.params['lat']
-            c.lon = request.params['lon']
+            lat = request.params['lat']
+            lon = request.params['lon']
         elif request.params.has_key('address'):
             address_matches = self._geocode_address(request.params['address'])
             if len(address_matches) == 1:
                 addr_str, (lat, lon) = address_matches[0]
-                
             elif len(address_matches) > 1:
                 # Let the user figure it out
                 c.address_matches = address_matches
+                return
             else:
                 # XXX signal an error
                 return
         if lat and lon:
             c.lat, c.lon = lat, lon
-            # We need the mcommons district lookup no matter which
-            # levels we care about, because that's how we find out
-            # what state we're in.  (Geocoding doesn't tell us.)
-            districts = self._get_mcommons_districts()
-            all_levels = ('federal', 'state', 'city')
-            level_names = request.params.getall('level_name') or all_levels
-            c.districts = self._do_search(districts, level_names)
+        # We need the mcommons district lookup no matter which
+        # levels we care about, because that's how we find out
+        # what state we're in.  (Geocoding doesn't tell us.)
+        districts = self._get_mcommons_districts()
+        all_levels = ('federal', 'state', 'city')
+        level_names = request.params.getall('level_name') or all_levels
+        c.districts = self._do_search(districts, level_names)
     
 
     def _geocode_address(self, address):
