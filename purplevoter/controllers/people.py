@@ -20,7 +20,6 @@ class PeopleController(BaseController):
     def search(self):
         """public HTML search page"""
         self._search()
-        import pdb; pdb.set_trace()
         s = render('search_form.mako')
         return s
 
@@ -130,7 +129,6 @@ class PeopleController(BaseController):
             if level_name.lower() not in level_names:
                 continue
 
-            import pdb; pdb.set_trace()
             dstr = self._get_district_for_state(state, district_name, district_type)
             if not dstr:
                 continue
