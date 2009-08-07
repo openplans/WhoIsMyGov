@@ -14,7 +14,7 @@ def upgrade():
             print "couldn't fix %s, skipping" % fullname
             continue
         if fullname != p.fullname:
-            print u"Fixed", fullname
+            print "Fixed", fullname.encode('utf8')
             p.fullname = fullname
     meta.Session.commit()
 
