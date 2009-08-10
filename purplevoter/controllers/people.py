@@ -53,6 +53,7 @@ class PeopleController(BaseController):
     def _search(self):
         """Find districts and people, given an address."""
         lat = lon = None
+
         c.search_term = request.params.get('address', '')
         if request.params.has_key('lat') and request.params.has_key('lon'):
             lat = request.params['lat']
@@ -149,7 +150,7 @@ class PeopleController(BaseController):
                     func.ST_GeomFromText(point, meta.storage_SRID))).all()
             return_districts.extend(local_districts)
 
-        return_districts = [d for d in return_districts if len(d.people) != 0]
+        #return_districts = [d for d in return_districts if len(d.people) != 0]
         return return_districts
         
     def _get_mcommons_districts(self):

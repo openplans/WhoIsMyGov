@@ -60,7 +60,7 @@ NEW DATA MODEL
 Stupid Simple Version aka All I Have Time For
 ---------------------------------------------
 
-Assume for now that all candidates are for the September NYC
+Assume for now that all candidates are for the September 2009 NYC
 Democratic primaries.
 
  * A District has 0..N People.
@@ -128,3 +128,13 @@ Votesmart usage examples:
 nyc_id = 898
 nyc_officials = votesmart.local.getOfficials(nyc_id)
 pprint([(c.lastName, c.title, c.officeParties) for c in nyc_officials])
+
+
+
+TO DO 8/9/09:
+-------------
+
+* district.district_type is no good as office name, b/c some districts
+  are used for multiple offices (eg. boroughs).  Write a migration to
+  copy district_type to people_meta.office where district_type =
+  'City Council'.
