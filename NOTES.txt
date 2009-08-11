@@ -60,6 +60,8 @@ NEW DATA MODEL
 Stupid Simple Version aka All I Have Time For
 ---------------------------------------------
 
+Done in changeset 5fb88a64863.
+
 Assume for now that all candidates are for the September 2009 NYC
 Democratic primaries.
 
