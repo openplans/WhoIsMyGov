@@ -6,4 +6,6 @@ syntax: glob
 *~
 *.cache
 *.lock
+*orig
+*\#
 pip-log.txt
