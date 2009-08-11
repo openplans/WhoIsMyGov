@@ -26,14 +26,17 @@
 % endif
 
 % for district in c.districts:
-   <h2>${district.level_name}: ${district.district_type}</h2>
-   <dl id="district-meta">
-      <dt><strong>District Name</strong></dt>
-      <dd>${district.district_name}</dd>
-      % for person in district.people:
-          <dt><strong>Name</strong></dt>
-          <dd>${person.fullname}</dd>
-      % endfor
+   <dl>
+   % for person in district.people:
+     <dt class="district">${district.level_name}: ${person.office}: ${district.district_name}</dt>
+     <dd class="fullname">
+        <div class="fullname">Name: <strong>${person.fullname}</strong></div>
+         % for meta in person.meta:
+          <div class="meta">${meta.meta_key}: ${meta.meta_value}</div>
+         % endfor
+     </dd>
+   % endfor
    </dl>
+
 % endfor
 </div>

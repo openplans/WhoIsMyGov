@@ -375,7 +375,11 @@ color:#660002;
  padding-top: 3em;
 }
 
-#district-meta {
-  padding-bottom: 2em;
+
+dt.district {
+  font-weight: bold;
+  font-size: 110%;
+
 }
+
 /* End - Targeted Styles */
