@@ -8,6 +8,7 @@ from pylons.controllers.util import abort, redirect_to, redirect
 from pylons.decorators.rest import dispatch_on
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.sql import func
+from sqlalchemy import and_
 import geopy
 import logging
 import simplejson as json
@@ -35,7 +36,7 @@ class PeopleController(BaseController):
         for district in c.districts:
             people = []
             for p in district.people:
-                person_info = {'fullname': p.fullname}
+                person_info = {'fullname': p.fullname, 'office': p.office}
                 for m in p.meta:
                     person_info[m.meta_key] = m.meta_value
                 people.append(person_info)
@@ -55,6 +56,7 @@ class PeopleController(BaseController):
         lat = lon = None
 
         c.search_term = request.params.get('address', '')
+        c.status = request.params.getall('status')
         if request.params.has_key('lat') and request.params.has_key('lon'):
             lat = request.params['lat']
             lon = request.params['lon']
@@ -134,23 +136,21 @@ class PeopleController(BaseController):
             if not dstr:
                 continue
 
-            for person in dstr.people:
-                print person.fullname
-
-
             return_districts.append(dstr)
 
         # Merge in local data.
         if 'city' in level_names:
             point = "POINT(%.20f %.20f)" % (c.lon, c.lat)
             district_q = meta.Session.query(model.Districts)
-            local_districts = district_q.filter(
+            district_q = district_q.filter(
                 func.st_contains(
                     model.Districts.geometry, 
-                    func.ST_GeomFromText(point, meta.storage_SRID))).all()
+                    func.ST_GeomFromText(point, meta.storage_SRID)))
+            district_q = self._filter_people_by_status(district_q)
+            local_districts = district_q.all()
             return_districts.extend(local_districts)
 
-        #return_districts = [d for d in return_districts if len(d.people) != 0]
+        return_districts = [d for d in return_districts if len(d.people) != 0]
         return return_districts
         
     def _get_mcommons_districts(self):
@@ -176,12 +176,23 @@ class PeopleController(BaseController):
         return districts
 
 
+    @staticmethod
+    def _filter_people_by_status(query):
+        if not c.status:
+            return query
+        query = query.join(model.People, model.PeopleMeta).filter(and_(
+                model.PeopleMeta.meta_key.in_(c.status),
+                model.PeopleMeta.meta_value=='true'))
+        return query
+
+
     def _get_us_senator_districts(self, state):
         district_q = meta.Session.query(model.Districts)
-        fed_districts = district_q.filter(model.Districts.state==state).\
-                              filter(model.Districts.level_name=="Federal").\
-                              filter(model.Districts.district_type=="U.S. Senate").\
-                              all()
+        district_q = district_q.filter(model.Districts.state==state).\
+            filter(model.Districts.level_name=="Federal").\
+            filter(model.Districts.district_type=="U.S. Senate")
+        district_q = self._filter_people_by_status(district_q)
+        fed_districts = district_q.all()
         return fed_districts
 
     def _get_district_for_state(self, state, district_name, district_type):
@@ -189,6 +200,7 @@ class PeopleController(BaseController):
         district_q = district_q.filter(model.Districts.state==state)
         district_q = district_q.filter(model.Districts.district_name==district_name)
         district_q = district_q.filter(model.Districts.district_type==district_type)
+        district_q = self._filter_people_by_status(district_q)
         try:
             result = district_q.one()
             return result

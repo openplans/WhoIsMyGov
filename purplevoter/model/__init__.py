@@ -14,6 +14,10 @@ districts_table = sa.Table(
     "districts", meta.metadata,
     sa.Column("id", sa.types.Integer, primary_key=True),
     sa.Column("state", sa.types.String(255), nullable=False),
+    
+    # district_type is often the same as contained people's 'office',
+    # except in the case of districts like 'Brooklyn' or 'New York
+    # City' that contain multiple offices.
     sa.Column("district_type", sa.types.String(255), nullable=False),
     sa.Column("level_name", sa.types.String(255), nullable=False),
     sa.Column("district_name", sa.types.String(255), nullable=False),
@@ -29,6 +33,7 @@ people_table = sa.Table(
     sa.Column("id", sa.types.Integer, primary_key=True),
     sa.Column("district_id", sa.types.Integer, sa.schema.ForeignKey("districts.id")),
     sa.Column("fullname", sa.types.String(255), nullable=False),
+    sa.Column("office", sa.types.String(255), nullable=True),
     )
 
 # Generic key-value pairs for annotating people.
@@ -49,10 +54,11 @@ class PeopleMeta(object):
             self.meta_value = val
 
 
+# Don't use cascade here, I think that we don't want people to be
+# deleted even if their district is deleted. Not sure.
 orm.mapper(Districts, districts_table,
            properties={'people': orm.relation(People,
-                                              backref='district',
-                                              cascade='all, delete, delete-orphan'),})
+                                              backref='district',)})
 
 orm.mapper(People, people_table,
            properties={'meta': orm.relation(PeopleMeta, 
