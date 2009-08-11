@@ -1,3 +1,4 @@
+from paste.deploy.converters import asbool
 from purplevoter import model
 from purplevoter.lib.base import BaseController, render
 from purplevoter.model import meta
@@ -150,7 +151,9 @@ class PeopleController(BaseController):
             local_districts = district_q.all()
             return_districts.extend(local_districts)
 
-        return_districts = [d for d in return_districts if len(d.people) != 0]
+
+        if not asbool(request.params.get('show_empty', 1)):
+            return_districts = [d for d in return_districts if len(d.people) != 0]
         return return_districts
         
     def _get_mcommons_districts(self):

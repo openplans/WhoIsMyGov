@@ -376,10 +376,12 @@ color:#660002;
 }
 
 
-dt.district {
-  font-weight: bold;
-  font-size: 110%;
-
+dl.district {
+  padding-bottom: 1em;
 }
 
+dl.district dt {
+  font-weight: bold;
+  font-size: 120%;
+}
 /* End - Targeted Styles */

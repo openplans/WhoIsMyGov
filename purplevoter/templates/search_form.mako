@@ -26,10 +26,16 @@
 % endif
 
 % for district in c.districts:
-   <dl>
+   % if not district.people:
+   <dl class="district">
+     <dt>${district.level_name}: ${district.district_name}</dt>
+     <dd>No information found</dd>
+   </dl>
+   % endif
+   <dl class="district">
    % for person in district.people:
-     <dt class="district">${district.level_name}: ${person.office}: ${district.district_name}</dt>
-     <dd class="fullname">
+     <dt>${district.level_name}: ${person.office}: ${district.district_name}</dt>
+     <dd>
         <div class="fullname">Name: <strong>${person.fullname}</strong></div>
          % for meta in person.meta:
           <div class="meta">${meta.meta_key}: ${meta.meta_value}</div>
