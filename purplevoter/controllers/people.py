@@ -85,9 +85,12 @@ class PeopleController(BaseController):
         all_levels = ('federal', 'state', 'city')
         level_names = request.params.getall('level_name') or all_levels
 
-        races = self._do_search(districts, level_names)
-        # XXX actually want to group by districts. Rework _do_search to do that.
-        c.districts = [r.district for r in races]
+        races = self._search_races(districts, level_names)
+        # XXX actually want to group by districts. Rework _search_races to do that.
+        districts = set([r.district for r in races])
+        sortkey = lambda d: (d.district_name, d.district_type)
+        c.districts = sorted(districts, key=sortkey)
+        
     
 
     def _geocode_address(self, address):
@@ -100,7 +103,7 @@ class PeopleController(BaseController):
        return [(addr, (lat, lon)) for addr, (lat, lon) in address_gen]
 
 
-    def _do_search(self, districts, level_names):
+    def _search_races(self, districts, level_names):
 
         result_races = []
 
@@ -108,7 +111,6 @@ class PeopleController(BaseController):
             return result_races
 
         # mcommons doesn't return 'federal_upper', so first manually add this
-
         state = districts[districts.keys()[0]]['state']
 
         election_q = meta.Session.query(model.Election)
@@ -151,6 +153,8 @@ class PeopleController(BaseController):
 
         # Merge in local data.
         if 'city' in level_names:
+            import pdb; pdb.set_trace()
+
             point = "POINT(%.20f %.20f)" % (c.lon, c.lat)
             district_q = meta.Session.query(model.Districts)
             district_q = district_q.filter(

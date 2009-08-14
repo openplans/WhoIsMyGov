@@ -296,18 +296,9 @@ INSERT INTO "districts" VALUES (245,E'NY',E'U.S. Senate',E'Federal',E'District I
 INSERT INTO "districts" VALUES (246,E'NY',E'U.S. Senate',E'Federal',E'District III');
 
 
+ALTER SEQUENCE districts_id_seq RESTART WITH 247;
+
 -- People.
-
-
-
-
--- hand-written stuff to get the right incumbent info in.
-
-UPDATE people SET incumbent_office = (
-  SELECT districts.district_type FROM districts 
-    WHERE districts.id = people.incumbent_district);
-
-
 
 
 INSERT INTO "people" VALUES (1,E'Kenneth LaValle',E'official',1);
@@ -556,8 +547,12 @@ INSERT INTO "people" VALUES (240,E'William Parment',E'official',241);
 INSERT INTO "people" VALUES (241,E'Charles Schumer',E'Official',242);
 INSERT INTO "people" VALUES (242,E'Kirsten Gillibrand',E'official',243);
 
+-- Having manually specified ids, we need to update the autoincr id sequence,
+-- argh.
 
--- Populate districts.
+ALTER SEQUENCE people_id_seq RESTART WITH 243;
+
+-- hand-written stuff to get the right incumbent info in.
 
 UPDATE people SET incumbent_office = (
   SELECT districts.district_type FROM districts 

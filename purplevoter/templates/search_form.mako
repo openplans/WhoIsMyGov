@@ -25,16 +25,13 @@
    <p>No results found.</p>
 % endif
 
-<dl class="district">
-% for district in c.districts:
-  <dt class="district">${district.level_name}: ${district.district_name}</dt>
-  <dd>
+ % for district in c.districts:
     <dl class="race">
-    % for race in district.races:
-      <dt>${race.office}</dt>
+    % for race in sorted(district.races, key=lambda r: r.office) :
+      <dt class="office">${district.district_name} ${race.office}</dt>
       <dd><dl class="candidate">
       % for person in race.candidates:
-        <dt class="fullname">Name: <strong>${person.fullname}</strong></dt>
+        <dt class="fullname"><strong>${person.fullname}</strong></dt>
         <dd>
            % for meta in person.meta:
             <div class="meta">${meta.meta_key}: ${meta.meta_value}</div>
@@ -42,11 +39,9 @@
         </dd>
       % endfor           
       </dl></dd>
-    % endfor  
+    % endfor
     </dl>
-  </dd>
 % endfor
-</dl>
     
 
 </div>

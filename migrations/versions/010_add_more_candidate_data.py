@@ -5,7 +5,17 @@ import sqlalchemy
 import os.path
 import csv
 import datetime
-        
+
+def find_or_create(session, model, **kw):
+    # Rails has something like this, too bad SA doesn't.
+    query = session.query(model)
+    try:
+        instance = query.filter_by(**kw).one()
+    except sqlalchemy.orm.exc.NoResultFound:
+        instance = model(**kw)
+        session.save(instance)
+    return instance
+
     
 def upgrade():
     # Upgrade operations go here. Don't create your own engine; use the engine
@@ -14,42 +24,48 @@ def upgrade():
     meta.metadata.bind = migrate_engine
     connection = migrate_engine.connect()
 
-    election_q = meta.Session.query(Election)
-    try:
-        election = election_q.filter_by(date=datetime.date(2009, 8, 15),
-                                        name='New York City 2009',
-                                        stagename='Primary').one()
-    except sqlalchemy.orm.exc.NoResultFound:
-        election = Election(date=datetime.date(2009, 9, 15),
-                            name='New York City 2009',
-                            stagename='Primary')
-        meta.Session.save(election)
+    election = find_or_create(meta.Session, Election,
+                              date=datetime.date(2009, 9, 15),
+                              name='New York City 2009',
+                              stagename='Primary')
 
-    raise ValueError('I gotta stop here or i will die')
+    files = [dict(path='city_council.csv', office='City Council',
+                  district_type='City Council', district_format=r'District %s'),
+             dict(path='mayoral.csv', office='Mayor', 
+                  district_type='City', district_format='New York City'),
+             dict(path='comptroller.csv', office='Comptroller',
+                  district_type='City', district_format='New York City'),
+             dict(path='district_attorney.csv', office='District Attorney',
+                  district_type='Borough', district_format=r'%s'),
+             dict(path='public_advocate.csv', office='Public Advocate',
+                  district_type='City', district_format='New York City'),
+             ]
 
-    files = (('City Council', 'City Council', r'District %s', 'Election_Survey_city_council_20090811.csv'),
-             ('Mayor', 'City', 'New York City', 'Election_Survey_mayoral_20090811.csv'),
-             )
-    for office, district_type, district_format, path in files:
-        _insert_from_file(office=office, 
-                          district_type=district_type, 
-                          district_format=district_format, 
-                          path=path, election=election,
-                          engine=migrate_engine)
+    for params in files:
+        _insert_from_file(engine=migrate_engine, election=election,
+                          **params)
 
-def _insert_from_file(office, district_type, district_format, path, election, engine):
+
+def _insert_from_file(office, district_type, district_format, path, 
+                      election, engine):
     from purplevoter.model import People, Districts, PeopleMeta, meta, Race
     meta.metadata.bind = engine
 
-    csv_path = os.path.join(os.path.dirname(__file__), path)
+    path = os.path.join(os.path.dirname(__file__),
+                        '..', '..', 'misc_import_data', 
+                        'ta_candidate_info_20090813',
+                        path
+                        )
+    csv_path = os.path.normpath(path)
     reader = csv.DictReader(open(csv_path, 'r'), skipinitialspace=True)
 
     district_q = meta.Session.query(Districts)
-    race_q = meta.Session.query(Race)
 
     for info in reader:
-        if district_format.count('%'):
-            district_name = district_format % info['Council District'] #XXX or what?
+        if district_type == 'City Council' and district_format.count:
+            district_name = district_format % info['Council District']
+        elif district_type == 'Borough':
+            district_name = info['borough']
         else:
             district_name = district_format
 
@@ -57,31 +73,24 @@ def _insert_from_file(office, district_type, district_format, path, election, en
             district_type=district_type, state='NY',
             district_name=district_name).one()
 
-        try:
-            race = race_q.filter_by(election=election, district=district, office=office).one()
-        except: # XXX
-            race = Race(election, district, office)
-            meta.Session.save(race)
-
-        try:
-            person = person_q.filter_by(fullname=info['Name']).one()
-        except:
-            person = People()
-            person.fullname = info['Name']
-            meta.Session.save(person)
+        race = find_or_create(meta.Session, Race,
+                              election=election, district=district,
+                              office=office)
+        person = find_or_create(meta.Session, People, fullname=info['fullname'])
 
         race.candidates.append(person)
 
         # We don't want ID collisions between people from other systems
-        # and TA's data, so as an ugly hack I'm adding a 'transalt.id'
+        # and TA's data, so as an ugly hack I'm adding a 'transaltid'
         # metadata field so TA can identify their candidates.
         # If TA's app was using UUIDs, I could just use their IDs but
         # that's not happening now.
 
-        ta_id = PeopleMeta('transalt_id', info['NID'])
-        person.meta.append(ta_id)
-
-        meta.Session.save(ta_id)
+        transaltid = info.get('NID', '').strip()
+        if transaltid:
+            ta_id = find_or_create(meta.Session, PeopleMeta,
+                                   meta_key='transaltid', meta_value=transaltid,
+                                   person=person)
 
         print u"Added", person.fullname
 
@@ -89,34 +98,20 @@ def _insert_from_file(office, district_type, district_format, path, election, en
 
 def downgrade():
     # Operations to reverse the above upgrade go here.
-    # Upgrade operations go here. Don't create your own engine; use the engine
-    # named 'migrate_engine' imported from migrate.
-    from purplevoter.model import meta, Election
+    from purplevoter.model import meta
     meta.metadata.bind = migrate_engine
     connection = migrate_engine.connect()
 
-    connection.execute("UPDATE people_meta SET meta_key = 'transalt.id' WHERE meta_key = 'transaltid';")
+    # This was the first time we inserted any races, so we just delete
+    # all those people.
+    connection.execute('DELETE FROM people_meta WHERE people_meta.person_id IN (SELECT people.id FROM people INNER JOIN races ON people.race_id = races.id);')
+    connection.execute('DELETE FROM people WHERE people.id IN (SELECT people.id FROM people INNER JOIN races ON people.race_id = races.id);')
 
-    try:
-        connection.execute('ALTER TABLE people RENAME COLUMN incumbent_district TO district_id;')
-    except:
-        pass
+    # And delete all the races...
+    connection.execute('DELETE FROM races;')
 
-    try:
-        connection.execute('ALTER TABLE people DROP COLUMN race_id;')
-    except:
-        pass
+    # And the election we added.
+    connection.execute("DELETE FROM elections WHERE elections.name = 'New York City 2009'"
+                       " AND elections.stagename = 'Primary';")
 
-    try:
-        connection.execute('TRUNCATE TABLE races;')
-        connection.execute('ALTER TABLE races DROP CONSTRAINT races_district_id_key;')
-        connection.execute('TRUNCATE TABLE races DROP CONSTRAINT races_election_id_key;')
-    except:
-        pass
-
-    try:
-        connection.execute("DELETE FROM elections WHERE election.name = 'New York City 2009'"
-                           " AND election.stagename = 'Primary';")
-    except:
-        pass
-
+    meta.Session.commit()

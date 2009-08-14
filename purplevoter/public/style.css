@@ -376,11 +376,16 @@ color:#660002;
 }
 
 
-dl.district {
-  padding-bottom: 1em;
+dl.race {
+  padding-bottom: 2em;
 }
 
-dl.district dt {
+dl.candidate dt.fullname {
+  font-weight: normal;
+  font-size: 100%;
+}
+
+dl.race dt {
   font-weight: bold;
   font-size: 120%;
 }

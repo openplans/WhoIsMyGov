@@ -30,7 +30,7 @@ class Districts(object):
 
 people_table = sa.Table(
     "people", meta.metadata,
-    sa.Column("id", sa.types.Integer, primary_key=True),
+    sa.Column("id", sa.types.Integer, primary_key=True, autoincrement=True),
     sa.Column("fullname", sa.types.String(255), nullable=False),
     sa.Column("incumbent_office", sa.types.String(255), nullable=True),
     sa.Column("incumbent_district", sa.types.Integer, sa.schema.ForeignKey('districts.id'),
@@ -43,7 +43,8 @@ people_table = sa.Table(
 # Generic key-value pairs for annotating people.
 people_meta_table = sa.Table("people_meta", meta.metadata,
     sa.Column("id", sa.types.Integer, primary_key=True),
-    sa.Column("person_id", sa.types.Integer, sa.schema.ForeignKey("people.id")),
+    sa.Column("person_id", sa.types.Integer, sa.schema.ForeignKey("people.id"),
+              nullable=False),
     sa.Column("meta_key", sa.types.String(255), nullable=False),
     sa.Column("meta_value", sa.types.UnicodeText, nullable=False),
     )
@@ -51,6 +52,15 @@ people_meta_table = sa.Table("people_meta", meta.metadata,
 class People(object):
     '''represents a candidate or incumbent official.
     '''
+
+    def __init__(self, fullname=None, incumbent_office=None,
+                 incumbent_district=None):
+        if fullname:
+            self.fullname=fullname
+        if incumbent_office:
+            self.incumbent_office=incumbent_office
+        if incumbent_district:
+            self.incumbent_district=incumbent_office
 
     @property
     def election(self):
@@ -74,10 +84,10 @@ class People(object):
 
 
 class PeopleMeta(object):
-    def __init__(self, key=None, val=None):
-        if key is not None:
-            self.meta_key = key
-            self.meta_value = val
+    def __init__(self, person, meta_key, meta_value):
+        self.person = person
+        self.meta_key = meta_key
+        self.meta_value = meta_value
 
 
 class Election(object):
