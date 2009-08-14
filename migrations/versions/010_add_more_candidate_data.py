@@ -1,5 +1,6 @@
 from sqlalchemy import *
 from migrate import *
+import sqlalchemy
 
 import os.path
 import csv
@@ -13,41 +14,18 @@ def upgrade():
     meta.metadata.bind = migrate_engine
     connection = migrate_engine.connect()
 
-    # A tiny fix requested by Mike.
-    connection.execute("UPDATE people_meta SET meta_key = 'transaltid' WHERE meta_key = 'transalt.id';")
-
-    # A bit of re-refactoring; changed some column names.
-    try:
-        connection.execute('ALTER TABLE people RENAME COLUMN district_id TO incumbent_district;')
-    except:
-        pass
-
-    # Adding columns.
-    try:
-        connection.execute('ALTER TABLE people ADD COLUMN race_id INT;')
-    except:
-        pass
-    try:
-        connection.execute('ALTER TABLE people ADD FOREIGN KEY (race_id) REFERENCES races.id;')
-    except:
-        pass
-
-    # The city council data we have is for candidates, not incumbents.
-    # (Actually don't know which are incumbents; will try to find that
-    # out later.)
-    connection.execute("update people set incumbent_office = NULL where incumbent_office = 'City Council';")
-
     election_q = meta.Session.query(Election)
     try:
         election = election_q.filter_by(date=datetime.date(2009, 8, 15),
                                         name='New York City 2009',
                                         stagename='Primary').one()
-    except: # XXX 
+    except sqlalchemy.orm.exc.NoResultFound:
         election = Election(date=datetime.date(2009, 9, 15),
                             name='New York City 2009',
                             stagename='Primary')
         meta.Session.save(election)
 
+    raise ValueError('I gotta stop here or i will die')
 
     files = (('City Council', 'City Council', r'District %s', 'Election_Survey_city_council_20090811.csv'),
              ('Mayor', 'City', 'New York City', 'Election_Survey_mayoral_20090811.csv'),

@@ -24,8 +24,18 @@ To set up the database:
 First create a postgres user named pvoter. Then:
 
 $ createdb -T template_postgis -O pvoter -E utf8 pvoter
+
+If that doesn't work, eg. on ubuntu systems you may have to first
+bootstrap the template_postgis database. See eg Step 4 of:
+http://code.djangoproject.com/wiki/GeoDjangoUbuntuInstall
+
+Then try the createdb command again.
+
+Next, fix up some table ownership:
+
 $ psql -c "alter table geometry_columns owner to pvoter;" pvoter
 $ psql -c "alter table spatial_ref_sys owner to pvoter;" pvoter
+
 
 Then to populate the data:
 

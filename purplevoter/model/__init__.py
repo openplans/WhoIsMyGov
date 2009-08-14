@@ -83,6 +83,11 @@ class PeopleMeta(object):
 class Election(object):
     """represents an election with a date, which has any number of Races.
     """
+    def __init__(self, date, name, stagename):
+        self.date = date
+        self.name = name
+        self.stagename = stagename
+
 #     @property
 #     def districts(self):
 #         return [r.district for r in self.races]

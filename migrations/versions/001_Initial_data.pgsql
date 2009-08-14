@@ -1,59 +1,52 @@
---
--- Generated from mysql2pgsql.perl
--- hand-hacked a bit by Paul Winkler
 
+-- CREATE TABLE elections (
+-- 	id SERIAL NOT NULL, 
+-- 	name VARCHAR(255) NOT NULL, 
+-- 	date DATE NOT NULL, 
+-- 	stagename VARCHAR(127) NOT NULL CHECK (stagename IN ('General', 'Primary', 'General Runoff', 'Primary Runoff')), 
+-- 	PRIMARY KEY (id), 
+-- 	CONSTRAINT election_uniqueness_constr  UNIQUE (name, date, stagename)
+-- );
 
---
--- http://gborg.postgresql.org/project/mysql2psql/
--- (c) 2001 - 2007 Jose M. Duarte, Joseph Speigle
---
+-- CREATE TABLE districts (
+-- 	id SERIAL NOT NULL, 
+-- 	state VARCHAR(255) NOT NULL, 
+-- 	district_type VARCHAR(255) NOT NULL, 
+-- 	level_name VARCHAR(255) NOT NULL, 
+-- 	district_name VARCHAR(255) NOT NULL, 
+-- 	geometry GEOMETRY, 
+-- 	PRIMARY KEY (id)
+-- );
 
--- warnings are printed for drop tables if they do not exist
--- please see http://archives.postgresql.org/pgsql-novice/2004-10/msg00158.php
+-- CREATE TABLE races (
+-- 	id SERIAL NOT NULL, 
+-- 	election_id INTEGER NOT NULL, 
+-- 	district_id INTEGER NOT NULL, 
+-- 	office VARCHAR(255) NOT NULL, 
+-- 	PRIMARY KEY (id), 
+-- 	 FOREIGN KEY(election_id) REFERENCES elections (id), 
+-- 	 FOREIGN KEY(district_id) REFERENCES districts (id)
+-- );
 
--- ##############################################################
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+-- CREATE TABLE people (
+-- 	id SERIAL NOT NULL, 
+-- 	fullname VARCHAR(255) NOT NULL, 
+-- 	incumbent_office VARCHAR(255), 
+-- 	incumbent_district INTEGER, 
+-- 	race_id INTEGER, 
+-- 	PRIMARY KEY (id), 
+-- 	 FOREIGN KEY(incumbent_district) REFERENCES districts (id), 
+-- 	 FOREIGN KEY(race_id) REFERENCES races (id)
+-- );
 
--- MySQL dump 10.11
---
--- Host: localhost    Database: pvoter_org
--- ------------------------------------------------------
--- Server version	5.0.51a-24+lenny1
-
-
---
--- Table structure for table districts
---
-
-DROP SEQUENCE IF EXISTS "districts_id_seq" CASCADE ;
-DROP TABLE IF EXISTS "districts" CASCADE;
-
-
-CREATE SEQUENCE "districts_id_seq"  START WITH 247 ;
-
-CREATE TABLE  "districts" (
-   "id" integer DEFAULT nextval('"districts_id_seq"') NOT NULL,
-   "state"   varchar(255) NOT NULL, 
-   "district_type"   varchar(255) NOT NULL, 
-   "level_name"   varchar(255) NOT NULL, 
-   "district_name"   varchar(255) NOT NULL, 
-   primary key ("id")
-)   ;
-
-/*!40000 ALTER TABLE districts DISABLE KEYS */;
-
---
--- Dumping data for table districts
---
+-- CREATE TABLE people_meta (
+-- 	id SERIAL NOT NULL, 
+-- 	person_id INTEGER, 
+-- 	meta_key VARCHAR(255) NOT NULL, 
+-- 	meta_value TEXT NOT NULL, 
+-- 	PRIMARY KEY (id), 
+-- 	 FOREIGN KEY(person_id) REFERENCES people (id)
+-- );
 
 INSERT INTO "districts" VALUES (1,E'NY',E'State Senate',E'State',E'District 1');
 INSERT INTO "districts" VALUES (2,E'NY',E'State Senate',E'State',E'District 2');
@@ -302,286 +295,270 @@ INSERT INTO "districts" VALUES (244,E'NY',E'U.S. Senate',E'Federal',E'District I
 INSERT INTO "districts" VALUES (245,E'NY',E'U.S. Senate',E'Federal',E'District II');
 INSERT INTO "districts" VALUES (246,E'NY',E'U.S. Senate',E'Federal',E'District III');
 
-/*!40000 ALTER TABLE districts ENABLE KEYS */;
+
+-- People.
 
 
 
---
--- Table structure for table districts_meta
---
+
+-- hand-written stuff to get the right incumbent info in.
+
+UPDATE people SET incumbent_office = (
+  SELECT districts.district_type FROM districts 
+    WHERE districts.id = people.incumbent_district);
 
 
 
-DROP SEQUENCE IF EXISTS "districts_meta_id_seq" CASCADE ;
-DROP TABLE IF EXISTS "districts_meta" CASCADE;
+
+INSERT INTO "people" VALUES (1,E'Kenneth LaValle',E'official',1);
+INSERT INTO "people" VALUES (2,E'John Flanagan',E'official',2);
+INSERT INTO "people" VALUES (3,E'Brian Foley',E'official',3);
+INSERT INTO "people" VALUES (4,E'Owen Johnson',E'official',4);
+INSERT INTO "people" VALUES (5,E'Carl Marcellino',E'official',5);
+INSERT INTO "people" VALUES (6,E'Kemp Hannon',E'official',6);
+INSERT INTO "people" VALUES (7,E'Craig Johnson',E'official',7);
+INSERT INTO "people" VALUES (8,E'Charles Fuschillo',E'official',8);
+INSERT INTO "people" VALUES (9,E'Dean Skelos',E'official',9);
+INSERT INTO "people" VALUES (10,E'Shirley Huntley',E'official',10);
+INSERT INTO "people" VALUES (11,E'Frank Padavan',E'official',11);
+INSERT INTO "people" VALUES (12,E'George Onorato',E'official',12);
+INSERT INTO "people" VALUES (13,E'Hiram Monserrate',E'official',13);
+INSERT INTO "people" VALUES (14,E'Malcolm Smith',E'official',14);
+INSERT INTO "people" VALUES (15,E'Joseph Addabbo Jr.',E'official',15);
+INSERT INTO "people" VALUES (16,E'Toby Ann Stavisky',E'official',16);
+INSERT INTO "people" VALUES (17,E'Martin Dilan',E'official',17);
+INSERT INTO "people" VALUES (18,E'Velmanette Montgomery',E'official',18);
+INSERT INTO "people" VALUES (19,E'John Sampson',E'official',19);
+INSERT INTO "people" VALUES (20,E'Eric Adams',E'official',20);
+INSERT INTO "people" VALUES (21,E'Kevin Parker',E'official',21);
+INSERT INTO "people" VALUES (22,E'Martin Golden',E'official',22);
+INSERT INTO "people" VALUES (23,E'Diane Savino',E'official',23);
+INSERT INTO "people" VALUES (24,E'Andrew Lanza',E'official',24);
+INSERT INTO "people" VALUES (25,E'Daniel Squadron',E'official',25);
+INSERT INTO "people" VALUES (26,E'Liz Krueger',E'official',26);
+INSERT INTO "people" VALUES (27,E'Carl Kruger',E'official',27);
+INSERT INTO "people" VALUES (28,E'JosÃ© Serrano',E'official',28);
+INSERT INTO "people" VALUES (29,E'Thomas Duane',E'official',29);
+INSERT INTO "people" VALUES (30,E'Bill Perkins',E'official',30);
+INSERT INTO "people" VALUES (31,E'Eric Schneiderman',E'official',31);
+INSERT INTO "people" VALUES (32,E'Ruben Diaz',E'official',32);
+INSERT INTO "people" VALUES (33,E'Pedro Espada',E'official',33);
+INSERT INTO "people" VALUES (34,E'Jeffrey Klein',E'official',34);
+INSERT INTO "people" VALUES (35,E'Andrea Stewart-Cousins',E'official',35);
+INSERT INTO "people" VALUES (36,E'Ruth Hassell-Thompson',E'official',36);
+INSERT INTO "people" VALUES (37,E'Suzi Oppenheimer',E'official',37);
+INSERT INTO "people" VALUES (38,E'Thomas Morahan',E'official',38);
+INSERT INTO "people" VALUES (39,E'William Larkin',E'official',39);
+INSERT INTO "people" VALUES (40,E'Vincent Leibell',E'official',40);
+INSERT INTO "people" VALUES (41,E'Stephen Saland',E'official',41);
+INSERT INTO "people" VALUES (42,E'John Bonacic',E'official',42);
+INSERT INTO "people" VALUES (43,E'Roy McDonald',E'official',43);
+INSERT INTO "people" VALUES (44,E'Hugh Farley',E'official',44);
+INSERT INTO "people" VALUES (45,E'Elizabeth O\'C. Little',E'official',45);
+-- '
+INSERT INTO "people" VALUES (46,E'Neil Breslin',E'official',46);
+INSERT INTO "people" VALUES (47,E'Joseph Griffo',E'official',47);
+INSERT INTO "people" VALUES (48,E'Darrel Aubertine',E'official',48);
+INSERT INTO "people" VALUES (49,E'David Valesky',E'official',49);
+INSERT INTO "people" VALUES (50,E'John DeFrancisco',E'official',50);
+INSERT INTO "people" VALUES (51,E'James Seward',E'official',51);
+INSERT INTO "people" VALUES (52,E'Thomas Libous',E'official',52);
+INSERT INTO "people" VALUES (53,E'George Winner',E'official',53);
+INSERT INTO "people" VALUES (54,E'Michael Nozzolio',E'official',54);
+INSERT INTO "people" VALUES (55,E'James Alesi',E'official',55);
+INSERT INTO "people" VALUES (56,E'Joseph Robach',E'official',56);
+INSERT INTO "people" VALUES (57,E'Catharine Young',E'official',57);
+INSERT INTO "people" VALUES (58,E'William Stachowski',E'official',58);
+INSERT INTO "people" VALUES (59,E'Dale Volker',E'official',59);
+INSERT INTO "people" VALUES (60,E'Antoine Thompson',E'official',60);
+INSERT INTO "people" VALUES (61,E'Michael Ranzenhofer',E'official',61);
+INSERT INTO "people" VALUES (62,E'George Maziarz',E'official',62);
+INSERT INTO "people" VALUES (63,E'Timothy Bishop',E'official',63);
+INSERT INTO "people" VALUES (64,E'Steve Israel',E'official',64);
+INSERT INTO "people" VALUES (65,E'Peter King',E'official',65);
+INSERT INTO "people" VALUES (66,E'Carolyn McCarthy',E'official',66);
+INSERT INTO "people" VALUES (67,E'Gary Ackerman',E'official',67);
+INSERT INTO "people" VALUES (68,E'Gregory Meeks',E'official',68);
+INSERT INTO "people" VALUES (69,E'Joseph Crowley',E'official',69);
+INSERT INTO "people" VALUES (70,E'Jerrold Nadler',E'official',70);
+INSERT INTO "people" VALUES (71,E'Anthony David Weiner',E'official',71);
+INSERT INTO "people" VALUES (72,E'Edolphus Towns',E'official',72);
+INSERT INTO "people" VALUES (73,E'Yvette Clarke',E'official',73);
+INSERT INTO "people" VALUES (74,E'Nydia VelÃ¡zquez',E'official',74);
+INSERT INTO "people" VALUES (75,E'Michael McMahon',E'official',75);
+INSERT INTO "people" VALUES (76,E'Carolyn Maloney',E'official',76);
+INSERT INTO "people" VALUES (77,E'Charles Rangel',E'official',77);
+INSERT INTO "people" VALUES (78,E'JosÃ© Serrano',E'official',78);
+INSERT INTO "people" VALUES (79,E'Eliot Engel',E'official',79);
+INSERT INTO "people" VALUES (80,E'Nita Lowey',E'official',80);
+INSERT INTO "people" VALUES (81,E'John Hall',E'official',81);
+INSERT INTO "people" VALUES (82,E'Paul Tonko',E'official',83);
+INSERT INTO "people" VALUES (83,E'Maurice Hinchey',E'official',84);
+INSERT INTO "people" VALUES (84,E'John McHugh',E'official',85);
+INSERT INTO "people" VALUES (85,E'Michael Arcuri',E'official',86);
+INSERT INTO "people" VALUES (86,E'Daniel Maffei',E'official',87);
+INSERT INTO "people" VALUES (87,E'Christopher Lee',E'official',88);
+INSERT INTO "people" VALUES (88,E'Brian Higgins',E'official',89);
+INSERT INTO "people" VALUES (89,E'Louise Slaughter',E'official',90);
+INSERT INTO "people" VALUES (90,E'Eric Massa',E'official',91);
+INSERT INTO "people" VALUES (91,E'Marc Alessi',E'official',92);
+INSERT INTO "people" VALUES (92,E'Fred Thiele',E'official',93);
+INSERT INTO "people" VALUES (93,E'Patricia Eddington',E'official',94);
+INSERT INTO "people" VALUES (94,E'Steven Englebright',E'official',95);
+INSERT INTO "people" VALUES (95,E'Ginny Fields',E'official',96);
+INSERT INTO "people" VALUES (96,E'Philip Ramos',E'official',97);
+INSERT INTO "people" VALUES (97,E'Michael Fitzpatrick',E'official',98);
+INSERT INTO "people" VALUES (98,E'Philip Boyle',E'official',99);
+INSERT INTO "people" VALUES (99,E'Andrew Raia',E'official',100);
+INSERT INTO "people" VALUES (100,E'James Conte',E'official',101);
+INSERT INTO "people" VALUES (101,E'Robert Sweeney',E'official',102);
+INSERT INTO "people" VALUES (102,E'Joseph Saladino',E'official',103);
+INSERT INTO "people" VALUES (103,E'Charles Lavine',E'official',104);
+INSERT INTO "people" VALUES (104,E'Robert Barra',E'official',105);
+INSERT INTO "people" VALUES (105,E'Robert Walker',E'official',106);
+INSERT INTO "people" VALUES (106,E'Michelle Schimel',E'official',107);
+INSERT INTO "people" VALUES (107,E'Tom McKevitt',E'official',108);
+INSERT INTO "people" VALUES (108,E'Earlene Hooper',E'official',109);
+INSERT INTO "people" VALUES (109,E'David McDonaugh',E'official',110);
+INSERT INTO "people" VALUES (110,E'Harvey Weisenberg',E'official',111);
+INSERT INTO "people" VALUES (111,E'Thomas Alfano',E'official',112);
+INSERT INTO "people" VALUES (112,E'Grace Meng',E'official',113);
+INSERT INTO "people" VALUES (113,E'Audrey Pheffer',E'official',114);
+INSERT INTO "people" VALUES (114,E'Mark Weprin',E'official',115);
+INSERT INTO "people" VALUES (115,E'Rory Lancman',E'official',116);
+INSERT INTO "people" VALUES (116,E'Ann-Margaret Carrozza',E'official',117);
+INSERT INTO "people" VALUES (117,E'Nettie Mayersohn',E'official',118);
+INSERT INTO "people" VALUES (118,E'Andrew Hevesi',E'official',119);
+INSERT INTO "people" VALUES (119,E'William Scarborough',E'official',120);
+INSERT INTO "people" VALUES (120,E'Margaret Markey',E'official',121);
+INSERT INTO "people" VALUES (121,E'Michele Titus',E'official',122);
+INSERT INTO "people" VALUES (122,E'Vivian Cook',E'official',123);
+INSERT INTO "people" VALUES (123,E'Barbara Clark',E'official',124);
+INSERT INTO "people" VALUES (124,E'Michael DenDekker',E'official',125);
+INSERT INTO "people" VALUES (125,E'Jeffrion Aubry',E'official',126);
+INSERT INTO "people" VALUES (126,E'Michael Gianaris',E'official',127);
+INSERT INTO "people" VALUES (127,E'Catherine Nolan',E'official',128);
+INSERT INTO "people" VALUES (128,E'Anthony Seminerio',E'official',129);
+INSERT INTO "people" VALUES (129,E'JosÃ© Peralta',E'official',130);
+INSERT INTO "people" VALUES (130,E'Inez Barron',E'official',131);
+INSERT INTO "people" VALUES (131,E'Helene Weinstein',E'official',132);
+INSERT INTO "people" VALUES (132,E'Rhoda Jacobs',E'official',133);
+INSERT INTO "people" VALUES (133,E'Karim Camara',E'official',134);
+INSERT INTO "people" VALUES (134,E'James Brennan',E'official',135);
+INSERT INTO "people" VALUES (135,E'Steven Cymbrowitz',E'official',136);
+INSERT INTO "people" VALUES (136,E'Alec Brook-Krasny',E'official',137);
+INSERT INTO "people" VALUES (137,E'William Colton',E'official',138);
+INSERT INTO "people" VALUES (138,E'Dov Hikind',E'official',139);
+INSERT INTO "people" VALUES (139,E'Peter Abbate',E'official',140);
+INSERT INTO "people" VALUES (140,E'Joseph Lentol',E'official',141);
+INSERT INTO "people" VALUES (141,E'Felix Ortiz',E'official',142);
+INSERT INTO "people" VALUES (142,E'Joan Millman',E'official',143);
+INSERT INTO "people" VALUES (143,E'Vito Lopez',E'official',144);
+INSERT INTO "people" VALUES (144,E'Darryl Towns',E'official',145);
+INSERT INTO "people" VALUES (145,E'William Boyland',E'official',146);
+INSERT INTO "people" VALUES (146,E'Annette Robinson',E'official',147);
+INSERT INTO "people" VALUES (147,E'Hakeem Jeffries',E'official',148);
+INSERT INTO "people" VALUES (148,E'N. Nick Perry',E'official',149);
+INSERT INTO "people" VALUES (149,E'Alan Maisel',E'official',150);
+INSERT INTO "people" VALUES (150,E'D. Hyer-Spencer',E'official',151);
+INSERT INTO "people" VALUES (151,E'Matthew Titone',E'official',152);
+INSERT INTO "people" VALUES (152,E'Louis Tobacco',E'official',153);
+INSERT INTO "people" VALUES (153,E'Michael Cusick',E'official',154);
+INSERT INTO "people" VALUES (154,E'Sheldon Silver',E'official',155);
+INSERT INTO "people" VALUES (155,E'Micah Kellner',E'official',156);
+INSERT INTO "people" VALUES (156,E'Deborah Glick',E'official',157);
+INSERT INTO "people" VALUES (157,E'Linda Rosenthal',E'official',158);
+INSERT INTO "people" VALUES (158,E'Adam Powell',E'official',159);
+INSERT INTO "people" VALUES (159,E'Daniel O\'Donnell',E'official',160);
+-- '
+INSERT INTO "people" VALUES (160,E'Keith Wright',E'official',161);
+INSERT INTO "people" VALUES (161,E'Herman Farrell',E'official',162);
+INSERT INTO "people" VALUES (162,E'Adriano Espaillat',E'official',163);
+INSERT INTO "people" VALUES (163,E'Jonathan Bing',E'official',164);
+INSERT INTO "people" VALUES (164,E'Brian Kavanagh',E'official',165);
+INSERT INTO "people" VALUES (165,E'Richard Gottfried',E'official',166);
+INSERT INTO "people" VALUES (166,E'Peter Rivera',E'official',167);
+INSERT INTO "people" VALUES (167,E'Aurelia Greene',E'official',168);
+INSERT INTO "people" VALUES (168,E'Jose Rivera',E'official',169);
+INSERT INTO "people" VALUES (169,E'Michael Benjamin',E'official',170);
+INSERT INTO "people" VALUES (170,E'Naomi Rivera',E'official',171);
+INSERT INTO "people" VALUES (171,E'Jeffrey Dinowitz',E'official',172);
+INSERT INTO "people" VALUES (172,E'Michael Benedetto',E'official',173);
+INSERT INTO "people" VALUES (173,E'Carl Heastie',E'official',174);
+INSERT INTO "people" VALUES (174,E'Carmen Arroyo',E'official',175);
+INSERT INTO "people" VALUES (175,E'Ruben Diaz',E'official',176);
+INSERT INTO "people" VALUES (176,E'Nelson Castro',E'official',177);
+INSERT INTO "people" VALUES (177,E'James Pretlow',E'official',178);
+INSERT INTO "people" VALUES (178,E'Amy Paulin',E'official',179);
+INSERT INTO "people" VALUES (179,E'Adam Bradley',E'official',180);
+INSERT INTO "people" VALUES (180,E'Sandra Galef',E'official',181);
+INSERT INTO "people" VALUES (181,E'George Latimer',E'official',182);
+INSERT INTO "people" VALUES (182,E'Richard Brodsky',E'official',183);
+INSERT INTO "people" VALUES (183,E'Mike Spano',E'official',184);
+INSERT INTO "people" VALUES (184,E'Kenneth Zebrowski',E'official',185);
+INSERT INTO "people" VALUES (185,E'Ellen Jaffee',E'official',186);
+INSERT INTO "people" VALUES (186,E'Nancy Calhoun',E'official',187);
+INSERT INTO "people" VALUES (187,E'Ann Rabbitt',E'official',188);
+INSERT INTO "people" VALUES (188,E'Aileen Gunther',E'official',189);
+INSERT INTO "people" VALUES (189,E'Gregory Ball',E'official',190);
+INSERT INTO "people" VALUES (190,E'Frank Skartados',E'official',191);
+INSERT INTO "people" VALUES (191,E'Kevin Cahill',E'official',192);
+INSERT INTO "people" VALUES (192,E'Joel Miller',E'official',193);
+INSERT INTO "people" VALUES (193,E'Marcus Molinaro',E'official',194);
+INSERT INTO "people" VALUES (194,E'John McEneny',E'official',195);
+INSERT INTO "people" VALUES (195,E'George Amedore',E'official',196);
+INSERT INTO "people" VALUES (196,E'Ronald Canestrari',E'official',197);
+INSERT INTO "people" VALUES (197,E'Clifford Crouch',E'official',198);
+INSERT INTO "people" VALUES (198,E'Timothy Gordon',E'official',199);
+INSERT INTO "people" VALUES (199,E'Robert Reilly',E'official',200);
+INSERT INTO "people" VALUES (200,E'James Tedisco',E'official',201);
+INSERT INTO "people" VALUES (201,E'William Magee',E'official',202);
+INSERT INTO "people" VALUES (202,E'Tony Jordan',E'official',203);
+INSERT INTO "people" VALUES (203,E'Teresa Sayward',E'official',204);
+INSERT INTO "people" VALUES (204,E'Janet Duprey',E'official',205);
+INSERT INTO "people" VALUES (205,E'David Townsend',E'official',206);
+INSERT INTO "people" VALUES (206,E'RoAnn Destito',E'official',207);
+INSERT INTO "people" VALUES (207,E'Marc Butler',E'official',208);
+INSERT INTO "people" VALUES (208,E'Addie Russell',E'official',209);
+INSERT INTO "people" VALUES (209,E'Joan Christensen',E'official',210);
+INSERT INTO "people" VALUES (210,E'William Magnarelli',E'official',211);
+INSERT INTO "people" VALUES (211,E'Albert Stirpe',E'official',212);
+INSERT INTO "people" VALUES (212,E'Dierdre Scozzafava',E'official',213);
+INSERT INTO "people" VALUES (213,E'Gary Finch',E'official',214);
+INSERT INTO "people" VALUES (214,E'William Barclay',E'official',215);
+INSERT INTO "people" VALUES (215,E'Barbara Lifton',E'official',216);
+INSERT INTO "people" VALUES (216,E'Donna Lupardo',E'official',217);
+INSERT INTO "people" VALUES (217,E'Peter Lopez',E'official',218);
+INSERT INTO "people" VALUES (218,E'Robert Oaks',E'official',219);
+INSERT INTO "people" VALUES (219,E'Brian Kolb',E'official',220);
+INSERT INTO "people" VALUES (220,E'Joseph Errigo',E'official',221);
+INSERT INTO "people" VALUES (221,E'Susan John',E'official',222);
+INSERT INTO "people" VALUES (222,E'Joseph Morelle',E'official',223);
+INSERT INTO "people" VALUES (223,E'David Gantt',E'official',224);
+INSERT INTO "people" VALUES (224,E'Bill Reilich',E'official',225);
+INSERT INTO "people" VALUES (225,E'David Koon',E'official',226);
+INSERT INTO "people" VALUES (226,E'James Bacalles',E'official',227);
+INSERT INTO "people" VALUES (227,E'Thomas O\'Mara',E'official',228);
+-- '
+INSERT INTO "people" VALUES (228,E'Francine DelMonte',E'official',229);
+INSERT INTO "people" VALUES (229,E'Stephen Hawley',E'official',230);
+INSERT INTO "people" VALUES (230,E'Robin Schimminger',E'official',231);
+INSERT INTO "people" VALUES (231,E'Crystal Peoples',E'official',232);
+INSERT INTO "people" VALUES (232,E'Jane Corwin',E'official',233);
+INSERT INTO "people" VALUES (233,E'Dennis Gabryszak',E'official',234);
+INSERT INTO "people" VALUES (234,E'William Hoyt',E'official',235);
+INSERT INTO "people" VALUES (235,E'Mark Schroeder',E'official',236);
+INSERT INTO "people" VALUES (236,E'Jack Quinn',E'official',237);
+INSERT INTO "people" VALUES (237,E'Daniel Burling',E'official',238);
+INSERT INTO "people" VALUES (238,E'James Hayes',E'official',239);
+INSERT INTO "people" VALUES (239,E'Joe Giglio',E'official',240);
+INSERT INTO "people" VALUES (240,E'William Parment',E'official',241);
+INSERT INTO "people" VALUES (241,E'Charles Schumer',E'Official',242);
+INSERT INTO "people" VALUES (242,E'Kirsten Gillibrand',E'official',243);
 
 
-CREATE SEQUENCE "districts_meta_id_seq"  START WITH 248 ;
+-- Populate districts.
 
-CREATE TABLE  "districts_meta" (
-   "id" integer DEFAULT nextval('"districts_meta_id_seq"') NOT NULL,
-   "district_id"   int default NULL, 
-   "meta_key"   varchar(255) NOT NULL, 
-   "meta_value"   text NOT NULL, 
-   primary key ("id")
-)   ;
-
-/*!40000 ALTER TABLE districts_meta DISABLE KEYS */;
-
---
--- Dumping data for table districts_meta
---
-
-INSERT INTO "districts_meta" VALUES (1,1,E'official',E'Kenneth LaValle');
-INSERT INTO "districts_meta" VALUES (2,2,E'official',E'John Flanagan');
-INSERT INTO "districts_meta" VALUES (3,3,E'official',E'Brian Foley');
-INSERT INTO "districts_meta" VALUES (4,4,E'official',E'Owen Johnson');
-INSERT INTO "districts_meta" VALUES (5,5,E'official',E'Carl Marcellino');
-INSERT INTO "districts_meta" VALUES (6,6,E'official',E'Kemp Hannon');
-INSERT INTO "districts_meta" VALUES (7,7,E'official',E'Craig Johnson');
-INSERT INTO "districts_meta" VALUES (8,8,E'official',E'Charles Fuschillo');
-INSERT INTO "districts_meta" VALUES (9,9,E'official',E'Dean Skelos');
-INSERT INTO "districts_meta" VALUES (10,10,E'official',E'Shirley Huntley');
-INSERT INTO "districts_meta" VALUES (11,11,E'official',E'Frank Padavan');
-INSERT INTO "districts_meta" VALUES (12,12,E'official',E'George Onorato');
-INSERT INTO "districts_meta" VALUES (13,13,E'official',E'Hiram Monserrate');
-INSERT INTO "districts_meta" VALUES (14,14,E'official',E'Malcolm Smith');
-INSERT INTO "districts_meta" VALUES (15,15,E'official',E'Joseph Addabbo Jr.');
-INSERT INTO "districts_meta" VALUES (16,16,E'official',E'Toby Ann Stavisky');
-INSERT INTO "districts_meta" VALUES (17,17,E'official',E'Martin Dilan');
-INSERT INTO "districts_meta" VALUES (18,18,E'official',E'Velmanette Montgomery');
-INSERT INTO "districts_meta" VALUES (19,19,E'official',E'John Sampson');
-INSERT INTO "districts_meta" VALUES (20,20,E'official',E'Eric Adams');
-INSERT INTO "districts_meta" VALUES (21,21,E'official',E'Kevin Parker');
-INSERT INTO "districts_meta" VALUES (22,22,E'official',E'Martin Golden');
-INSERT INTO "districts_meta" VALUES (23,23,E'official',E'Diane Savino');
-INSERT INTO "districts_meta" VALUES (24,24,E'official',E'Andrew Lanza');
-INSERT INTO "districts_meta" VALUES (25,25,E'official',E'Daniel Squadron');
-INSERT INTO "districts_meta" VALUES (26,26,E'official',E'Liz Krueger');
-INSERT INTO "districts_meta" VALUES (27,27,E'official',E'Carl Kruger');
-INSERT INTO "districts_meta" VALUES (28,28,E'official',E'JosÃ© Serrano');
-INSERT INTO "districts_meta" VALUES (29,29,E'official',E'Thomas Duane');
-INSERT INTO "districts_meta" VALUES (30,30,E'official',E'Bill Perkins');
-INSERT INTO "districts_meta" VALUES (31,31,E'official',E'Eric Schneiderman');
-INSERT INTO "districts_meta" VALUES (32,32,E'official',E'Ruben Diaz');
-INSERT INTO "districts_meta" VALUES (33,33,E'official',E'Pedro Espada');
-INSERT INTO "districts_meta" VALUES (34,34,E'official',E'Jeffrey Klein');
-INSERT INTO "districts_meta" VALUES (35,35,E'official',E'Andrea Stewart-Cousins');
-INSERT INTO "districts_meta" VALUES (36,36,E'official',E'Ruth Hassell-Thompson');
-INSERT INTO "districts_meta" VALUES (37,37,E'official',E'Suzi Oppenheimer');
-INSERT INTO "districts_meta" VALUES (38,38,E'official',E'Thomas Morahan');
-INSERT INTO "districts_meta" VALUES (39,39,E'official',E'William Larkin');
-INSERT INTO "districts_meta" VALUES (40,40,E'official',E'Vincent Leibell');
-INSERT INTO "districts_meta" VALUES (41,41,E'official',E'Stephen Saland');
-INSERT INTO "districts_meta" VALUES (42,42,E'official',E'John Bonacic');
-INSERT INTO "districts_meta" VALUES (43,43,E'official',E'Roy McDonald');
-INSERT INTO "districts_meta" VALUES (44,44,E'official',E'Hugh Farley');
-INSERT INTO "districts_meta" VALUES (45,45,E'official',E'Elizabeth O\'C. Little');
-INSERT INTO "districts_meta" VALUES (46,46,E'official',E'Neil Breslin');
-INSERT INTO "districts_meta" VALUES (47,47,E'official',E'Joseph Griffo');
-INSERT INTO "districts_meta" VALUES (48,48,E'official',E'Darrel Aubertine');
-INSERT INTO "districts_meta" VALUES (49,49,E'official',E'David Valesky');
-INSERT INTO "districts_meta" VALUES (50,50,E'official',E'John DeFrancisco');
-INSERT INTO "districts_meta" VALUES (51,51,E'official',E'James Seward');
-INSERT INTO "districts_meta" VALUES (52,52,E'official',E'Thomas Libous');
-INSERT INTO "districts_meta" VALUES (53,53,E'official',E'George Winner');
-INSERT INTO "districts_meta" VALUES (54,54,E'official',E'Michael Nozzolio');
-INSERT INTO "districts_meta" VALUES (55,55,E'official',E'James Alesi');
-INSERT INTO "districts_meta" VALUES (56,56,E'official',E'Joseph Robach');
-INSERT INTO "districts_meta" VALUES (57,57,E'official',E'Catharine Young');
-INSERT INTO "districts_meta" VALUES (58,58,E'official',E'William Stachowski');
-INSERT INTO "districts_meta" VALUES (59,59,E'official',E'Dale Volker');
-INSERT INTO "districts_meta" VALUES (60,60,E'official',E'Antoine Thompson');
-INSERT INTO "districts_meta" VALUES (61,61,E'official',E'Michael Ranzenhofer');
-INSERT INTO "districts_meta" VALUES (62,62,E'official',E'George Maziarz');
-INSERT INTO "districts_meta" VALUES (63,63,E'official',E'Timothy Bishop');
-INSERT INTO "districts_meta" VALUES (64,64,E'official',E'Steve Israel');
-INSERT INTO "districts_meta" VALUES (65,65,E'official',E'Peter King');
-INSERT INTO "districts_meta" VALUES (66,66,E'official',E'Carolyn McCarthy');
-INSERT INTO "districts_meta" VALUES (67,67,E'official',E'Gary Ackerman');
-INSERT INTO "districts_meta" VALUES (68,68,E'official',E'Gregory Meeks');
-INSERT INTO "districts_meta" VALUES (69,69,E'official',E'Joseph Crowley');
-INSERT INTO "districts_meta" VALUES (70,70,E'official',E'Jerrold Nadler');
-INSERT INTO "districts_meta" VALUES (71,71,E'official',E'Anthony David Weiner');
-INSERT INTO "districts_meta" VALUES (72,72,E'official',E'Edolphus Towns');
-INSERT INTO "districts_meta" VALUES (73,73,E'official',E'Yvette Clarke');
-INSERT INTO "districts_meta" VALUES (74,74,E'official',E'Nydia VelÃ¡zquez');
-INSERT INTO "districts_meta" VALUES (75,75,E'official',E'Michael McMahon');
-INSERT INTO "districts_meta" VALUES (76,76,E'official',E'Carolyn Maloney');
-INSERT INTO "districts_meta" VALUES (77,77,E'official',E'Charles Rangel');
-INSERT INTO "districts_meta" VALUES (78,78,E'official',E'JosÃ© Serrano');
-INSERT INTO "districts_meta" VALUES (79,79,E'official',E'Eliot Engel');
-INSERT INTO "districts_meta" VALUES (80,80,E'official',E'Nita Lowey');
-INSERT INTO "districts_meta" VALUES (81,81,E'official',E'John Hall');
-INSERT INTO "districts_meta" VALUES (82,83,E'official',E'Paul Tonko');
-INSERT INTO "districts_meta" VALUES (83,84,E'official',E'Maurice Hinchey');
-INSERT INTO "districts_meta" VALUES (84,85,E'official',E'John McHugh');
-INSERT INTO "districts_meta" VALUES (85,86,E'official',E'Michael Arcuri');
-INSERT INTO "districts_meta" VALUES (86,87,E'official',E'Daniel Maffei');
-INSERT INTO "districts_meta" VALUES (87,88,E'official',E'Christopher Lee');
-INSERT INTO "districts_meta" VALUES (88,89,E'official',E'Brian Higgins');
-INSERT INTO "districts_meta" VALUES (89,90,E'official',E'Louise Slaughter');
-INSERT INTO "districts_meta" VALUES (90,91,E'official',E'Eric Massa');
-INSERT INTO "districts_meta" VALUES (91,92,E'official',E'Marc Alessi');
-INSERT INTO "districts_meta" VALUES (92,93,E'official',E'Fred Thiele');
-INSERT INTO "districts_meta" VALUES (93,94,E'official',E'Patricia Eddington');
-INSERT INTO "districts_meta" VALUES (94,95,E'official',E'Steven Englebright');
-INSERT INTO "districts_meta" VALUES (95,96,E'official',E'Ginny Fields');
-INSERT INTO "districts_meta" VALUES (96,97,E'official',E'Philip Ramos');
-INSERT INTO "districts_meta" VALUES (97,98,E'official',E'Michael Fitzpatrick');
-INSERT INTO "districts_meta" VALUES (98,99,E'official',E'Philip Boyle');
-INSERT INTO "districts_meta" VALUES (99,100,E'official',E'Andrew Raia');
-INSERT INTO "districts_meta" VALUES (100,101,E'official',E'James Conte');
-INSERT INTO "districts_meta" VALUES (101,102,E'official',E'Robert Sweeney');
-INSERT INTO "districts_meta" VALUES (102,103,E'official',E'Joseph Saladino');
-INSERT INTO "districts_meta" VALUES (103,104,E'official',E'Charles Lavine');
-INSERT INTO "districts_meta" VALUES (104,105,E'official',E'Robert Barra');
-INSERT INTO "districts_meta" VALUES (105,106,E'official',E'Robert Walker');
-INSERT INTO "districts_meta" VALUES (106,107,E'official',E'Michelle Schimel');
-INSERT INTO "districts_meta" VALUES (107,108,E'official',E'Tom McKevitt');
-INSERT INTO "districts_meta" VALUES (108,109,E'official',E'Earlene Hooper');
-INSERT INTO "districts_meta" VALUES (109,110,E'official',E'David McDonaugh');
-INSERT INTO "districts_meta" VALUES (110,111,E'official',E'Harvey Weisenberg');
-INSERT INTO "districts_meta" VALUES (111,112,E'official',E'Thomas Alfano');
-INSERT INTO "districts_meta" VALUES (112,113,E'official',E'Grace Meng');
-INSERT INTO "districts_meta" VALUES (113,114,E'official',E'Audrey Pheffer');
-INSERT INTO "districts_meta" VALUES (114,115,E'official',E'Mark Weprin');
-INSERT INTO "districts_meta" VALUES (115,116,E'official',E'Rory Lancman');
-INSERT INTO "districts_meta" VALUES (116,117,E'official',E'Ann-Margaret Carrozza');
-INSERT INTO "districts_meta" VALUES (117,118,E'official',E'Nettie Mayersohn');
-INSERT INTO "districts_meta" VALUES (118,119,E'official',E'Andrew Hevesi');
-INSERT INTO "districts_meta" VALUES (119,120,E'official',E'William Scarborough');
-INSERT INTO "districts_meta" VALUES (120,121,E'official',E'Margaret Markey');
-INSERT INTO "districts_meta" VALUES (121,122,E'official',E'Michele Titus');
-INSERT INTO "districts_meta" VALUES (122,123,E'official',E'Vivian Cook');
-INSERT INTO "districts_meta" VALUES (123,124,E'official',E'Barbara Clark');
-INSERT INTO "districts_meta" VALUES (124,125,E'official',E'Michael DenDekker');
-INSERT INTO "districts_meta" VALUES (125,126,E'official',E'Jeffrion Aubry');
-INSERT INTO "districts_meta" VALUES (126,127,E'official',E'Michael Gianaris');
-INSERT INTO "districts_meta" VALUES (127,128,E'official',E'Catherine Nolan');
-INSERT INTO "districts_meta" VALUES (128,129,E'official',E'Anthony Seminerio');
-INSERT INTO "districts_meta" VALUES (129,130,E'official',E'JosÃ© Peralta');
-INSERT INTO "districts_meta" VALUES (130,131,E'official',E'Inez Barron');
-INSERT INTO "districts_meta" VALUES (131,132,E'official',E'Helene Weinstein');
-INSERT INTO "districts_meta" VALUES (132,133,E'official',E'Rhoda Jacobs');
-INSERT INTO "districts_meta" VALUES (133,134,E'official',E'Karim Camara');
-INSERT INTO "districts_meta" VALUES (134,135,E'official',E'James Brennan');
-INSERT INTO "districts_meta" VALUES (135,136,E'official',E'Steven Cymbrowitz');
-INSERT INTO "districts_meta" VALUES (136,137,E'official',E'Alec Brook-Krasny');
-INSERT INTO "districts_meta" VALUES (137,138,E'official',E'William Colton');
-INSERT INTO "districts_meta" VALUES (138,139,E'official',E'Dov Hikind');
-INSERT INTO "districts_meta" VALUES (139,140,E'official',E'Peter Abbate');
-INSERT INTO "districts_meta" VALUES (140,141,E'official',E'Joseph Lentol');
-INSERT INTO "districts_meta" VALUES (141,142,E'official',E'Felix Ortiz');
-INSERT INTO "districts_meta" VALUES (142,143,E'official',E'Joan Millman');
-INSERT INTO "districts_meta" VALUES (143,144,E'official',E'Vito Lopez');
-INSERT INTO "districts_meta" VALUES (144,145,E'official',E'Darryl Towns');
-INSERT INTO "districts_meta" VALUES (145,146,E'official',E'William Boyland');
-INSERT INTO "districts_meta" VALUES (146,147,E'official',E'Annette Robinson');
-INSERT INTO "districts_meta" VALUES (147,148,E'official',E'Hakeem Jeffries');
-INSERT INTO "districts_meta" VALUES (148,149,E'official',E'N. Nick Perry');
-INSERT INTO "districts_meta" VALUES (149,150,E'official',E'Alan Maisel');
-INSERT INTO "districts_meta" VALUES (150,151,E'official',E'D. Hyer-Spencer');
-INSERT INTO "districts_meta" VALUES (151,152,E'official',E'Matthew Titone');
-INSERT INTO "districts_meta" VALUES (152,153,E'official',E'Louis Tobacco');
-INSERT INTO "districts_meta" VALUES (153,154,E'official',E'Michael Cusick');
-INSERT INTO "districts_meta" VALUES (154,155,E'official',E'Sheldon Silver');
-INSERT INTO "districts_meta" VALUES (155,156,E'official',E'Micah Kellner');
-INSERT INTO "districts_meta" VALUES (156,157,E'official',E'Deborah Glick');
-INSERT INTO "districts_meta" VALUES (157,158,E'official',E'Linda Rosenthal');
-INSERT INTO "districts_meta" VALUES (158,159,E'official',E'Adam Powell');
-INSERT INTO "districts_meta" VALUES (159,160,E'official',E'Daniel O\'Donnell');
-INSERT INTO "districts_meta" VALUES (160,161,E'official',E'Keith Wright');
-INSERT INTO "districts_meta" VALUES (161,162,E'official',E'Herman Farrell');
-INSERT INTO "districts_meta" VALUES (162,163,E'official',E'Adriano Espaillat');
-INSERT INTO "districts_meta" VALUES (163,164,E'official',E'Jonathan Bing');
-INSERT INTO "districts_meta" VALUES (164,165,E'official',E'Brian Kavanagh');
-INSERT INTO "districts_meta" VALUES (165,166,E'official',E'Richard Gottfried');
-INSERT INTO "districts_meta" VALUES (166,167,E'official',E'Peter Rivera');
-INSERT INTO "districts_meta" VALUES (167,168,E'official',E'Aurelia Greene');
-INSERT INTO "districts_meta" VALUES (168,169,E'official',E'Jose Rivera');
-INSERT INTO "districts_meta" VALUES (169,170,E'official',E'Michael Benjamin');
-INSERT INTO "districts_meta" VALUES (170,171,E'official',E'Naomi Rivera');
-INSERT INTO "districts_meta" VALUES (171,172,E'official',E'Jeffrey Dinowitz');
-INSERT INTO "districts_meta" VALUES (172,173,E'official',E'Michael Benedetto');
-INSERT INTO "districts_meta" VALUES (173,174,E'official',E'Carl Heastie');
-INSERT INTO "districts_meta" VALUES (174,175,E'official',E'Carmen Arroyo');
-INSERT INTO "districts_meta" VALUES (175,176,E'official',E'Ruben Diaz');
-INSERT INTO "districts_meta" VALUES (176,177,E'official',E'Nelson Castro');
-INSERT INTO "districts_meta" VALUES (177,178,E'official',E'James Pretlow');
-INSERT INTO "districts_meta" VALUES (178,179,E'official',E'Amy Paulin');
-INSERT INTO "districts_meta" VALUES (179,180,E'official',E'Adam Bradley');
-INSERT INTO "districts_meta" VALUES (180,181,E'official',E'Sandra Galef');
-INSERT INTO "districts_meta" VALUES (181,182,E'official',E'George Latimer');
-INSERT INTO "districts_meta" VALUES (182,183,E'official',E'Richard Brodsky');
-INSERT INTO "districts_meta" VALUES (183,184,E'official',E'Mike Spano');
-INSERT INTO "districts_meta" VALUES (184,185,E'official',E'Kenneth Zebrowski');
-INSERT INTO "districts_meta" VALUES (185,186,E'official',E'Ellen Jaffee');
-INSERT INTO "districts_meta" VALUES (186,187,E'official',E'Nancy Calhoun');
-INSERT INTO "districts_meta" VALUES (187,188,E'official',E'Ann Rabbitt');
-INSERT INTO "districts_meta" VALUES (188,189,E'official',E'Aileen Gunther');
-INSERT INTO "districts_meta" VALUES (189,190,E'official',E'Gregory Ball');
-INSERT INTO "districts_meta" VALUES (190,191,E'official',E'Frank Skartados');
-INSERT INTO "districts_meta" VALUES (191,192,E'official',E'Kevin Cahill');
-INSERT INTO "districts_meta" VALUES (192,193,E'official',E'Joel Miller');
-INSERT INTO "districts_meta" VALUES (193,194,E'official',E'Marcus Molinaro');
-INSERT INTO "districts_meta" VALUES (194,195,E'official',E'John McEneny');
-INSERT INTO "districts_meta" VALUES (195,196,E'official',E'George Amedore');
-INSERT INTO "districts_meta" VALUES (196,197,E'official',E'Ronald Canestrari');
-INSERT INTO "districts_meta" VALUES (197,198,E'official',E'Clifford Crouch');
-INSERT INTO "districts_meta" VALUES (198,199,E'official',E'Timothy Gordon');
-INSERT INTO "districts_meta" VALUES (199,200,E'official',E'Robert Reilly');
-INSERT INTO "districts_meta" VALUES (200,201,E'official',E'James Tedisco');
-INSERT INTO "districts_meta" VALUES (201,202,E'official',E'William Magee');
-INSERT INTO "districts_meta" VALUES (202,203,E'official',E'Tony Jordan');
-INSERT INTO "districts_meta" VALUES (203,204,E'official',E'Teresa Sayward');
-INSERT INTO "districts_meta" VALUES (204,205,E'official',E'Janet Duprey');
-INSERT INTO "districts_meta" VALUES (205,206,E'official',E'David Townsend');
-INSERT INTO "districts_meta" VALUES (206,207,E'official',E'RoAnn Destito');
-INSERT INTO "districts_meta" VALUES (207,208,E'official',E'Marc Butler');
-INSERT INTO "districts_meta" VALUES (208,209,E'official',E'Addie Russell');
-INSERT INTO "districts_meta" VALUES (209,210,E'official',E'Joan Christensen');
-INSERT INTO "districts_meta" VALUES (210,211,E'official',E'William Magnarelli');
-INSERT INTO "districts_meta" VALUES (211,212,E'official',E'Albert Stirpe');
-INSERT INTO "districts_meta" VALUES (212,213,E'official',E'Dierdre Scozzafava');
-INSERT INTO "districts_meta" VALUES (213,214,E'official',E'Gary Finch');
-INSERT INTO "districts_meta" VALUES (214,215,E'official',E'William Barclay');
-INSERT INTO "districts_meta" VALUES (215,216,E'official',E'Barbara Lifton');
-INSERT INTO "districts_meta" VALUES (216,217,E'official',E'Donna Lupardo');
-INSERT INTO "districts_meta" VALUES (217,218,E'official',E'Peter Lopez');
-INSERT INTO "districts_meta" VALUES (218,219,E'official',E'Robert Oaks');
-INSERT INTO "districts_meta" VALUES (219,220,E'official',E'Brian Kolb');
-INSERT INTO "districts_meta" VALUES (220,221,E'official',E'Joseph Errigo');
-INSERT INTO "districts_meta" VALUES (221,222,E'official',E'Susan John');
-INSERT INTO "districts_meta" VALUES (222,223,E'official',E'Joseph Morelle');
-INSERT INTO "districts_meta" VALUES (223,224,E'official',E'David Gantt');
-INSERT INTO "districts_meta" VALUES (224,225,E'official',E'Bill Reilich');
-INSERT INTO "districts_meta" VALUES (225,226,E'official',E'David Koon');
-INSERT INTO "districts_meta" VALUES (226,227,E'official',E'James Bacalles');
-INSERT INTO "districts_meta" VALUES (227,228,E'official',E'Thomas O\'Mara');
-INSERT INTO "districts_meta" VALUES (228,229,E'official',E'Francine DelMonte');
-INSERT INTO "districts_meta" VALUES (229,230,E'official',E'Stephen Hawley');
-INSERT INTO "districts_meta" VALUES (230,231,E'official',E'Robin Schimminger');
-INSERT INTO "districts_meta" VALUES (231,232,E'official',E'Crystal Peoples');
-INSERT INTO "districts_meta" VALUES (232,233,E'official',E'Jane Corwin');
-INSERT INTO "districts_meta" VALUES (233,234,E'official',E'Dennis Gabryszak');
-INSERT INTO "districts_meta" VALUES (234,235,E'official',E'William Hoyt');
-INSERT INTO "districts_meta" VALUES (235,236,E'official',E'Mark Schroeder');
-INSERT INTO "districts_meta" VALUES (236,237,E'official',E'Jack Quinn');
-INSERT INTO "districts_meta" VALUES (237,238,E'official',E'Daniel Burling');
-INSERT INTO "districts_meta" VALUES (238,239,E'official',E'James Hayes');
-INSERT INTO "districts_meta" VALUES (239,240,E'official',E'Joe Giglio');
-INSERT INTO "districts_meta" VALUES (240,241,E'official',E'William Parment');
-INSERT INTO "districts_meta" VALUES (241,242,E'Official',E'Charles Schumer');
-INSERT INTO "districts_meta" VALUES (242,243,E'official',E'Kirsten Gillibrand');
-
-/*!40000 ALTER TABLE districts_meta ENABLE KEYS */;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-CREATE INDEX "districts_meta_district_id_idx" ON "districts_meta" USING btree ("district_id");
+UPDATE people SET incumbent_office = (
+  SELECT districts.district_type FROM districts 
+    WHERE districts.id = people.incumbent_district);

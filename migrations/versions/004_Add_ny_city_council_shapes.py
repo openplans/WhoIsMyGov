@@ -11,7 +11,7 @@ def upgrade():
     here = os.path.abspath(__file__)
     district_shapes = os.path.normpath(os.path.join(
             here, '../../../misc_import_data/ny_city_council_districts/nycc.sql'))
-    sql = open(district_shapes).read()
+    main_sql = open(district_shapes).read()
     connection = migrate_engine.connect()
     trans = connection.begin()
     from purplevoter.model.meta import storage_SRID
@@ -26,7 +26,7 @@ def upgrade():
             # migration runs?  That's OK.
             trans.rollback()
             trans = connection.begin()
-        connection.execute(sql)
+        connection.execute(main_sql)
         connection.execute('update districts set geometry=(ST_TRANSFORM(geometry, %r)) where geometry is not null;' % storage_SRID)
         # Now put the constraint back!!
         connection.execute('ALTER TABLE districts ADD CONSTRAINT "enforce_srid_geometry" CHECK (SRID(geometry)=%s);' % storage_SRID)

@@ -30,8 +30,16 @@ def downgrade():
     try:
         connection.execute('DROP TABLE IF EXISTS districts CASCADE;')
         connection.execute('DROP TABLE IF EXISTS districts_meta CASCADE;')
+        connection.execute('DROP TABLE IF EXISTS people CASCADE;')
+        connection.execute('DROP TABLE IF EXISTS people_meta CASCADE;')
+        connection.execute('DROP TABLE IF EXISTS elections CASCADE;')
+        connection.execute('DROP TABLE IF EXISTS races CASCADE;')
+
         connection.execute('DROP SEQUENCE IF EXISTS districts_id_seq CASCADE;')
         connection.execute('DROP SEQUENCE IF EXISTS districts_meta_id_seq CASCADE;')
+        connection.execute('DROP SEQUENCE IF EXISTS people_id_seq CASCADE;')
+        connection.execute('DROP SEQUENCE IF EXISTS people_meta_id_seq CASCADE;')
+
         trans.commit()
     except:
         trans.rollback()
