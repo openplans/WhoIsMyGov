@@ -18,6 +18,34 @@ import urllib2
 
 log = logging.getLogger(__name__)
 
+def _to_json(obj):
+    if isinstance(obj, datetime.date) or isinstance(obj, datetime.datetime):
+        return obj.isoformat()
+    elif isinstance(obj, model.People):
+        info = {'fullname': obj.fullname}
+        if obj.incumbent_office:
+            info['incumbent_office'] = obj.incumbent_office
+            info['incumbent_district'] = obj.incumbent_district.district_name
+        for m in obj.meta:
+            info[m.meta_key] = m.meta_value
+        return info
+    elif isinstance(obj, model.Race):
+        info = {'district_name': obj.district.district_name,
+                'district_type': obj.district.district_type,
+                'level_name': obj.district.level_name,
+                'state': obj.district.state,
+                'office': obj.office,
+                'election': obj.election.name,
+                'election_stagename': obj.election.stagename,
+                'election_date': obj.election.date,
+                'candidates': obj.candidates,
+                'incumbents': obj.candidates,
+                }
+        return info
+    else:
+        raise TypeError
+
+
 class PeopleController(BaseController):
 
     def search(self):
@@ -28,29 +56,14 @@ class PeopleController(BaseController):
 
 
     # could use @jsonify but i like more control of the output.
-    
+
     def search_json(self):
         """pseudo-REST public search service.
         (pseudo because there's no hypermedia here.)
         """
         self._search()
-        output = []
-        for district in c.districts:
-            people = []
-            for p in district.people:
-                person_info = {'fullname': p.fullname, 'incumbent_office': p.incumbent_office}
-                for m in p.meta:
-                    person_info[m.meta_key] = m.meta_value
-                people.append(person_info)
-
-            output.append({'district_name': district.district_name,
-                           'district_type': district.district_type,
-                           'level_name': district.level_name,
-                           'state': district.state,
-                           'people': people,
-                           })
         response.headers['Content-Type'] = 'application/json'
-        return json.dumps(output, sort_keys=True, indent=1)
+        return json.dumps(c.races, sort_keys=True, indent=1, default=_to_json)
 
 
     def _search(self):
@@ -86,10 +99,13 @@ class PeopleController(BaseController):
         level_names = request.params.getall('level_name') or all_levels
 
         races = self._search_races(districts, level_names)
-        # XXX actually want to group by districts. Rework _search_races to do that.
+        c.races = races
+        # At least for the html view, it's nice to group by districts.
+        # but not sure about this yet.
         districts = set([r.district for r in races])
         sortkey = lambda d: (d.district_name, d.district_type)
         c.districts = sorted(districts, key=sortkey)
+
         
     
 
@@ -153,8 +169,6 @@ class PeopleController(BaseController):
 
         # Merge in local data.
         if 'city' in level_names:
-            import pdb; pdb.set_trace()
-
             point = "POINT(%.20f %.20f)" % (c.lon, c.lat)
             district_q = meta.Session.query(model.Districts)
             district_q = district_q.filter(
