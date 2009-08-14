@@ -1,4 +1,5 @@
 from sqlalchemy import *
+import sqlalchemy as sa
 from migrate import *
 
 def upgrade():
@@ -20,9 +21,20 @@ def upgrade():
 
 def downgrade():
     # Operations to reverse the above upgrade go here.
-    from purplevoter.model import People, meta
-    meta.metadata.bind = migrate_engine
-    people = meta.Session.query(People).all()
+
+    # Redefine the models (and a new MetaData instance) to avoid
+    # caring what version of code we have.
+    from sqlalchemy.orm import scoped_session, sessionmaker
+    Session = scoped_session(sessionmaker())
+    from sqlalchemy import MetaData
+    metadata = MetaData()
+
+    metadata.bind = migrate_engine
+    people_table = sa.schema.Table('people', metadata, autoload=True)
+    class People(object):
+        pass
+    sa.orm.mapper(People, people_table)
+    people = Session.query(People).all()
     for p in people:
         # Re-mangle the data??
         try:
@@ -31,5 +43,5 @@ def downgrade():
                 p.fullname = fullname
         except UnicodeDecodeError:
             print "couldn't mangle %s, skipping" % fullname
-    meta.Session.commit()
+    Session.commit()
 

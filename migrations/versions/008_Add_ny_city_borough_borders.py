@@ -39,5 +39,7 @@ def upgrade():
 def downgrade():
     # Operations to reverse the above upgrade go here.
     connection = migrate_engine.connect()
-    connection.execute("DELETE FROM districts WHERE state = 'NY' and (district_type = 'Borough' or district_type = 'City');")
-
+    try:
+        connection.execute("DELETE FROM districts WHERE state = 'NY' and (district_type = 'Borough' or district_type = 'City');")
+    except:
+        pass

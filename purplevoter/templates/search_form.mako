@@ -25,24 +25,28 @@
    <p>No results found.</p>
 % endif
 
+<dl class="district">
 % for district in c.districts:
-   % if not district.people:
-   <dl class="district">
-     <dt>${district.level_name}: ${district.district_name}</dt>
-     <dd>No information found</dd>
-   </dl>
-   % endif
-   <dl class="district">
-   % for person in district.people:
-     <dt>${district.level_name}: ${person.office}: ${district.district_name}</dt>
-     <dd>
-        <div class="fullname">Name: <strong>${person.fullname}</strong></div>
-         % for meta in person.meta:
-          <div class="meta">${meta.meta_key}: ${meta.meta_value}</div>
-         % endfor
-     </dd>
-   % endfor
-   </dl>
-
+  <dt class="district">${district.level_name}: ${district.district_name}</dt>
+  <dd>
+    <dl class="race">
+    % for race in district.races:
+      <dt>${race.office}</dt>
+      <dd><dl class="candidate">
+      % for person in race.candidates:
+        <dt class="fullname">Name: <strong>${person.fullname}</strong></dt>
+        <dd>
+           % for meta in person.meta:
+            <div class="meta">${meta.meta_key}: ${meta.meta_value}</div>
+           % endfor
+        </dd>
+      % endfor           
+      </dl></dd>
+    % endfor  
+    </dl>
+  </dd>
 % endfor
+</dl>
+    
+
 </div>

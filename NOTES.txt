@@ -23,8 +23,6 @@ DATA
 
  District shapefiles:
 
- * DA?
-
  * City Council:
    http://www.nyc.gov/html/dcp/download/bytes/nycc_08cav.zip
 
@@ -55,73 +53,74 @@ NEW DATA MODEL
 
  From a location, we look up one or more districts (they can overlap).
  But we realy need to factor out some data from the districts.
- For now:
 
-Stupid Simple Version aka All I Have Time For
----------------------------------------------
 
-Done in changeset 5fb88a64863.
-
-Assume for now that all candidates are for the September 2009 NYC
-Democratic primaries.
-
- * A District has 0..N People.
+ * An Election has these direct attributes:
+   - election date
+   - name
+   - stagename ("Primary" | "General")
 
  * Person has these attributes:
+
    - fullname
-   - arbitrary other key/vals  (this replaces districts_meta)
 
- Office, party affiliation, candidate/incumbent status, etc. can all
- be modeled by some conventions in the key/val pairs.
+   - incumbent_office (name of the office currently held, can be NULL)
 
+   - incumbent_district (id of district, can be NULL)
 
-DEFERRED: Marginally more flexible version
-------------------------------------------
-
- * A District has 0..N Races.
-
- * A Race has 0..N People.
-    attributes:
-   - election date
-   - type ("primary" | "general")
-
- * Person has these attributes:
-   - party  (problem: what if more than one? should probably normalize it out...)
-
-   - candidate type ("challenger" | "incumbent" | null (not running))
-
-   - arbitrary other key/vals
+   - arbitrary other key/vals via people_meta_table
 
 
-DEFERRED: Moderately complex version
-------------------------------------
+  An Election takes place in N Districts, each modeled via a
+  Race association class. (many-to-many)
 
-This would be pretty flexible... but at this point we really need to
-think about trying to re-use more of Votesmart's data, particularly
-their IDs, since they already deal with a lot of similar info.
+  - An Race has references to one District and one
+    Election.
 
- * A District has 0..N Offices.
+  - Race also has an 'office' column that
+    just holds the string name of the office being elected. (Those
+    could get normalized out into separate objects later.)
 
- * An Office has 0 or 1 associated People, these are the incumbents.
+  - District has backrefs to O-N Elections (via Races).
+  - Election has backrefs to O-N Districts (via Races).
 
- * An Office has 0..2 associated Races. (2 would mean primary, general)
 
- * A Race has 0..N associated People, these are the candidates.
+  - A Race also has 0-N People, who are the candidates
+    for that office in that election. (one-to-many)
 
- * Each Race has attributes:
-   - election date
-   - type ("primary" | "general")
+  - a Person has backrefs to at most 1 Race, and thus
+    indirectly to 0-1 Elections and 0-1 Districts.
 
- * Person has these attributes:
-   - party  XXX what if more than one? should probably normalize it out...
+  Given all that, convenience methods could yield useful things like
+  "latest election a candidate ran in".
 
-   - candidate type ("challenger" | "incumbent" | null (not running))
-     ... defer that, maybe YAGNI
+  So, eg. to find incumbents and candidates given an address and a
+  date:
 
-   - arbitrary other key/vals
+  - look up Races where Race.Election.date
+    matches the date, and Race.District.geography matches
+    the address.
    
+  - for each Race:
+    eg. Race(election=Election('NY Primaries 2009'),
+                         district=District('Brooklyn'),
+                         office='Borough President')
+
+    - from Race.district, yield the incumbents
+      eg. Person('Bob Jones', incumbent_office='Borough President',
+                 incumbent_district=District('Brooklyn'))
+
+    - yield all Race.candidates
+      eg. Person('Lisa James', incumbent_office=None)
 
 
+
+DEFERRED: Slightly more complex again
+-------------------------------------
+
+Basically same as above, except Office becomes a first-class object,
+and we add a concept of Party.
+   
 
 
 Votesmart usage examples:
@@ -133,10 +132,8 @@ pprint([(c.lastName, c.title, c.officeParties) for c in nyc_officials])
 
 
 
-TO DO 8/9/09:
--------------
+NEED TO TELL MIKE
+------------------
 
-* district.district_type is no good as office name, b/c some districts
-  are used for multiple offices (eg. boroughs).  Write a migration to
-  copy district_type to people_meta.office where district_type =
-  'City Council'.
+ person.office was renamed person.incumbent_office and represents what
+ office the person currently holds, if any.

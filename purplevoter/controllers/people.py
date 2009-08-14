@@ -10,6 +10,7 @@ from pylons.decorators.rest import dispatch_on
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.sql import func
 from sqlalchemy import and_
+import datetime
 import geopy
 import logging
 import simplejson as json
@@ -37,7 +38,7 @@ class PeopleController(BaseController):
         for district in c.districts:
             people = []
             for p in district.people:
-                person_info = {'fullname': p.fullname, 'office': p.office}
+                person_info = {'fullname': p.fullname, 'incumbent_office': p.incumbent_office}
                 for m in p.meta:
                     person_info[m.meta_key] = m.meta_value
                 people.append(person_info)
@@ -57,6 +58,9 @@ class PeopleController(BaseController):
         lat = lon = None
 
         c.search_term = request.params.get('address', '')
+        c.election_date = datetime.date(2009, 9, 15)
+        c.election_stagename = 'Primary'  # XXX parameterize this.
+        c.election_name = 'New York City 2009'  # XXX parameterize this.
         c.status = request.params.getall('status')
         if request.params.has_key('lat') and request.params.has_key('lon'):
             lat = request.params['lat']
@@ -80,7 +84,10 @@ class PeopleController(BaseController):
         districts = self._get_mcommons_districts()
         all_levels = ('federal', 'state', 'city')
         level_names = request.params.getall('level_name') or all_levels
-        c.districts = self._do_search(districts, level_names)
+
+        races = self._do_search(districts, level_names)
+        # XXX actually want to group by districts. Rework _do_search to do that.
+        c.districts = [r.district for r in races]
     
 
     def _geocode_address(self, address):
@@ -94,24 +101,26 @@ class PeopleController(BaseController):
 
 
     def _do_search(self, districts, level_names):
-        return_districts = []
+
+        result_races = []
 
         if not districts:
-            return return_districts
+            return result_races
 
-        #mcommons doesn't return 'federal_upper', so first manually add this
+        # mcommons doesn't return 'federal_upper', so first manually add this
 
         state = districts[districts.keys()[0]]['state']
 
+        election_q = meta.Session.query(model.Election)
+        election = election_q.filter_by(date=c.election_date, stagename=c.election_stagename,
+                                        name=c.election_name).one()
+
         if 'federal' in level_names:
-            return_districts.extend(self._get_us_senator_districts(state))
+            # XXXGet senatorial candidates
+            pass
 
         for level_type in districts:
-
             #change the mcommons parameters to votesmart parameters
-            
-            #name of the state
-            state = districts[level_type]['state']
             #name of the district
             try:
                 district_name = "District " + str(int(districts[level_type]['district']))
@@ -133,11 +142,12 @@ class PeopleController(BaseController):
             if level_name.lower() not in level_names:
                 continue
 
-            dstr = self._get_district_for_state(state, district_name, district_type)
-            if not dstr:
-                continue
-
-            return_districts.append(dstr)
+            # Statewide races.
+            district = self._get_district_for_state(state, district_name, district_type)
+            race_q = meta.Session.query(model.Race)
+            race_q = race_q.filter_by(election=election)
+            races = race_q.filter_by(district=district).all()
+            result_races.extend(races)
 
         # Merge in local data.
         if 'city' in level_names:
@@ -149,12 +159,18 @@ class PeopleController(BaseController):
                     func.ST_GeomFromText(point, meta.storage_SRID)))
             district_q = self._filter_people_by_status(district_q)
             local_districts = district_q.all()
-            return_districts.extend(local_districts)
+            # XXX This doesn't work and I don't understand the sqlalchemy error...
+#             races = race_q.filter(model.Race.district.in_(local_districts))
+#             result_races.extend(races)
+            # So instead, I iterate, thereby spewing a ton of db queries.
+            # Performance will be horrible, but it works.
+            for local_dist in local_districts:
+                for race in local_dist.races:
+                    if race.election == election:
+                        result_races.append(race)
 
+        return result_races
 
-        if not asbool(request.params.get('show_empty', 1)):
-            return_districts = [d for d in return_districts if len(d.people) != 0]
-        return return_districts
         
     def _get_mcommons_districts(self):
         """ takes a lat, lon from the context and returns a data
@@ -210,7 +226,6 @@ class PeopleController(BaseController):
         except NoResultFound:
             return None
         
- 
 
     ################################################################################
     # Metadata UI handlers
