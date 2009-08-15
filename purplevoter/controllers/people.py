@@ -6,6 +6,7 @@ from pylons import config
 from pylons import request, response
 from pylons import tmpl_context as c
 from pylons.controllers.util import abort, redirect_to, redirect
+from pylons.decorators.cache import beaker_cache
 from pylons.decorators.rest import dispatch_on
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.sql import func
@@ -15,6 +16,8 @@ import geopy
 import logging
 import simplejson as json
 import urllib2
+
+from paste.debug.profile import profile_decorator #XXX
 
 log = logging.getLogger(__name__)
 
@@ -51,12 +54,12 @@ class PeopleController(BaseController):
     def search(self):
         """public HTML search page"""
         self._search()
-        s = render('search_form.mako')
+        s = render('search_form.mako', cache_expire=599, cache_type='memory', 
+                   cache_key='%s %s' % (request.method, request.url))
         return s
 
-
+    @beaker_cache(expire=601, type="memory", query_args=True)
     # could use @jsonify but i like more control of the output.
-
     def search_json(self):
         """pseudo-REST public search service.
         (pseudo because there's no hypermedia here.)
@@ -64,7 +67,6 @@ class PeopleController(BaseController):
         self._search()
         response.headers['Content-Type'] = 'application/json'
         return json.dumps(c.races, sort_keys=True, indent=1, default=_to_json)
-
 
     def _search(self):
         """Find districts and people, given an address."""
@@ -94,7 +96,7 @@ class PeopleController(BaseController):
         # We need the mcommons district lookup no matter which
         # levels we care about, because that's how we find out
         # what state we're in.  (Geocoding doesn't tell us.)
-        districts = self._get_mcommons_districts()
+        districts = self._get_mcommons_districts(c.lat, c.lon)
         all_levels = ('federal', 'state', 'city')
         level_names = request.params.getall('level_name') or all_levels
 
@@ -106,9 +108,8 @@ class PeopleController(BaseController):
         sortkey = lambda d: (d.district_name, d.district_type)
         c.districts = sorted(districts, key=sortkey)
 
-        
-    
 
+    @beaker_cache(expire=607, type='memory')
     def _geocode_address(self, address):
        """ convert an address string into a list of (addr_str, (lat,lon))
        tuples """
@@ -189,17 +190,20 @@ class PeopleController(BaseController):
 
         return result_races
 
-        
-    def _get_mcommons_districts(self):
-        """ takes a lat, lon from the context and returns a data
+
+    @beaker_cache(expire=613, type='memory')
+    def _get_mcommons_districts(self, lat, lon):
+        """ takes a lat, lon and returns a data
         structure representing legislative districts (and any other
         info mcommons has about those districts?)
         """
         # XXX This cannot handle local districts, mcommons doesn't
         # support those.
-        apiurl = 'http://congress.mcommons.com/districts/lookup.json?lat=%s&lng=%s' % (c.lat, c.lon)
+        apiurl = 'http://congress.mcommons.com/districts/lookup.json?lat=%s&lng=%s' % (lat, lon)
 
         # First we pull out the available districts.
+
+        # XXX need to handle network failures!!
         districts = json.loads(urllib2.urlopen(apiurl).read())
 
         # Clean up keys we don't need
@@ -245,9 +249,9 @@ class PeopleController(BaseController):
             return None
         
 
-    ################################################################################
+    #######################################################################
     # Metadata UI handlers
-    ################################################################################
+    #######################################################################
 
     def add_meta(self):
         """Add an arbitrary key/value pair to the information about
