@@ -30,7 +30,7 @@ def upgrade():
         connection.execute('ALTER TABLE districts ADD CONSTRAINT "enforce_srid_geometry" CHECK (SRID(geometry)=%s);' % storage_SRID)
 
         # Generate a shape for all of NYC by taking the union of the boroughs.
-        connection.execute("INSERT INTO districts (state, district_type, level_name, district_name, geometry) SELECT 'NY', 'City', 'City', 'New York City', ST_Union(geometry) from districts where state = 'NY' and level_name = 'City' and district_type = 'Borough';")
+        connection.execute("INSERT INTO districts (state, district_type, level_name, district_name, geometry) SELECT 'NY', 'City', 'City', 'New York City', ST_Union(geometry) from districts where state = 'NY' and level_name = 'City' and (district_type = 'Borough'  or district_type = 'City Council');")
         trans.commit()
     except:
         trans.rollback()
