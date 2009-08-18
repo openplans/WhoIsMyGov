@@ -7,7 +7,8 @@ from pylons import tmpl_context as c
 from pylons.controllers.util import abort, redirect_to, redirect
 from pylons.decorators.cache import beaker_cache
 from pylons.decorators.rest import dispatch_on
-from sqlalchemy.orm.exc import NoResultFound, UnboundExecutionError
+from sqlalchemy.exc import UnboundExecutionError
+from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.sql import func
 from sqlalchemy import and_
 import datetime
