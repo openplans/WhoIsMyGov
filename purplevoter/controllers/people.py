@@ -42,7 +42,7 @@ def _to_json(obj):
                 'election_stagename': obj.election.stagename,
                 'election_date': obj.election.date,
                 'candidates': obj.candidates,
-                'incumbents': obj.candidates,
+                'incumbents': obj.incumbents,
                 }
         return info
     else:

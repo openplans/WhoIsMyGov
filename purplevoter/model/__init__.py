@@ -138,6 +138,13 @@ class Race(object):
         if candidates:
             self.candidates = candidates
 
+    @property
+    def incumbents(self):
+        # should figure out a way to get sqlalchemy to do this.
+        # raw sql?
+        return [i for i in self.district.incumbents if i.incumbent_office == self.office]
+
+
 race_table = sa.Table(
     'races', meta.metadata,
     sa.Column("id", sa.types.Integer, primary_key=True),
