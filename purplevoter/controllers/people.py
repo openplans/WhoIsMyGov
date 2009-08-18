@@ -7,7 +7,7 @@ from pylons import tmpl_context as c
 from pylons.controllers.util import abort, redirect_to, redirect
 from pylons.decorators.cache import beaker_cache
 from pylons.decorators.rest import dispatch_on
-from sqlalchemy.orm.exc import NoResultFound
+from sqlalchemy.orm.exc import NoResultFound, UnboundExecutionError
 from sqlalchemy.sql import func
 from sqlalchemy import and_
 import datetime
@@ -31,6 +31,10 @@ def _to_json(obj):
             info[m.meta_key] = m.meta_value
         return info
     elif isinstance(obj, model.Race):
+        try:
+            incumbents = obj.incumbents
+        except UnboundExecutionError:
+            incumbents = meta.session.merge(obj.incumbents, dont_load=True)
         info = {'district_name': obj.district.district_name,
                 'district_type': obj.district.district_type,
                 'level_name': obj.district.level_name,
