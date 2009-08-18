@@ -1,4 +1,3 @@
-from paste.deploy.converters import asbool
 from purplevoter import model
 from purplevoter.lib.base import BaseController, render
 from purplevoter.model import meta
@@ -17,9 +16,8 @@ import logging
 import simplejson as json
 import urllib2
 
-from paste.debug.profile import profile_decorator #XXX
-
 log = logging.getLogger(__name__)
+
 
 def _to_json(obj):
     if isinstance(obj, datetime.date) or isinstance(obj, datetime.datetime):
@@ -77,6 +75,8 @@ class PeopleController(BaseController):
         c.election_stagename = 'Primary'  # XXX parameterize this.
         c.election_name = 'New York City 2009'  # XXX parameterize this.
         c.status = request.params.getall('status')
+        all_levels = ('federal', 'state', 'city')
+        level_names = request.params.getall('level_name') or all_levels
         if request.params.has_key('lat') and request.params.has_key('lon'):
             lat = request.params['lat']
             lon = request.params['lon']
@@ -91,16 +91,21 @@ class PeopleController(BaseController):
             else:
                 # XXX signal an error
                 return
+        # We should have an address to work with now.
         if lat and lon:
             c.lat, c.lon = float(lat), float(lon)
-        # We need the mcommons district lookup no matter which
-        # levels we care about, because that's how we find out
-        # what state we're in.  (Geocoding doesn't tell us.)
-        districts = self._get_mcommons_districts(c.lat, c.lon)
-        all_levels = ('federal', 'state', 'city')
-        level_names = request.params.getall('level_name') or all_levels
+            # We need the mcommons district lookup no matter which
+            # levels we care about, because that's how we find out
+            # what state we're in.  (Geocoding doesn't tell us.)
+            districts = self._get_mcommons_districts(c.lat, c.lon)
+            races = self._search_races(districts, level_names)
+        elif request.params.has_key('city'):
+            # Get all local info for the whole city.
+            level_names = 'city'
+            races = self._get_all_races_for_city(request.params.get('city'))
+        else:
+            races = []
 
-        races = self._search_races(districts, level_names)
         c.races = races
         # At least for the html view, it's nice to group by districts.
         # but not sure about this yet.
@@ -130,9 +135,7 @@ class PeopleController(BaseController):
         # mcommons doesn't return 'federal_upper', so first manually add this
         state = districts[districts.keys()[0]]['state']
 
-        election_q = meta.Session.query(model.Election)
-        election = election_q.filter_by(date=c.election_date, stagename=c.election_stagename,
-                                        name=c.election_name).one()
+        election = self._get_election_from_request()
 
         if 'federal' in level_names:
             # XXXGet senatorial candidates
@@ -178,16 +181,23 @@ class PeopleController(BaseController):
                     func.ST_GeomFromText(point, meta.storage_SRID)))
             district_q = self._filter_people_by_status(district_q)
             local_districts = district_q.all()
-            # XXX This doesn't work and I don't understand the sqlalchemy error...
+            result_races.extend(self._get_races_for_districts(local_districts))
+
+        return result_races  # list(set(result_races))?
+
+
+    def _get_races_for_districts(self, districts):
+        # XXX This doesn't work and I don't understand the sqlalchemy error...
 #             races = race_q.filter(model.Race.district.in_(local_districts))
 #             result_races.extend(races)
-            # So instead, I iterate, thereby spewing a ton of db queries.
-            # Performance will be horrible, but it works.
-            for local_dist in local_districts:
-                for race in local_dist.races:
-                    if race.election == election:
-                        result_races.append(race)
-
+        # So instead, I iterate, thereby spewing a ton of db queries.
+        # Performance will be horrible, but it works.
+        election = self._get_election_from_request()
+        result_races = []
+        for dist in districts:
+            for race in dist.races:
+                if race.election == election:
+                    result_races.append(race)
         return result_races
 
 
@@ -247,6 +257,38 @@ class PeopleController(BaseController):
             return result
         except NoResultFound:
             return None
+
+    def _get_election_from_request(self):
+        election_q = meta.Session.query(model.Election)
+        election = election_q.filter_by(date=c.election_date,
+                                        stagename=c.election_stagename,
+                                        name=c.election_name).one()
+        return election
+
+    @beaker_cache(expire=617, type='memory')
+    def _get_all_races_for_city(self, city_name):
+        city_q = meta.Session.query(model.Districts)
+        # XXX This will need disambiguation when we go beyond NYC.
+        city_q = city_q.filter_by(district_type='City', district_name=city_name)
+        city = city_q.one()
+
+        election = self._get_election_from_request()
+
+        # Get ALL the districts within this city.
+        district_q = meta.Session.query(model.Districts)
+        # For some reason I get a ProgrammingError if I just pass city.geometry
+        # as an arg to func.st_within().  Hackaround: pass it as a string.
+        # This is horribly inefficient, but no more so than the rest of my queries...
+        city_geom = city.geometry.wkt
+        district_q = district_q.filter(
+            func.st_within(model.Districts.geometry,
+                           func.ST_GeomFromText(city_geom,
+                                                meta.storage_SRID)))
+        districts = district_q.all()
+
+        races = self._get_races_for_districts(districts)
+        return races
+
         
 
     #######################################################################
@@ -301,3 +343,4 @@ class PeopleController(BaseController):
         meta.Session.delete(district_meta)
         meta.Session.commit()
         redirect(request.params.get('referrer')) 
+
