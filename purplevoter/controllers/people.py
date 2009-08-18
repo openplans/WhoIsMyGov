@@ -44,8 +44,8 @@ def _to_json(obj):
                 'election': obj.election.name,
                 'election_stagename': obj.election.stagename,
                 'election_date': obj.election.date,
-                'candidates': obj.candidates,
-                'incumbents': obj.incumbents,
+                'candidates': sorted(obj.candidates, key=lambda x: x.fullname),
+                'incumbents': sorted(obj.incumbents, key=lambda x: x.fullname),
                 }
         return info
     else:
