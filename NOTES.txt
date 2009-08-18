@@ -129,11 +129,3 @@ Votesmart usage examples:
 nyc_id = 898
 nyc_officials = votesmart.local.getOfficials(nyc_id)
 pprint([(c.lastName, c.title, c.officeParties) for c in nyc_officials])
-
-
-
-NEED TO TELL MIKE
-------------------
-
- person.office was renamed person.incumbent_office and represents what
- office the person currently holds, if any.
