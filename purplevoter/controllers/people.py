@@ -78,7 +78,7 @@ class PeopleController(BaseController):
         c.search_term = request.params.get('address', '')
         c.election_date = datetime.date(2009, 9, 15)
         c.election_stagename = 'Primary'  # XXX parameterize this.
-        c.election_name = 'New York City 2009'  # XXX parameterize this.
+        c.election_name = u'New York City 2009'  # XXX parameterize this.
         c.status = request.params.getall('status')
         all_levels = ('federal', 'state', 'city')
         level_names = request.params.getall('level_name') or all_levels
