@@ -96,7 +96,7 @@ class PeopleController(BaseController):
             else:
                 # XXX signal an error
                 return
-        # We should have an address to work with now.
+        # We should have a location to work with now.
         if lat and lon:
             c.lat, c.lon = float(lat), float(lon)
             # We need the mcommons district lookup no matter which
@@ -131,13 +131,13 @@ class PeopleController(BaseController):
 
 
     def _search_races(self, districts, level_names):
-
+        """Find all races for the given district ids
+        """
         result_races = []
 
         if not districts:
             return result_races
 
-        # mcommons doesn't return 'federal_upper', so first manually add this
         state = districts[districts.keys()[0]]['state']
 
         election = self._get_election_from_request()
