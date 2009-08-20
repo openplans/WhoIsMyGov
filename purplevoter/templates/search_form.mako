@@ -23,12 +23,12 @@
 </ul>
 % elif not c.districts:
    <p>No results found.</p>
-% endif
-
+% else:
+ <h2>Races in the ${c.election_name} ${c.election_stagename} Election (${c.election_date})</h2>
  % for district in c.districts:
     <dl class="race">
     % for race in sorted(district.races, key=lambda r: r.office) :
-      <dt class="office">${district.district_name} ${race.office}</dt>
+      <dt class="office">Candidates for ${race.office} in ${district.district_name}</dt>
       <dd><dl class="candidate">
       % for person in race.candidates:
         <dt class="fullname"><strong>${person.fullname}</strong></dt>
@@ -41,7 +41,7 @@
       </dl></dd>
     % endfor
     </dl>
-% endfor
-    
+ % endfor
+%endif   
 
 </div>
