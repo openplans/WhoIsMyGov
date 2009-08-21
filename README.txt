@@ -57,3 +57,38 @@ for migrations by looking at existing scripts. Maybe bad ideas, but
 they've worked so far ;-)
 
 
+Production Deployment
+=====================
+
+We might eventually use mod_wsgi. For now, we run Paste under the
+control of supervisord, and assume you can set up Apache or similar to
+reverse-proxy it.
+
+The source includes a supervisord.conf suitable for running the paste
+server under the control of supervisord, which will restart it if it
+ever crashes.  To use supervisord::
+
+* I assume you've built in a virtualenv as described above.
+
+* Edit supervisord.conf; in the [supervisord] section, set the
+  "directory" setting to the full path of the parent directory of your
+  virtualenv.
+
+* Edit production.ini as desired.
+
+* In the parent of the virtualenv, create an etc/ subdirectory
+  and symlink both production.ini and supervisord.conf into it.
+
+  Also create a logs/ subdirectory.
+
+
+Then you can run $VIRTUALENV/bin/supervisord to start things up.
+
+To shut down, run this:
+ $VIRTUALENV/bin/supervisorctl shutdown.
+
+To restart the paste server, run:
+
+ $VIRTUALENV/bin/supervisorctl restart pvoter
+
+
