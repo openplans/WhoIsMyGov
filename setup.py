@@ -23,6 +23,7 @@ setup(
         "simplejson",
         "geopy",
         "lxml",
+        "PyYAML",
     ],
     setup_requires=["PasteScript>=1.6.3"],
     packages=find_packages(exclude=['ez_setup']),
