@@ -129,3 +129,12 @@ Votesmart usage examples:
 nyc_id = 898
 nyc_officials = votesmart.local.getOfficials(nyc_id)
 pprint([(c.lastName, c.title, c.officeParties) for c in nyc_officials])
+
+
+
+ADMIN UI
+========
+
+Might want one of these.
+Maybe bootstrap it with FormAlchemy? and/or its pylons admin UI?
+http://docs.formalchemy.org/current/ext/pylons.html#administration-interface
