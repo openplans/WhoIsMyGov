@@ -52,6 +52,7 @@ def _to_json(obj):
         raise TypeError
 
 
+
 class PeopleController(BaseController):
 
     def search(self):
@@ -69,12 +70,16 @@ class PeopleController(BaseController):
         """
         self._search()
         response.headers['Content-Type'] = 'application/json'
+        if len(c.address_matches) > 1:
+            # XXX need to advise the client that this is ambiguous.
+            c.races = []
         return json.dumps(c.races, sort_keys=True, indent=1, default=_to_json)
 
     def _search(self):
         """Find districts and people, given an address."""
         lat = lon = None
-
+        c.races = []
+        c.districts = []
         c.search_term = request.params.get('address', '')
         c.election_date = datetime.date(2009, 9, 15)
         c.election_stagename = 'Primary'  # XXX parameterize this.
@@ -94,7 +99,8 @@ class PeopleController(BaseController):
                 c.address_matches = address_matches
                 return
             else:
-                # XXX signal an error
+                # XXX signal an error?
+                c.address_matches = []
                 return
         # We should have a location to work with now.
         if lat and lon:
@@ -124,10 +130,16 @@ class PeopleController(BaseController):
        """ convert an address string into a list of (addr_str, (lat,lon))
        tuples """
        # move
-       google_api_key = config['google_api_key']
-       geocoder = geopy.geocoders.Google(api_key=google_api_key)
-       address_gen = geocoder.geocode(address, exactly_one=False)
-       return [(addr, (lat, lon)) for addr, (lat, lon) in address_gen]
+
+       if config.get('mock_geocoder'):
+           address_gen = request.environ['mockgeocoder.results']
+       else:
+           google_api_key = config['google_api_key']
+           geocoder = geopy.geocoders.Google(api_key=google_api_key)
+           address_gen = geocoder.geocode(address, exactly_one=False)
+       result = [(addr, (lat, lon)) for addr, (lat, lon) in address_gen]
+       #print result
+       return result
 
 
     def _search_races(self, districts, level_names):
