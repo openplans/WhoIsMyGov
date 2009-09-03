@@ -2,6 +2,7 @@
 
 from purplevoter.model import meta
 from sqlalchemy import orm
+from sqlalchemy.orm.exc import NoResultFound
 from sqlgeotypes import Geometry
 import sqlalchemy as sa
 
@@ -21,11 +22,38 @@ districts_table = sa.Table(
     sa.Column("district_type", sa.types.String(255), nullable=False),
     sa.Column("level_name", sa.types.String(255), nullable=False),
     sa.Column("district_name", sa.types.String(255), nullable=False),
+    sa.Column("parent_id", sa.schema.ForeignKey('districts.id',
+                                                ondelete='SET DEFAULT'),
+              nullable=True),
     sa.Column("geometry", Geometry(meta.storage_SRID, 'GEOMETRY', 2), nullable=True),
     )
 
 class Districts(object):
-    pass
+
+    @property
+    def parent_district(self):
+        """occasionally it's useful to know a geographic district that
+        encompasses this one, eg. in New York, a City Council district
+        is part of a certain Borough.
+        """
+        # Tried to do this via an orm.relation but I couldn't figure out
+        # how to get it to work the right way with a self-join.
+        if self.parent_id is None:
+            return None
+        q = meta.Session.query(Districts)
+        try:
+            parent = q.filter_by(id=self.parent_id).one()
+            return parent
+        except NoResultFound:
+            return None
+
+    @property
+    def parent_district_name(self):
+        parent = self.parent_district
+        if parent:
+            return parent.district_name
+        return None
+            
 
 
 people_table = sa.Table(
@@ -33,7 +61,8 @@ people_table = sa.Table(
     sa.Column("id", sa.types.Integer, primary_key=True, autoincrement=True),
     sa.Column("fullname", sa.types.String(255), nullable=False),
     sa.Column("incumbent_office", sa.types.String(255), nullable=True),
-    sa.Column("incumbent_district", sa.types.Integer, sa.schema.ForeignKey('districts.id'),
+    sa.Column("incumbent_district", sa.types.Integer, 
+              sa.schema.ForeignKey('districts.id', ondelete='SET DEFAULT'),
               nullable=True),
     sa.Column("incumbent_district", sa.types.Integer, sa.schema.ForeignKey('districts.id'),
               nullable=True),
@@ -173,12 +202,13 @@ orm.mapper(Race, race_table,
                        })
        
 
-orm.mapper(Districts, districts_table,
-           properties={# Don't use cascade here, I think that we don't want
-                       # want people to be deleted even if their district is
-                       # deleted. Not sure.
-                       'incumbents': orm.relation(People),
-                       })
+orm.mapper(
+    Districts, districts_table,
+    properties={# Don't use cascade here, I think that we don't want
+                # want people to be deleted even if their district is
+                # deleted. Not sure.
+                'incumbents': orm.relation(People),
+                })
 
 orm.mapper(People, people_table,
            properties={'meta': orm.relation(PeopleMeta, 

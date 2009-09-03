@@ -28,7 +28,12 @@
  % for district in c.districts:
     <dl class="race">
     % for race in sorted(district.races, key=lambda r: r.office) :
-      <dt class="office">Candidates for ${race.office} in ${district.district_name}</dt>
+      <dt class="office">Candidates for ${race.office} in
+        ${district.district_name}
+        % if district.parent_district_name:
+	  ,  ${district.parent_district_name}
+	% endif
+      </dt>
       <dd><dl class="candidate">
       % for person in race.candidates:
         <dt class="fullname"><strong>${person.fullname}</strong></dt>

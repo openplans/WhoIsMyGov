@@ -1,3 +1,5 @@
+Random grab-bag of todos and historical project info
+
 OFFICES TA CARES ABOUT
 ======================
 
@@ -31,20 +33,9 @@ CODE NOTES
 =============
 
 
-
-Plan
-=====
-
-* Use SRID = 4326 aka
-  WGS84(http://en.wikipedia.org/wiki/World_Geodetic_System) 
-  ... which seems to be what blockparty uses; stores things as lon/lat
-  pairs so i can easily query for which district contains a lon/lat 
-
 * This apparently works to find my home districts (LONGITUDE FIRST):
 
   select * from districts where districts.geometry is not NULL and st_contains(districts.geometry, ST_GeomFromText('POINT(-73.96805047988892 40.677578720206355 )', 4326));
-
-* Refactor the models as per below.
 
 
 
@@ -120,7 +111,6 @@ DEFERRED: Slightly more complex again
 
 Basically same as above, except Office becomes a first-class object,
 and we add a concept of Party.
-   
 
 
 Votesmart usage examples:
@@ -138,3 +128,7 @@ ADMIN UI
 Might want one of these.
 Maybe bootstrap it with FormAlchemy? and/or its pylons admin UI?
 http://docs.formalchemy.org/current/ext/pylons.html#administration-interface
+
+
+TO DO
+
