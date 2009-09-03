@@ -133,6 +133,7 @@ class PeopleController(BaseController):
        # move
 
        if config.get('mock_geocoder'):
+           # Intended for use in testing.
            address_gen = request.environ['mockgeocoder.results']
        else:
            google_api_key = config['google_api_key']

@@ -2,11 +2,6 @@ from purplevoter.tests import url, TestController
 
 class TestPeopleController(TestController):
 
-    # XXX TODO: factor out a minimal set of geocoder tests,
-    # get those to use a mock (via test.ini?),
-    # and test the other stuff by setting lat & lon instead of
-    # address.
-
     degraw = '669 degraw st., 11217'
 
     mockgeocoder_results = []
@@ -44,22 +39,12 @@ class TestPeopleController(TestController):
         response = self.app.get(url(controller='people', action='search', address=self.degraw))
         assert isinstance(response.c.races, list)
         assert response.c.races, "got empty races list"
-        assert response.c.races[0].office == u'City Council'
-        assert response.c.races[1].office == u'Mayor'
-        assert response.c.races[2].office == u'Comptroller'
-        assert response.c.races[3].office == u'Public Advocate'
-
-
-    def test_geocoder_election(self):
-        self.mockgeocoder_results[:] = [(u'669 Degraw St, Brooklyn, NY 11217, USA',
-                                      (40.678329400000003, -73.981242499999993))]
-        response = self.app.get(url(controller='people', action='search', address=self.degraw))
-        assert isinstance(response.c.races, list)
-        assert response.c.races, "got empty races list"
-        assert response.c.races[0].office == u'City Council'
-        assert response.c.races[1].office == u'Mayor'
-        assert response.c.races[2].office == u'Comptroller'
-        assert response.c.races[3].office == u'Public Advocate'
+        self.assertEqual(len(response.c.races), 4)
+        offices = sorted(r.office for r in response.c.races)
+        assert offices[0] == u'City Council'
+        assert offices[1] == u'Comptroller'
+        assert offices[2] == u'Mayor'
+        assert offices[3] == u'Public Advocate'
 
 
     def test_no_address(self):
