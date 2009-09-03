@@ -56,17 +56,17 @@ def upgrade():
                               name='New York City 2009',
                               stagename='Primary')
 
-    files = [dict(path='city_council.csv', office='City Council',
+    files = [dict(path='city_council.csv', office=u'City Council',
                   district_type='City Council', district_format=r'District %s'),
-             dict(path='mayoral.csv', office='Mayor', 
+             dict(path='mayoral.csv', office=u'Mayor', 
                   district_type='City', district_format='New York City'),
-             dict(path='comptroller.csv', office='Comptroller',
+             dict(path='comptroller.csv', office=u'Comptroller',
                   district_type='City', district_format='New York City'),
-             dict(path='district_attorney.csv', office='District Attorney',
+             dict(path='district_attorney.csv', office=u'District Attorney',
                   district_type='Borough', district_format=r'%s'),
-             dict(path='borough_president.csv', office='Borough President',
+             dict(path='borough_president.csv', office=u'Borough President',
                   district_type='Borough', district_format=r'%s'),
-             dict(path='public_advocate.csv', office='Public Advocate',
+             dict(path='public_advocate.csv', office=u'Public Advocate',
                   district_type='City', district_format='New York City'),
              ]
 
@@ -123,10 +123,12 @@ def _insert_from_file(office, district_type, district_format, path,
         transaltid = (info.get('NID') or '').strip()
         if transaltid:
             ta_id = find_or_create(meta.Session, PeopleMeta,
-                                   meta_key='transaltid', meta_value=transaltid,
+                                   meta_key=u'transaltid', 
+                                   meta_value=unicode(transaltid),
                                    person=person)
 
         print u"Added", person.fullname
+
 
     meta.Session.commit()
 
