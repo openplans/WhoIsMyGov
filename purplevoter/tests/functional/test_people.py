@@ -129,3 +129,4 @@ class TestPeopleControllerJsonOutput(TestController):
         assert response.status == '400 Bad Request'
         expected_addresses = sorted([str(a[0]) for a in expected_results])
         self.assertEqual(response.json['error_data'], expected_addresses)
+        self.assertEqual(response.json['error'], 'Ambiguous address')
