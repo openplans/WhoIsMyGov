@@ -52,6 +52,15 @@ def _to_json(obj):
     else:
         raise TypeError
 
+    
+def _json_error(status, reason, data=None):
+    # Not sure of the best way to do custom error responses.
+    # Calling abort(400) seems to trigger the default error-handling 
+    # middleware which spits out HTML.  This works okay:
+    response.status = status
+    request.environ['pylons.status_code_redirect'] = True
+    response.headers['Content-Type'] = 'application/json'
+    return json.dumps({'error': reason, 'error_data': data})    
 
 
 class PeopleController(BaseController):
@@ -72,8 +81,8 @@ class PeopleController(BaseController):
         self._search()
         response.headers['Content-Type'] = 'application/json'
         if len(c.address_matches) > 1:
-            # XXX need to advise the client that this is ambiguous.
-            c.races = []
+            addresses = [address[0] for address in c.address_matches]
+            return _json_error(400, "Ambiguous address", data=addresses)
         return json.dumps(c.races, sort_keys=True, indent=1, default=_to_json)
 
     def _search(self):
@@ -97,7 +106,7 @@ class PeopleController(BaseController):
                 addr_str, (lat, lon) = address_matches[0]
             elif len(address_matches) > 1:
                 # Let the user figure it out
-                c.address_matches = address_matches
+                c.address_matches = sorted(address_matches)
                 return
             else:
                 # XXX signal an error?

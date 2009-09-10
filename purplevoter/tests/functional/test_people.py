@@ -104,7 +104,7 @@ class TestPeopleControllerJsonOutput(TestController):
         assert response.json == []
 
     def test_address_ambiguous(self):
-        self.mockgeocoder_results[:] = [
+        expected_results = [
             (u'Main St, Springfield, CO 81073, USA',
              (37.404052999999998, -102.61655399999999)),
             (u'Main St, Springfield, OR, USA',
@@ -122,5 +122,10 @@ class TestPeopleControllerJsonOutput(TestController):
             (u'Main St, Springfield, VT 05156, USA',
              (43.296849000000002, -72.481633000000002))]
 
-        response = self._search_json(address='main st., springfield')
-        assert response.json == []
+        self.mockgeocoder_results[:] = expected_results
+        response = self.app.get(url(controller='people', action='search_json',
+                                    address='main street, springfield'),
+                                status=400)
+        assert response.status == '400 Bad Request'
+        expected_addresses = sorted([str(a[0]) for a in expected_results])
+        self.assertEqual(response.json['error_data'], expected_addresses)
