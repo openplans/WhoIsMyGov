@@ -26,11 +26,16 @@ environ = {}
 
 class TestController(TestCase):
 
+    extra_environ = None
+
     def __init__(self, *args, **kwargs):
         if pylons.test.pylonsapp:
             wsgiapp = pylons.test.pylonsapp
         else:
             wsgiapp = loadapp('config:%s' % config['__file__'])
-        self.app = TestApp(wsgiapp)
+        if self.extra_environ:
+            self.app = TestApp(wsgiapp, extra_environ=self.extra_environ)
+        else:
+            self.app = TestApp(wsgiapp)
         url._push_object(URLGenerator(config['routes.map'], environ))
         TestCase.__init__(self, *args, **kwargs)

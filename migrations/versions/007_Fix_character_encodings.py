@@ -10,9 +10,9 @@ def upgrade():
     people = meta.Session.query(People).all()
     for p in people:
         try:
-            fullname = p.fullname.decode('utf8').encode('latin1').decode('utf8')
+            fullname = p.fullname.decode('utf8').encode('latin1').decode('utf8').strip()
         except UnicodeDecodeError:
-            print "couldn't fix %s, skipping" % fullname
+            print "couldn't fix %s, skipping" % p.fullname
             continue
         if fullname != p.fullname:
             print "Fixed", fullname.encode('utf8')
@@ -42,6 +42,6 @@ def downgrade():
             if p.fullname != fullname:
                 p.fullname = fullname
         except UnicodeDecodeError:
-            print "couldn't mangle %s, skipping" % fullname
+            print "couldn't mangle %s, skipping" % p.fullname
     Session.commit()
 

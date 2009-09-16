@@ -40,7 +40,7 @@ $ psql -c "alter table spatial_ref_sys owner to pvoter;" pvoter
 Then to populate the data:
 
 $ source bin/activate
-$ paster setup-app development.ini
+$ paster setup-app --name=pvoter development.ini
 $ python manage.py version_control
 $ python manage.py upgrade
 

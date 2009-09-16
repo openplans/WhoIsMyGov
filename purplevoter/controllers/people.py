@@ -46,10 +46,21 @@ def _to_json(obj):
                 'election_date': obj.election.date,
                 'candidates': sorted(obj.candidates, key=lambda x: x.fullname),
                 'incumbents': sorted(obj.incumbents, key=lambda x: x.fullname),
+                'parent_district_name': obj.district.parent_district_name,
                 }
         return info
     else:
         raise TypeError
+
+    
+def _json_error(status, reason, data=None):
+    # Not sure of the best way to do custom error responses.
+    # Calling abort(400) seems to trigger the default error-handling 
+    # middleware which spits out HTML.  This works okay:
+    response.status = status
+    request.environ['pylons.status_code_redirect'] = True
+    response.headers['Content-Type'] = 'application/json'
+    return json.dumps({'error': reason, 'error_data': data})    
 
 
 class PeopleController(BaseController):
@@ -69,12 +80,16 @@ class PeopleController(BaseController):
         """
         self._search()
         response.headers['Content-Type'] = 'application/json'
+        if len(c.address_matches) > 1:
+            addresses = [address[0] for address in c.address_matches]
+            return _json_error(400, "Ambiguous address", data=addresses)
         return json.dumps(c.races, sort_keys=True, indent=1, default=_to_json)
 
     def _search(self):
         """Find districts and people, given an address."""
         lat = lon = None
-
+        c.races = []
+        c.districts = []
         c.search_term = request.params.get('address', '')
         c.election_date = datetime.date(2009, 9, 15)
         c.election_stagename = 'Primary'  # XXX parameterize this.
@@ -91,10 +106,11 @@ class PeopleController(BaseController):
                 addr_str, (lat, lon) = address_matches[0]
             elif len(address_matches) > 1:
                 # Let the user figure it out
-                c.address_matches = address_matches
+                c.address_matches = sorted(address_matches)
                 return
             else:
-                # XXX signal an error
+                # XXX signal an error?
+                c.address_matches = []
                 return
         # We should have a location to work with now.
         if lat and lon:
@@ -124,10 +140,17 @@ class PeopleController(BaseController):
        """ convert an address string into a list of (addr_str, (lat,lon))
        tuples """
        # move
-       google_api_key = config['google_api_key']
-       geocoder = geopy.geocoders.Google(api_key=google_api_key)
-       address_gen = geocoder.geocode(address, exactly_one=False)
-       return [(addr, (lat, lon)) for addr, (lat, lon) in address_gen]
+
+       if config.get('mock_geocoder'):
+           # Intended for use in testing.
+           address_gen = request.environ['mockgeocoder.results']
+       else:
+           google_api_key = config['google_api_key']
+           geocoder = geopy.geocoders.Google(api_key=google_api_key)
+           address_gen = geocoder.geocode(address, exactly_one=False)
+       result = [(addr, (lat, lon)) for addr, (lat, lon) in address_gen]
+       #print result
+       return result
 
 
     def _search_races(self, districts, level_names):
