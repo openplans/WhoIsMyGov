@@ -165,20 +165,24 @@ class PeopleController(BaseController):
 
         election = self._get_election_from_request()
 
-        if 'federal' in level_names:
-            # XXXGet senatorial candidates
-            pass
+        race_q = meta.Session.query(model.Race).filter_by(election=election)
 
+        # Get US Senate races.
+        if 'federal' in level_names:
+            senate_districts = self._get_us_senator_districts(state)
+            for sd in senate_districts:
+                races = race_q.filter_by(district=sd).all()
+                result_races.extend(races)
+
+        # Get statewide and US House races.
         for level_type in districts:
             #change the mcommons parameters to votesmart parameters
-            #name of the district
             try:
                 district_name = "District " + str(int(districts[level_type]['district']))
             except ValueError:
                 district_name = "District " + districts[level_type]['district']
 
             level_name = ""
-            #name of level
             if level_type == 'federal':
                 level_name = "Federal"
                 district_type = "U.S. House"
@@ -192,10 +196,7 @@ class PeopleController(BaseController):
             if level_name.lower() not in level_names:
                 continue
 
-            # Statewide races.
             district = self._get_district_for_state(state, district_name, district_type)
-            race_q = meta.Session.query(model.Race)
-            race_q = race_q.filter_by(election=election)
             races = race_q.filter_by(district=district).all()
             result_races.extend(races)
 
@@ -270,6 +271,12 @@ class PeopleController(BaseController):
         district_q = district_q.filter(model.Districts.state==state).\
             filter(model.Districts.level_name=="Federal").\
             filter(model.Districts.district_type=="U.S. Senate")
+        # Confusingly, we have 3 extra senate districts, apparently to
+        # distinguish senators by classes (see
+        # http://en.wikipedia.org/wiki/Us_senate#Elections_and_term).
+        # Ignore those for now.
+        district_q = district_q.filter(
+            model.Districts.district_name.endswith('Seat'))
         district_q = self._filter_people_by_status(district_q)
         fed_districts = district_q.all()
         return fed_districts

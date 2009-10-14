@@ -10,3 +10,4 @@ syntax: glob
 *\#
 pip-log.txt
 *.log
+.*
