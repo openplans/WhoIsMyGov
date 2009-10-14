@@ -1,25 +1,27 @@
-Random grab-bag of todos and historical project info
-
-OFFICES TA CARES ABOUT
-======================
-
- * City Council (by council districts)
-
- * Controller (citywide)
-
- * Mayor (citywide)
-
- * Public Advocate (citywide)
-
- * Borough President (by borough)
-
- * DA (manhattan only for now; by borough)
+=================
+Development Notes
+=================
 
 
 
 
-DATA
-======
+Code Notes
+==========
+
+
+Please Add Migrations!
+----------------------
+
+When adding new data, or modifying existing data, you should provide
+migrations so your changes can be reproduced.
+
+You'll want to look up the docs for SQLAlchemy-migrate and learn how
+to use the manage.py script and write migrations. You can steal ideas
+for migrations by looking at existing scripts. Maybe bad ideas, but
+they've more or less worked so far ;-)
+
+Data Sources
+------------
 
  http://www.nyc.gov/html/dcp/html/bytes/dwndistricts.shtml
 
@@ -29,29 +31,42 @@ DATA
    http://www.nyc.gov/html/dcp/download/bytes/nycc_08cav.zip
 
 
-CODE NOTES
-=============
+Random SQL query examples
+--------------------------
 
-
-* This apparently works to find my home districts (LONGITUDE FIRST):
+This apparently works to find my home districts (LONGITUDE FIRST)::
 
   select * from districts where districts.geometry is not NULL and st_contains(districts.geometry, ST_GeomFromText('POINT(-73.96805047988892 40.677578720206355 )', 4326));
 
 
+Votesmart usage examples
+-------------------------
 
-NEW DATA MODEL
-======================
+::
 
- From a location, we look up one or more districts (they can overlap).
- But we realy need to factor out some data from the districts.
+ nyc_id = 898
+ nyc_officials = votesmart.local.getOfficials(nyc_id)
+ pprint([(c.lastName, c.title, c.officeParties) for c in nyc_officials])
 
 
- * An Election has these direct attributes:
+
+
+New Data Model as of August 2009
+---------------------------------
+
+From a location, we look up one or more districts (they can overlap).
+But we realy need to factor out some data from the districts.
+
+
+* An Election has these direct attributes:
+
    - election date
+
    - name
+
    - stagename ("Primary" | "General")
 
- * Person has these attributes:
+* Person has these attributes:
 
    - fullname
 
@@ -62,7 +77,7 @@ NEW DATA MODEL
    - arbitrary other key/vals via people_meta_table
 
 
-  An Election takes place in N Districts, each modeled via a
+* An Election takes place in N Districts, each modeled via a
   Race association class. (many-to-many)
 
   - An Race has references to one District and one
@@ -82,7 +97,7 @@ NEW DATA MODEL
   - a Person has backrefs to at most 1 Race, and thus
     indirectly to 0-1 Elections and 0-1 Districts.
 
-  Given all that, convenience methods could yield useful things like
+* Given all that, convenience methods could yield useful things like
   "latest election a candidate ran in".
 
   So, eg. to find incumbents and candidates given an address and a
@@ -92,43 +107,54 @@ NEW DATA MODEL
     matches the date, and Race.District.geography matches
     the address.
    
-  - for each Race:
-    eg. Race(election=Election('NY Primaries 2009'),
-                         district=District('Brooklyn'),
-                         office='Borough President')
+  - for each Race: eg::
 
-    - from Race.district, yield the incumbents
-      eg. Person('Bob Jones', incumbent_office='Borough President',
-                 incumbent_district=District('Brooklyn'))
+       Race(election=Election('NY Primaries 2009'),
+                               district=District('Brooklyn'),
+                               office='Borough President')
+
+    - from Race.district, yield the incumbents, eg::
+
+       Person('Bob Jones', incumbent_office='Borough President',
+               incumbent_district=District('Brooklyn'))
 
     - yield all Race.candidates
       eg. Person('Lisa James', incumbent_office=None)
 
 
 
-DEFERRED: Slightly more complex again
--------------------------------------
+DEFERRED: Slightly more complex data model
+------------------------------------------
 
 Basically same as above, except Office becomes a first-class object,
 and we add a concept of Party.
 
 
-Votesmart usage examples:
------------------------------
-
-nyc_id = 898
-nyc_officials = votesmart.local.getOfficials(nyc_id)
-pprint([(c.lastName, c.title, c.officeParties) for c in nyc_officials])
-
-
-
-ADMIN UI
-========
+Admin UI
+--------
 
 Might want one of these.
 Maybe bootstrap it with FormAlchemy? and/or its pylons admin UI?
 http://docs.formalchemy.org/current/ext/pylons.html#administration-interface
 
 
-TO DO
+Random Historical Notes
+========================
+
+Offices TA Cares About
+----------------------
+
+ * City Council (by council districts)
+
+ * Controller (citywide)
+
+ * Mayor (citywide)
+
+ * Public Advocate (citywide)
+
+ * Borough President (by borough)
+
+ * DA (manhattan only for now; by borough)
+
+
 
