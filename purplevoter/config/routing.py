@@ -27,6 +27,10 @@ def make_map():
     map.connect('delete_meta', '/meta/:meta_id/delete',  controller='people', action='delete_meta')
     map.connect('get_vs_districts', '/admin/vs_districts',  controller='admin', action='get_vs_districts')
 
+
+    map.connect('/elections', '/elections/', controller='elections', action='list')
+    map.connect('/elections/{name}-{stage}-{date}', controller='elections', action='view_election')
+
     map.connect('/{controller}/{action}')
     map.connect('/{controller}/{action}/{id}')
 

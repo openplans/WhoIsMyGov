@@ -1,6 +1,9 @@
 <%inherit file="/base.mako" />
 
-<form method="GET" action="/">
+ <h1>Search in the ${c.election.name} ${c.election.stagename} Election
+ of (${c.election.date})</h1>
+
+<form method="GET" action="${request.url}">
   <div class="selfclear">
     <label for="address">Address</label>
     <input id="address" name="address" type="text" value="${c.search_term}" size=50 />
@@ -24,7 +27,7 @@
 % elif not c.districts:
    <p>No results found.</p>
 % else:
- <h2>Races in the ${c.election_name} ${c.election_stagename} Election (${c.election_date})</h2>
+ <h2>Results</h2>
  % for district in c.districts:
     <dl class="race">
     % for race in sorted(district.races, key=lambda r: r.office) :
