@@ -1,0 +1,63 @@
+* Talk to Anil about which fork to use... merge back to his?
+  - EMAIL SENT, waiting for reply.
+
+* Put these notes into the bitbucket tracker (which?)
+  - WAITING ON ANIL
+
+* Prioritize existing issues at
+  http://bitbucket.org/anil/purplevoter/issues/
+
+* Fix the installation instructions... we're not on pypi so no easy_install
+  - DONE
+
+* Specify a license.  AGPL? BSD?
+
+* factor out a separate page for looking up current officials; move
+  the current stuff to a page explicitly about looking up candidates
+  for a specific election, and make a page listing known elections.
+
+* fix the state / federal official lookup ... actually should be
+  included in the previous item.
+
+* Un-hardcode the election ... actually should be included in the
+  previouis items.
+
+* Version the API URL(s)
+
+* write some about text that can go in the README and on the website
+  - DONE, need to do the website though
+
+* maybe re-add the metadata UI with a config option to turn it off
+
+* maybe disable the extra metadata in the default display since it's
+  usually not interesting to most users (eg. TA candidate IDs)
+
+* Document the json API
+
+* API and web UI need to provide ways to specify whether you want
+  candidates or elected officials or both
+
+* maybe define a CSV format for official/candidate info that people
+  could use to submit to us, similar to the xls that TA sent.
+  separate first/last name?  middle?  etc.
+
+* document the import format(s)
+
+* scripts to import the import format(s)
+
+* document how to use the import script(s)
+
+* what about importing district shapes? shapefiles kind of suck.
+  but often that's what people have.  probably doesn't make sense
+  to invent a format.
+
+* UI for browsing elections
+
+* general codebase cleanup: things are scattered all over.
+  eg. put docs in the docs/ directory
+
+* data model docs from NOTES.txt should be cleaned up a bit and
+  organized
+
+* When does redistricting happen? and do we have to plan ahead for
+  that?
