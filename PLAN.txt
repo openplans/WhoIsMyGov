@@ -15,12 +15,16 @@
 * factor out a separate page for looking up current officials; move
   the current stuff to a page explicitly about looking up candidates
   for a specific election, and make a page listing known elections.
+  - IN PROGRESS, need to make a separate template instead of using
+  search_form.mako for both, and test the main search page.
 
 * fix the state / federal official lookup ... actually should be
   included in the previous item.
+  - TEST IT
 
 * Un-hardcode the election ... actually should be included in the
   previouis items.
+  - DONE
 
 * Version the API URL(s)
 
