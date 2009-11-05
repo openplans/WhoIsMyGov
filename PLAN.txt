@@ -1,11 +1,12 @@
-* Talk to Anil about which fork to use... merge back to his?
-  - EMAIL SENT, waiting for reply.
+* Talk to Anil about which fork to use... 
+  DONE: use mine
 
-* Put these notes into the bitbucket tracker (which?)
-  - WAITING ON ANIL
+
+* Put these notes into the bitbucket tracker (MINE)
 
 * Prioritize existing issues at
   http://bitbucket.org/anil/purplevoter/issues/
+  and copy them to mine
 
 * Fix the installation instructions... we're not on pypi so no easy_install
   - DONE
@@ -23,7 +24,7 @@
   - TEST IT
 
 * Un-hardcode the election ... actually should be included in the
-  previouis items.
+  previous items.
   - DONE
 
 * Version the API URL(s)
