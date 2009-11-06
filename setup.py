@@ -12,6 +12,9 @@ setup(
     author='',
     author_email='',
     url='',
+    dependency_links=[
+        "https://svn.openplans.org/eggs/",
+        ],
     install_requires=[
         "Pylons>=0.9.7",
         "SQLAlchemy>=0.5",
@@ -21,8 +24,8 @@ setup(
         "python-votesmart",
         "shapely",
         "simplejson",
-        "geopy",
-        "lxml",
+        "geopy>=0.93dev",
+        "lxml>=2.2",
         "PyYAML",
     ],
     setup_requires=["PasteScript>=1.6.3"],

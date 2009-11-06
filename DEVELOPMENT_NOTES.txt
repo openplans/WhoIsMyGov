@@ -2,12 +2,23 @@
 Development Notes
 =================
 
+Infrastructure
+==============
 
+Bug Tracker
+-----------
+
+https://projects.openplans.org/whoismygov
+
+
+Code Repository
+----------------
+
+http://bitbucket.org/slinkp/purplevoter/
 
 
 Code Notes
 ==========
-
 
 Please Add Migrations!
 ----------------------
@@ -15,7 +26,8 @@ Please Add Migrations!
 When adding new data, or modifying existing data, you should provide
 migrations so your changes can be reproduced.
 
-You'll want to look up the docs for SQLAlchemy-migrate and learn how
+You'll want to look up the docs for SQLAlchemy-migrate at
+http://packages.python.org/sqlalchemy-migrate/ and learn how
 to use the manage.py script and write migrations. You can steal ideas
 for migrations by looking at existing scripts. Maybe bad ideas, but
 they've more or less worked so far ;-)
