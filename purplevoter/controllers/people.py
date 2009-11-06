@@ -99,8 +99,8 @@ class PeopleController(BaseController):
         # At least for the html view, it's nice to group by districts.
         # but not sure about this yet.
         districts = set([r.district for r in races])
-        sortkey = lambda d: (d.district_name, d.district_type)
-        c.districts = sorted(c.districts, key=sortkey)
+        sortkey = lambda d: (d['district_name'], d['district_type'])
+        c.districts = sorted(districts, key=sortkey)
 
         
 
