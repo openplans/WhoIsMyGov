@@ -20,7 +20,10 @@ def make_map():
 
     # CUSTOM ROUTES HERE
 
-    map.connect('home', '/',  controller='people', action='search')
+    map.connect('home', '/',  controller='people', action='index')
+
+    map.connect('/officials/', controller='people', action='search')
+    
     map.connect('search.json', '/search.json', controller='people', action='search_json')
     map.connect('add_meta', '/add_meta',  controller='people', action='add_meta')
     map.connect('update_meta', '/meta/:meta_id/update',  controller='people', action='update_meta')

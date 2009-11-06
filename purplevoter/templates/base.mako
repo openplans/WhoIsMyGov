@@ -10,7 +10,7 @@
 <body>
   <div id="container" class="selfclear">
     <div id="header">
-       <h1 id="logo">Who Is My Government?<sup>ALPHA</sup></h1>
+       <a href="/"><h1 id="logo">Who Is My Government?<sup>ALPHA</sup></h1></a>
        <h3 id="tag-line">Find out who represents you.</h3>
     </div>
     <div id="main">

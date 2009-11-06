@@ -19,7 +19,12 @@ logger = logging.getLogger(__name__)
 
 
 
+    
 class PeopleController(BaseController):
+
+    def index(self):
+        """ Home page """
+        return render('index.mako')
 
     def search(self):
         """public HTML search page"""
