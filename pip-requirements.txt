@@ -22,7 +22,7 @@ elementtree==1.2.7-20070827-preview
 lxml==2.2.2
 meld3==0.6.5
 nose==0.11.1
--e hg+https://bitbucket.org/slinkp/purplevoter/@tip#egg=purplevoter-tip
+-e hg+https://bitbucket.org/slinkp/whoismygov/@tip#egg=whoismygov-tip
 psycopg2==2.0.11
 pyproj==1.8.5
 python-votesmart==0.2.1

@@ -14,7 +14,7 @@ https://projects.openplans.org/whoismygov
 Code Repository
 ----------------
 
-http://bitbucket.org/slinkp/purplevoter/
+http://github.com/openplans/WhoIsMyGov/
 
 
 Code Notes
@@ -153,8 +153,20 @@ http://docs.formalchemy.org/current/ext/pylons.html#administration-interface
 Random Historical Notes
 ========================
 
-Offices TA Cares About
-----------------------
+Offices TA Cares About 2010
+---------------------------
+
+ * State Assembly (NYC, Long Island and lower New York State
+(i.e. Westchester, Dutchess, etc, counties).
+
+ * State Senate  (NYC, Long Island and lower New York State
+(i.e. Westchester, Dutchess, etc, counties).
+
+ * Governor (statewide)
+
+
+Offices TA Cares About 2009
+-----------------------------
 
  * City Council (by council districts)
 

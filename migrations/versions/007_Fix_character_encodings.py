@@ -5,7 +5,7 @@ from migrate import *
 def upgrade():
     # Our data got double-encoded somehow.
     # This fixes it to be proper utf8.
-    from purplevoter.model import People, meta
+    from whoismygov.model import People, meta
     meta.metadata.bind = migrate_engine
     people = meta.Session.query(People).all()
     for p in people:

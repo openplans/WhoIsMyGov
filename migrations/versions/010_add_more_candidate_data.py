@@ -31,7 +31,7 @@ class CaseNormalizingDictReader(csv.DictReader):
                     return dict.__getitem__(self, k)
                 except KeyError:
                     continue
-                raise KeyError(key)
+            raise KeyError(key)
 
         def get(self, key, default=None):
             try:
@@ -47,7 +47,7 @@ class CaseNormalizingDictReader(csv.DictReader):
 def upgrade():
     # Upgrade operations go here. Don't create your own engine; use the engine
     # named 'migrate_engine' imported from migrate.
-    from purplevoter.model import meta, Election
+    from whoismygov.model import meta, Election
     meta.metadata.bind = migrate_engine
     connection = migrate_engine.connect()
 
@@ -77,7 +77,7 @@ def upgrade():
 
 def _insert_from_file(office, district_type, district_format, path, 
                       election, engine):
-    from purplevoter.model import People, Districts, PeopleMeta, meta, Race
+    from whoismygov.model import People, Districts, PeopleMeta, meta, Race
     meta.metadata.bind = engine
 
     path = os.path.join(os.path.dirname(__file__),
@@ -134,7 +134,7 @@ def _insert_from_file(office, district_type, district_format, path,
 
 def downgrade():
     # Operations to reverse the above upgrade go here.
-    from purplevoter.model import meta
+    from whoismygov.model import meta
     meta.metadata.bind = migrate_engine
     connection = migrate_engine.connect()
 

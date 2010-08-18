@@ -14,7 +14,7 @@ def upgrade():
     main_sql = open(district_shapes).read()
     connection = migrate_engine.connect()
     trans = connection.begin()
-    from purplevoter.model.meta import storage_SRID
+    from whoismygov.model.meta import storage_SRID
     try:
         # I can't get shp2pgsql to convert the SRID, which means I
         # have to temporarily allow putting in data with a bad SRID,

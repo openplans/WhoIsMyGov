@@ -6,8 +6,8 @@ except ImportError:
     from setuptools import setup, find_packages
 
 setup(
-    name='purplevoter',
-    version='0.1',
+    name='whoismygov',
+    version='0.2',
     description='',
     author='',
     author_email='',
@@ -24,6 +24,7 @@ setup(
         "python-votesmart",
         "shapely",
         "simplejson",
+        "geojson>=1.0.1",
         "geopy>=0.93dev",
         "lxml>=2.2",
         "PyYAML",
@@ -32,8 +33,8 @@ setup(
     packages=find_packages(exclude=['ez_setup']),
     include_package_data=True,
     test_suite='nose.collector',
-    package_data={'purplevoter': ['i18n/*/LC_MESSAGES/*.mo']},
-    #message_extractors={'purplevoter': [
+    package_data={'whoismygov': ['i18n/*/LC_MESSAGES/*.mo']},
+    #message_extractors={'whoismygov': [
     #        ('**.py', 'python', None),
     #        ('templates/**.mako', 'mako', {'input_encoding': 'utf-8'}),
     #        ('public/**', 'ignore', None)]},
@@ -41,7 +42,7 @@ setup(
     paster_plugins=['PasteScript', 'Pylons'],
     entry_points="""
     [paste.app_factory]
-    main = purplevoter.config.middleware:make_app
+    main = whoismygov.config.middleware:make_app
 
     [paste.app_install]
     main = pylons.util:PylonsInstaller

@@ -45,9 +45,13 @@ setup the application.
 
 To set up the database:
 
-First create a postgres user named pvoter. Then::
+First create a postgres user named whoismygov::
 
-$ createdb -T template_postgis -O pvoter -E utf8 pvoter
+$ createuser -s whoismygov
+
+Then::
+
+$ createdb -T template_postgis -O whoismygov -E utf8 whoismygov
 
 If that doesn't work, eg. on ubuntu systems you may have to first
 bootstrap the template_postgis database. See eg Step 4 of:
@@ -57,14 +61,14 @@ Then try the createdb command again.
 
 Next, fix up some table ownership::
 
-$ psql -c "alter table geometry_columns owner to pvoter;" pvoter
-$ psql -c "alter table spatial_ref_sys owner to pvoter;" pvoter
+$ psql -c "alter table geometry_columns owner to whoismygov;" whoismygov
+$ psql -c "alter table spatial_ref_sys owner to whoismygov;" whoismygov
 
 
 Then to populate the data, first be sure you have activated your
 virtualenv if using one, then::
 
-$ paster setup-app --name=pvoter development.ini
+$ paster setup-app --name=whoismygov development.ini
 $ python manage.py version_control
 $ python manage.py upgrade
 
@@ -115,7 +119,7 @@ To shut down, run this::
 
 To restart the paste server, run::
 
- $VIRTUALENV/bin/supervisorctl restart pvoter
+ $VIRTUALENV/bin/supervisorctl restart whoismygov
 
 
 History
