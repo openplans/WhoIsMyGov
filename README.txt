@@ -1,5 +1,5 @@
 ====================
-About Purplevoter
+About WhoIsMyGov
 ====================
 
 This is the software behind http://whoismygov.org.
@@ -7,15 +7,6 @@ This is the software behind http://whoismygov.org.
 It provides a web UI and a web service that can be used to look up
 federal, state, and (when we have the data) local elected officials
 and candidates.
-
-Originally created by Anil Makhijani, it is being developed currently
-by the TOPP Labs division of The Open Planning Project
-(http://topplabs.org/, http://openplans.org).
-For more info, contact Paul Winkler (pw @ openplans.org).
-
-Some development work was done in partnership with Transportation
-Alternatives (http://www.transalt.org/).
-
 
 Installation and Setup
 ======================
@@ -31,9 +22,9 @@ We recommend installing Purplevoter in a virtualenv
 Get the Source
 ---------------
 
-You can use Mercurial (hg) to get the source code, like so::
+You can use Git to get the source code, like so::
 
-$ hg clone  https://bitbucket.org/slinkp/purplevoter/
+$ git clone git@github.com:openplans/WhoIsMyGov.git
 
 Install
 -------
@@ -94,7 +85,7 @@ See DEVELOPMENT_NOTES.txt.
 Deployment Notes
 ================
 
-We might eventually use mod_wsgi. For now, we (TOPP) run Paste under
+We might eventually use mod_wsgi. For now, we (OpenPlans) run Paste under
 the control of supervisord (http://supervisord.org/), and assume you
 can set up Apache or another web server to reverse-proxy it.
 
@@ -118,10 +109,27 @@ ever crashes.  To use supervisord:
 
 Then you can run $VIRTUALENV/bin/supervisord to start things up.
 
-To shut down, run this:
+To shut down, run this::
+
  $VIRTUALENV/bin/supervisorctl shutdown.
 
-To restart the paste server, run:
+To restart the paste server, run::
 
  $VIRTUALENV/bin/supervisorctl restart pvoter
 
+
+History
+=========
+
+Originally created by Anil Makhijani under the name PurpleVoter, it is
+being developed currently by OpenPlans (http://openplans.org).
+
+Code was initially hosted at http://bitbucket.org/anil/purplevoter and
+then forked to http://bitbucket.org/slinkp/purplevoter and then
+converted to Git and imported to http://github.com/openplans/WhoIsMyGov.
+
+Much development work was done in partnership with Transportation
+Alternatives (http://www.transalt.org/) for their Candidate Survey
+site ( http://tacandidatesurvey.org/ ).
+
+For more info, contact Paul Winkler (pw @ openplans.org).
