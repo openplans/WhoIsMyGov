@@ -1,0 +1,8 @@
+*.pyc
+*.egg-info
+*~
+data/
+pip-log.txt
+access.log
+*.swp
+
