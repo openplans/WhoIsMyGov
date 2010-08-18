@@ -6,4 +6,4 @@ data/
 pip-log.txt
 access.log
 *.swp
-
+*.orig
