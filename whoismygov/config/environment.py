@@ -6,10 +6,10 @@ from pylons import config
 from pylons.error import handle_mako_error
 from sqlalchemy import engine_from_config
 
-import purplevoter.lib.app_globals as app_globals
-import purplevoter.lib.helpers
-from purplevoter.config.routing import make_map
-from purplevoter.model import init_model
+import whoismygov.lib.app_globals as app_globals
+import whoismygov.lib.helpers
+from whoismygov.config.routing import make_map
+from whoismygov.model import init_model
 
 def load_environment(global_conf, app_conf):
     """Configure the Pylons environment via the ``pylons.config``
@@ -23,11 +23,11 @@ def load_environment(global_conf, app_conf):
                  templates=[os.path.join(root, 'templates')])
 
     # Initialize config with the basic options
-    config.init_app(global_conf, app_conf, package='purplevoter', paths=paths)
+    config.init_app(global_conf, app_conf, package='whoismygov', paths=paths)
 
     config['routes.map'] = make_map()
     config['pylons.app_globals'] = app_globals.Globals()
-    config['pylons.h'] = purplevoter.lib.helpers
+    config['pylons.h'] = whoismygov.lib.helpers
 
     # Create the Mako TemplateLookup, with the default auto-escaping
     config['pylons.app_globals'].mako_lookup = TemplateLookup(

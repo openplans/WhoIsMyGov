@@ -3,9 +3,9 @@ import logging
 from pylons import request, response, session, tmpl_context as c
 from pylons.controllers.util import abort, redirect_to
 
-from purplevoter.lib.base import BaseController
-from purplevoter.model import Districts, DistrictsMeta
-from purplevoter.model import meta
+from whoismygov.lib.base import BaseController
+from whoismygov.model import Districts, DistrictsMeta
+from whoismygov.model import meta
 
 log = logging.getLogger(__name__)
 

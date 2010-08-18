@@ -1,4 +1,4 @@
-from purplevoter.tests import url, TestController
+from whoismygov.tests import url, TestController
 
 class TestPeopleController(TestController):
 

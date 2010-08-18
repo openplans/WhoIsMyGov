@@ -1,5 +1,5 @@
-from purplevoter import model
-from purplevoter.model import meta
+from whoismygov import model
+from whoismygov.model import meta
 from pylons import config
 from pylons import request, response
 from pylons.decorators.cache import beaker_cache

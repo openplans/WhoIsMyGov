@@ -1,6 +1,6 @@
 """The application's model objects"""
 
-from purplevoter.model import meta
+from whoismygov.model import meta
 from sqlalchemy import orm
 from sqlalchemy.orm.exc import NoResultFound
 from sqlgeotypes import Geometry
@@ -16,9 +16,9 @@ districts_table = sa.Table(
     sa.Column("id", sa.types.Integer, primary_key=True),
     sa.Column("state", sa.types.String(255), nullable=False),
     
-    # district_type is often the same as contained people's 'office',
+    # district_type is often the same as a related race's 'office',
     # except in the case of districts like 'Brooklyn' or 'New York
-    # City' that contain multiple offices.
+    # State' that contain multiple offices.
     sa.Column("district_type", sa.types.String(255), nullable=False),
     sa.Column("level_name", sa.types.String(255), nullable=False),
     sa.Column("district_name", sa.types.String(255), nullable=False),

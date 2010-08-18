@@ -5,7 +5,7 @@ Provides the BaseController class for subclassing.
 from pylons.controllers import WSGIController
 from pylons.templating import render_mako as render
 
-from purplevoter.model import meta
+from whoismygov.model import meta
 
 class BaseController(WSGIController):
 

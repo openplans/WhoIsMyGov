@@ -1,4 +1,4 @@
-from purplevoter.tests import *
+from whoismygov.tests import *
 
 class TestAdminController(TestController):
 

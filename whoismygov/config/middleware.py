@@ -9,7 +9,7 @@ from pylons.middleware import ErrorHandler, StatusCodeRedirect
 from pylons.wsgiapp import PylonsApp
 from routes.middleware import RoutesMiddleware
 
-from purplevoter.config.environment import load_environment
+from whoismygov.config.environment import load_environment
 
 def make_app(global_conf, full_stack=True, static_files=True, **app_conf):
     """Create a Pylons WSGI application and return it
@@ -48,7 +48,7 @@ def make_app(global_conf, full_stack=True, static_files=True, **app_conf):
     # CUSTOM MIDDLEWARE HERE (filtered by error handling middlewares)
 
     #from paste.debug.profile import make_profile_middleware
-    #app = make_profile_middleware(app, config, log_filename='/tmp/pvoter.prof')
+    #app = make_profile_middleware(app, config, log_filename='/tmp/whoismygov.prof')
 
     if asbool(full_stack):
         # Handle Python exceptions

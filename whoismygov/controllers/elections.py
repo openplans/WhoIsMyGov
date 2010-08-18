@@ -1,9 +1,9 @@
-from purplevoter import model
-from purplevoter.controllers.common import geocode_address
-from purplevoter.controllers.common import get_mcommons_districts
-from purplevoter.controllers.common import search_races
-from purplevoter.lib.base import BaseController, render
-from purplevoter.model import meta
+from whoismygov import model
+from whoismygov.controllers.common import geocode_address
+from whoismygov.controllers.common import get_mcommons_districts
+from whoismygov.controllers.common import search_races
+from whoismygov.lib.base import BaseController, render
+from whoismygov.model import meta
 from pylons import request
 from pylons import tmpl_context as c
 from pylons.controllers.util import abort
