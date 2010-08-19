@@ -1,5 +1,5 @@
 #
-# purplevoter - Pylons configuration
+# whoismygov - Pylons configuration
 #
 # The %(here)s variable will be replaced with the parent directory of this file
 #
@@ -15,12 +15,12 @@ host = 0.0.0.0
 port = 5000
 
 [app:main]
-use = egg:purplevoter
+use = egg:whoismygov
 full_stack = true
 static_files = true
 
 cache_dir = %(here)s/data
-beaker.session.key = purplevoter
+beaker.session.key = whoismygov
 beaker.session.secret = ${app_instance_secret}
 app_instance_uuid = ${app_instance_uuid}
 

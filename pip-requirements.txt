@@ -22,8 +22,8 @@ elementtree==1.2.7-20070827-preview
 lxml==2.2.2
 meld3==0.6.5
 nose==0.11.1
--e hg+https://bitbucket.org/slinkp/whoismygov/@tip#egg=whoismygov-tip
-psycopg2==2.0.11
+-e git+http://github.com/openplans/WhoIsMyGov.git#egg=whoismygov-tip
+psycopg2>=2.0.11,<2.3a
 pyproj==1.8.5
 python-votesmart==0.2.1
 simplejson==2.0.9

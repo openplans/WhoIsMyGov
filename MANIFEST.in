@@ -1,3 +1,3 @@
-include purplevoter/config/deployment.ini_tmpl
-recursive-include purplevoter/public *
-recursive-include purplevoter/templates *
+include whoismygov/config/deployment.ini_tmpl
+recursive-include whoismygov/public *
+recursive-include whoismygov/templates *
