@@ -88,6 +88,8 @@ class PeopleController(BaseController):
             # We need the mcommons district lookup no matter which
             # levels we care about, because that's how we find out
             # what state we're in.  (Geocoding doesn't tell us.)
+            # (Also, search_races uses the mcommons districts
+            # to look up races for those districts).
             c.districts = get_mcommons_districts(c.lat, c.lon)
             # Assume all districts are in the same state.
             c.state = c.districts[c.districts.keys()[0]]['state']

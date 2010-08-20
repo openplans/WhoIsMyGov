@@ -97,8 +97,14 @@ def get_mcommons_districts(lat, lon):
 
 
 def search_races(context):
-    """Find all races
+    """Find all races for context.lat and context.lon
+
     """
+    # This uses a mishmash of local districts from our database,
+    # and federal and statewide districts from the mobilecommons API.
+    # So for federal and statewide districts, we don't need
+    # the geometries to be in our database.
+
     election = context.election
     lon = context.lon
     lat = context.lat
@@ -115,7 +121,7 @@ def search_races(context):
 
     # Get US Senate races.
     if 'federal' in level_names:
-        senate_districts = get_us_senator_districts(state)
+        senate_districts = get_us_senate_districts(state)
         for sd in senate_districts:
             races = race_q.filter_by(district=sd).all()
             result_races.extend(races)
@@ -146,7 +152,9 @@ def search_races(context):
         races = race_q.filter_by(district=district).all()
         result_races.extend(races)
 
-    # Merge in local data.
+    # Merge in local data from our own database.
+    # These districts need to have a non-NULL geometry.
+
     if 'city' in level_names:
         point = "POINT(%.20f %.20f)" % (lon, lat)
         district_q = meta.Session.query(model.Districts)
@@ -158,10 +166,14 @@ def search_races(context):
         local_districts = district_q.all()
         result_races.extend(get_races_for_districts(local_districts, election))
 
-    return result_races  # list(set(result_races))?
+    # It's possible we might have got the same race both
+    # from looking up vs. mobilecommons districts, and from 
+    # looking up our local data. Smells like we should
+    # avoid doing that work, but anyway, remove duplicates.
+    return list(set(result_races))
 
 
-def get_us_senator_districts(state):
+def get_us_senate_districts(state):
     district_q = meta.Session.query(model.Districts)
     district_q = district_q.filter(model.Districts.state==state).\
         filter(model.Districts.level_name=="Federal").\
@@ -191,9 +203,10 @@ def filter_people_by_status(query, status):
 
 
 def get_races_for_districts(districts, election):
-    # XXX This doesn't work and I don't understand the sqlalchemy error...
+    # XXX I want to do it efficiently like this:
     #    races = race_q.filter(model.Race.district.in_(local_districts))
     #    result_races.extend(races)
+    # But that doesn't work and I don't understand the sqlalchemy error.
     # So instead, I iterate, thereby spewing a ton of db queries.
     # Performance will be horrible, but it works.
     result_races = []

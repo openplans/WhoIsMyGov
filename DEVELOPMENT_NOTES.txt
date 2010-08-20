@@ -20,6 +20,18 @@ http://github.com/openplans/WhoIsMyGov/
 Code Notes
 ==========
 
+How Things Work
+-----------------
+
+It's an evolving hodgepodge with no grand plan other than this file.
+We do some queries against the mobilecommons legislative lookup API,
+and use google for geocoding; we also can supplement mobilecommons
+info with local districts for which we store their geometries in our
+database.
+
+See also the Data Model section below.
+
+
 Please Add Migrations!
 ----------------------
 
@@ -29,8 +41,8 @@ migrations so your changes can be reproduced.
 You'll want to look up the docs for SQLAlchemy-migrate at
 http://packages.python.org/sqlalchemy-migrate/ and learn how
 to use the manage.py script and write migrations. You can steal ideas
-for migrations by looking at existing scripts. Maybe bad ideas, but
-they've more or less worked so far ;-)
+for migrations by looking at existing scripts. Maybe bad ideas, it's a
+bit brittle, but has more or less worked so far ;-)
 
 Data Sources
 ------------
@@ -100,6 +112,13 @@ But we realy need to factor out some data from the districts.
     could get normalized out into separate objects later.)
 
   - District has backrefs to O-N Elections (via Races).
+    (A District *may* have a non-NULL geometry, in which case
+    we can do local geospatial queries against it; otherwise
+    it's assumed that the District is a proxy for something
+    we query via an external API eg. mobilecommons legislative
+    lookup. That assumption might change, or maybe we should
+    make it more explicit.)
+
   - Election has backrefs to O-N Districts (via Races).
 
 

@@ -53,11 +53,15 @@ def upgrade():
                               stagename=ELECTION_STAGE)
 
 
-    # NY assembly districts
-    _update_legislative_district_geoms(meta.Session, 'Assembly', 'sl36_d11.json')
+    # NY Assembly districts.
+    # NOT NEEDED, we use mobilecommons API to find out which
+    # district we're in.
+    #_update_legislative_district_geoms(meta.Session, 'Assembly', 'sl36_d11.json')
 
-    # TODO: add NY senate districts
-    _update_legislative_district_geoms(meta.Session, 'Senate', 'su36_d11.json')
+    # NY Senate districts
+    # NOT NEEDED, we use mobilecommons API to find out which
+    # district we're in.
+    #_update_legislative_district_geoms(meta.Session, 'Senate', 'su36_d11.json')
 
     # Candidates
     files = [dict(path='batch_01_20100818_1452.csv')]

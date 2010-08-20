@@ -137,3 +137,9 @@ Alternatives (http://www.transalt.org/) for their Candidate Survey
 site ( http://tacandidatesurvey.org/ ).
 
 For more info, contact Paul Winkler (pw @ openplans.org).
+
+
+How It Works
+=============
+
+See DEVELOPMENT_NOTES.txt for more info.

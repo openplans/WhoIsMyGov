@@ -46,6 +46,8 @@ class ElectionsController(BaseController):
 
     def _search(self, election):
         """Find races, given an election and an address."""
+
+        # XXX REFACTOR: duplicate of PeopleController._search()
         lat = lon = None
         c.races = []
         c.districts = []
@@ -74,7 +76,10 @@ class ElectionsController(BaseController):
             c.lat, c.lon = float(lat), float(lon)
             # We need the mcommons district lookup no matter which
             # levels we care about, because that's how we find out
-            # what state we're in.  (Geocoding doesn't tell us.)
+            # what state we're in.  (Geocoding doesn't tell us, and it
+            # might be a state that we don't have a shape for in our
+            # db).  (Also, for some districts - the ones they cover -
+            # we may not keep its geometry in our DB at all.)
             c.districts = get_mcommons_districts(c.lat, c.lon)
             # Assume all districts are in the same state.
             c.state = c.districts[c.districts.keys()[0]]['state']
@@ -82,6 +87,7 @@ class ElectionsController(BaseController):
         elif request.params.has_key('city'):
             # Get all local info for the whole city.
             c.level_names = 'city'
+            # XXX this method does not exist
             races = self._get_all_races_for_city(request.params.get('city'))
         else:
             races = []
@@ -92,5 +98,3 @@ class ElectionsController(BaseController):
         districts = set([r.district for r in races])
         sortkey = lambda d: (d.district_name, d.district_type)
         c.districts = sorted(districts, key=sortkey)
-        
-            

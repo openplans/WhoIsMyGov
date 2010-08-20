@@ -25,6 +25,11 @@ districts_table = sa.Table(
     sa.Column("parent_id", sa.schema.ForeignKey('districts.id',
                                                 ondelete='SET DEFAULT'),
               nullable=True),
+
+    # Districts that have a NULL geometry just won't show up in
+    # searches.  That's OK, we typically use external APIs (eg
+    # mobilecommons) for those, and just have the district in our DB as
+    # a stub.
     sa.Column("geometry", Geometry(meta.storage_SRID, 'GEOMETRY', 2), nullable=True),
     )
 
