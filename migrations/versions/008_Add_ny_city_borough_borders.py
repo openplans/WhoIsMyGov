@@ -32,7 +32,10 @@ def upgrade():
         # Generate a shape for all of NYC by taking the union of the boroughs.
         connection.execute("INSERT INTO districts (state, district_type, level_name, district_name, geometry) SELECT 'NY', 'City', 'City', 'New York City', ST_Union(geometry) from districts where state = 'NY' and level_name = 'City' and (district_type = 'Borough'  or district_type = 'City Council');")
 
-        # Set parent id's for city council districts.
+        # Set parent id's for city council districts.  XXX FAILS if
+        # database was not initially created with recent enough model
+        # code, ugh.
+
         # Note the use of ST_Centroid: this returns the center of the district.
         # This is a workaround because some of the districts have
         # borders that extend into water for no apparent reason,

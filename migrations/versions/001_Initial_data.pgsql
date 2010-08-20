@@ -1,3 +1,10 @@
+-- Assume the user has already run `paster setup-app --name=whoismygov`
+-- which creates the initial tables.
+--  PROBLEM: migrations could suffer bit-rot as the model code evolves.
+--  This whole migrations thing is a bit rickety for that reason...
+--  need an approach more like that taken by "south" for django:
+--  http://south.aeracode.org/
+--  ... which explicitly decouples migrations from current model code.
 
 -- CREATE TABLE elections (
 -- 	id SERIAL NOT NULL, 

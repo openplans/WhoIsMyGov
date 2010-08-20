@@ -2,15 +2,18 @@ from sqlalchemy import *
 from migrate import *
 import sqlalchemy
 
-import os.path
 import datetime
+import geojson
+import os.path
+import shapely
 
 from migrations.utils import find_or_create
 from migrations.utils import CaseNormalizingDictReader
 
 ELECTION_NAME = u'New York State 2010'
 ELECTION_STAGE = u'General'
-    
+HERE = os.path.abspath(__file__)
+
 def upgrade():
     # Upgrade operations go here. Don't create your own engine; use the engine
     # named 'migrate_engine' imported from migrate.
@@ -20,11 +23,8 @@ def upgrade():
 
     # Add NYS shapefile.
     # Fun with polygons, geojson, and shapely.
-    import geojson
-    import shapely
-    here = os.path.abspath(__file__)
     nys_file = os.path.normpath(os.path.join(
-            here, '../../../misc_import_data/ny_state/st36_d00.json'))
+            HERE, '../../../misc_import_data/ny_state/st36_d00.json'))
     nys_json = geojson.load(open(nys_file))
     nys_polygons = None
     for feature in nys_json['features']:
@@ -40,15 +40,12 @@ def upgrade():
                          level_name=u'State',
                          district_name=u'New York State',
                          parent_id=None,
-                         geometry=nys_polygons,
                          )
+    nys.geometry=nys_polygons
+    meta.Session.add(nys)
 
     # Have to commit now in order to get an ID. Argh.
     meta.Session.commit()
-
-    # Every district in NYS without a parent district is a child of NYS.
-    connection.execute("UPDATE districts SET parent_id = %s " 
-                       " WHERE state = 'NY' AND parent_id = NULL" % nys.id)
 
     election = find_or_create(meta.Session, Election,
                               date=datetime.date(2010, 11, 2),
@@ -56,19 +53,50 @@ def upgrade():
                               stagename=ELECTION_STAGE)
 
 
+    # NY assembly districts
+    _update_legislative_district_geoms(meta.Session, 'Assembly', 'sl36_d11.json')
+
+    # TODO: add NY senate districts
+    _update_legislative_district_geoms(meta.Session, 'Senate', 'su36_d11.json')
+
+    # Candidates
     files = [dict(path='batch_01_20100818_1452.csv')]
 
     for params in files:
-        _insert_from_file(engine=migrate_engine, election=election,
-                          **params)
+        _insert_candidates_from_file(meta.Session, election=election, **params)
 
-    # TODO: NYS Senate and NYS Assembly have no geometries!
+    # Every district in NYS without a parent district is a child of NYS.
+    # (except NYS itself.)
+    connection.execute("UPDATE districts SET parent_id = %s " 
+                       " WHERE state = 'NY' AND parent_id is NULL"
+                       " AND district_type != 'State';" % nys.id)
 
 
-def _insert_from_file(path, election, engine):
+    meta.Session.commit()
 
-    from whoismygov.model import People, Districts, PeopleMeta, meta, Race
-    meta.metadata.bind = engine
+
+
+def _update_legislative_district_geoms(session, housename, filename):
+    from whoismygov.model import Districts
+    legisl_file = os.path.normpath(os.path.join(
+            HERE, '../../../misc_import_data/ny_state/' + filename))
+    legisl_json = geojson.load(open(legisl_file))
+    district_type = u'State %s' % housename
+    for feature in legisl_json['features']:
+        district_no = feature['properties']['NAME'].lstrip('0')
+        district_name = 'District %s' % district_no
+        geom = shapely.geometry.asShape(feature['geometry'])
+        district = find_or_create(session, Districts,
+                         state=u'NY', district_type=district_type,
+                         level_name=u'State',
+                         district_name=district_name)
+        district.geometry = geom
+        print "Updated geometry of %s distr: %r" % (housename, district_name)
+        session.add(district)
+    session.commit()
+
+def _insert_candidates_from_file(session, path, election):
+    from whoismygov.model import People, Districts, PeopleMeta, Race
 
     path = os.path.join(os.path.dirname(__file__),
                         '..', '..', 'misc_import_data',
@@ -76,7 +104,7 @@ def _insert_from_file(path, election, engine):
                         )
     csv_path = os.path.normpath(path)
     reader = CaseNormalizingDictReader(open(csv_path, 'r'), skipinitialspace=True)
-    district_q = meta.Session.query(Districts)
+    district_q = session.query(Districts)
 
     for info in reader:
         district_type = office = unicode(info['office'])
@@ -90,13 +118,13 @@ def _insert_from_file(path, election, engine):
             district_type=district_type, state='NY',
             district_name=district_name).one()
 
-        race = find_or_create(meta.Session, Race,
+        race = find_or_create(session, Race,
                               election=election, district=district,
                               office=office)
 
         fullname = info['name']
         fullname = ' '.join(fullname.split()).title()
-        person = find_or_create(meta.Session, People, fullname=fullname)
+        person = find_or_create(session, People, fullname=fullname)
 
         race.candidates.append(person)
 
@@ -108,15 +136,15 @@ def _insert_from_file(path, election, engine):
 
         transaltid = (info.get('transaltid') or '').strip()
         if transaltid:
-            ta_id = find_or_create(meta.Session, PeopleMeta,
+            ta_id = find_or_create(session, PeopleMeta,
                                    meta_key=u'transaltid', 
                                    meta_value=unicode(transaltid),
                                    person=person)
 
         print u"Added", person.fullname
 
+    session.commit()
 
-    meta.Session.commit()
 
 def downgrade():
     # Operations to reverse the above upgrade go here.
@@ -158,5 +186,8 @@ def downgrade():
                        "   'New York State');")
     connection.execute(
         "DELETE FROM districts WHERE district_name = 'New York State'")
-    
+
+    # We won't bother to remove geometries on legislative districts...
+    # probably harmless to leave those different than we started.
+
     meta.Session.commit()
