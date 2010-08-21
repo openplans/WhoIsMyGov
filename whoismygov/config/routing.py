@@ -20,19 +20,28 @@ def make_map():
 
     # CUSTOM ROUTES HERE
 
-    map.connect('home', '/',  controller='people', action='index')
+    map.connect('home', '/',  controller='home', action='index')
 
-    map.connect('/officials/', controller='people', action='search')
-    
-    map.connect('search.json', '/search.json', controller='people', action='search_json')
+    #map.connect('/officials/', controller='people', action='search')
+
+    # Legacy 2009 NYC Primary search service URL.
+    # should redirect this?
+    map.connect('search.json', '/search.json', controller='elections', action='search_json')
+
+    # Candidate Metadata URIs.
     map.connect('add_meta', '/add_meta',  controller='people', action='add_meta')
     map.connect('update_meta', '/meta/:meta_id/update',  controller='people', action='update_meta')
     map.connect('delete_meta', '/meta/:meta_id/delete',  controller='people', action='delete_meta')
     map.connect('get_vs_districts', '/admin/vs_districts',  controller='admin', action='get_vs_districts')
 
+    map.connect('/elections', '/elections/',
+                controller='elections', action='index')
 
-    map.connect('/elections', '/elections/', controller='elections', action='list')
-    map.connect('/elections/{name}-{stage}-{date}', controller='elections', action='view_election')
+    map.connect('/elections/{name}-{stage}-{date}/search.json',
+                controller='elections', action='search_json')
+
+    map.connect('/elections/{name}-{stage}-{date}',
+                controller='elections', action='view_election')
 
     map.connect('/{controller}/{action}')
     map.connect('/{controller}/{action}/{id}')

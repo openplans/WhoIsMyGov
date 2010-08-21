@@ -1,21 +1,26 @@
-from whoismygov import model
-from whoismygov.controllers.common import geocode_address
-from whoismygov.controllers.common import get_mcommons_districts
-from whoismygov.controllers.common import search_races
-from whoismygov.lib.base import BaseController, render
-from whoismygov.model import meta
-from pylons import request
+from pylons import request, response
 from pylons import tmpl_context as c
 from pylons.controllers.util import abort
+from pylons.decorators.cache import beaker_cache
 from sqlalchemy.orm.exc import NoResultFound
+from whoismygov import model
+from whoismygov.controllers.common import geocode_address
+from whoismygov.controllers.common import get_all_races_for_city
+from whoismygov.controllers.common import get_mcommons_districts
+from whoismygov.controllers.common import search_races
+from whoismygov.controllers.common import to_json, json_error
+from whoismygov.lib.base import BaseController, render
+from whoismygov.model import meta
+import datetime
 import logging
+import simplejson as json
 
 logger = logging.getLogger(__name__)
 
 
 class ElectionsController(BaseController):
 
-    def list(self):
+    def index(self):
         """public HTML listing of elections"""
 
         election_q = meta.Session.query(model.Election)
@@ -28,31 +33,48 @@ class ElectionsController(BaseController):
                    cache_key='%s %s' % (request.method, request.url))
         return s
 
-    def view_election(self, name, stage, date):
+    def _get_election(self, name, stage, date):
         election_q = meta.Session.query(model.Election)
         try:
             election = election_q.filter_by(name=name, stagename=stage, date=date).one()
         except NoResultFound:
             abort(404)
-        self._search(election)
-        return self.search()
-            
+        return election
 
-    def search(self):
-        """public HTML search page"""
+    def view_election(self, name, stage, date):
+        """info about an election, with address search results if
+        address provided.
+        """
+        c.election = self._get_election(name, stage, date)
+        self._search()
         s = render('search_form.mako', cache_expire=599, cache_type='memory', 
                    cache_key='%s %s' % (request.method, request.url))
         return s
 
-    def _search(self, election):
-        """Find races, given an election and an address."""
+    @beaker_cache(expire=601, type="memory", query_args=True)
+    # could use @jsonify but i like more control of the output.
+    def search_json(self, name=u'New York City 2009', stage=u'Primary',
+                    date=datetime.date(2009, 9, 15)):
+        """pseudo-REST public search service.
+        (pseudo because there's no hypermedia here.)
+        """
+        c.election = self._get_election(name, stage, date)
+        self._search()
+        response.headers['Content-Type'] = 'application/json'
+        if len(c.address_matches) > 1:
+            addresses = [address[0] for address in c.address_matches]
+            return json_error(400, "Ambiguous address", data=addresses)
+        s = json.dumps(c.races, sort_keys=True, indent=1, default=to_json)
+        return s
 
-        # XXX REFACTOR: duplicate of PeopleController._search()
+    def _search(self):
+        """Find races, given c.election and an address or lonlat in
+        the request."""
+
         lat = lon = None
         c.races = []
         c.districts = []
         c.search_term = request.params.get('address', '')
-        c.election = election
         c.status = request.params.getall('status')
         all_levels = ('federal', 'state', 'city')
         c.level_names = request.params.getall('level_name') or all_levels
@@ -86,9 +108,8 @@ class ElectionsController(BaseController):
             races = search_races(c)
         elif request.params.has_key('city'):
             # Get all local info for the whole city.
-            c.level_names = 'city'
-            # XXX this method does not exist
-            races = self._get_all_races_for_city(request.params.get('city'))
+            races = get_all_races_for_city(request.params.get('city'),
+                                           c.election)
         else:
             races = []
 
