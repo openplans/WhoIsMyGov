@@ -11,6 +11,7 @@ import geopy
 import simplejson as json
 import urllib2
 
+
 def to_json(obj):
     if isinstance(obj, datetime.date) or isinstance(obj, datetime.datetime):
         return obj.isoformat()
@@ -18,7 +19,7 @@ def to_json(obj):
         info = {'fullname': obj.fullname}
         if obj.incumbent_office:
             info['incumbent_office'] = obj.incumbent_office
-            info['incumbent_district'] = obj.incumbent_district.district_name
+            info['incumbent_district'] = obj.incumbent_district_obj.district_name
         for m in obj.meta:
             info[m.meta_key] = m.meta_value
         return info

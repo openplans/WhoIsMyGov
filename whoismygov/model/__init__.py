@@ -69,8 +69,6 @@ people_table = sa.Table(
     sa.Column("incumbent_district", sa.types.Integer, 
               sa.schema.ForeignKey('districts.id', ondelete='SET DEFAULT'),
               nullable=True),
-    sa.Column("incumbent_district", sa.types.Integer, sa.schema.ForeignKey('districts.id'),
-              nullable=True),
     sa.Column("race_id", sa.types.Integer, sa.schema.ForeignKey('races.id'), nullable=True),
     )
 
@@ -94,7 +92,7 @@ class People(object):
         if incumbent_office:
             self.incumbent_office=incumbent_office
         if incumbent_district:
-            self.incumbent_district=incumbent_office
+            self.incumbent_district=incumbent_district
 
     @property
     def election(self):
@@ -212,7 +210,7 @@ orm.mapper(
     properties={# Don't use cascade here, I think that we don't want
                 # want people to be deleted even if their district is
                 # deleted. Not sure.
-                'incumbents': orm.relation(People),
+                'incumbents': orm.relation(People, backref='incumbent_district_obj'),
                 })
 
 orm.mapper(People, people_table,
