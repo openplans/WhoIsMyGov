@@ -8,7 +8,7 @@ from whoismygov.controllers.common import geocode_address
 from whoismygov.controllers.common import get_all_races_for_city
 from whoismygov.controllers.common import get_mcommons_districts
 from whoismygov.controllers.common import search_races
-from whoismygov.controllers.common import to_json, json_error, to_json_debug
+from whoismygov.controllers.common import to_json, json_error
 from whoismygov.lib.base import BaseController, render
 from whoismygov.model import meta
 import datetime
@@ -64,7 +64,7 @@ class ElectionsController(BaseController):
         if len(c.address_matches) > 1:
             addresses = [address[0] for address in c.address_matches]
             return json_error(400, "Ambiguous address", data=addresses)
-        s = json.dumps(c.races, sort_keys=True, indent=1, default=to_json_debug)
+        s = json.dumps(c.races, sort_keys=True, indent=1, default=to_json)
         return s
 
     def _search(self):
