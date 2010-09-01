@@ -64,7 +64,7 @@ def upgrade():
     #_update_legislative_district_geoms(meta.Session, 'Senate', 'su36_d11.json')
 
     # Candidates
-    files = [dict(path='batch_01_20100818_1452.csv')]
+    files = [dict(path='batch04_20100901_0703.csv')]
 
     for params in files:
         _insert_candidates_from_file(meta.Session, election=election, **params)
@@ -104,7 +104,7 @@ def _insert_candidates_from_file(session, path, election):
 
     path = os.path.join(os.path.dirname(__file__),
                         '..', '..', 'misc_import_data',
-                        'ta_candidate_info_20100818', path
+                        'ta_candidate_info_20100901', path
                         )
     csv_path = os.path.normpath(path)
     reader = CaseNormalizingDictReader(open(csv_path, 'r'), skipinitialspace=True)
