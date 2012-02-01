@@ -2,8 +2,10 @@ from __future__ import with_statement
 from votesmart import votesmart
 from collections import defaultdict
 import yaml
+from pylons import config
 
-votesmart.apikey = 'da3851ba595cbc0d9b5ac5be697714e0'
+# XXX votesmart API access is no longer free.
+votesmart.apikey = config['votesmart_api_key']
 
 # Get office types
 otypes = dict((otype.officeTypeId, otype.name) for otype in votesmart.office.getTypes())

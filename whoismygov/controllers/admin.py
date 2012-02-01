@@ -2,6 +2,7 @@ import logging
 
 from pylons import request, response, session, tmpl_context as c
 from pylons.controllers.util import abort, redirect_to
+from pylons import config
 
 from whoismygov.lib.base import BaseController
 from whoismygov.model import Districts, DistrictsMeta
@@ -16,16 +17,20 @@ class AdminController(BaseController):
         saved votesmart data from the vsdata directory, merged with federal
         officials' names from the votesmart api.
 
+        XXX votesmart API key access is no longer free!!
+
         XXX this needs to be auth protected
 
         XXX meant to be run only for bootstrapping really, so I'm not
         sure why it needs a web UI.
+
         """
         import yaml
         from votesmart import votesmart
 
-        votesmart.apikey = 'cb1c972b7f3200e89aaeed59bc90aac1'
+        votesmart.apikey = config['votesmart_api_key']
 
+	# TODO don't assume current working directory
         f = open('vsdata/districts.yaml', 'r')
         states = yaml.load(f)
         f = open('vsdata/offices.yaml', 'r')
